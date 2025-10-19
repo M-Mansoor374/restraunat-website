@@ -1,0 +1,6 @@
+export {default as Home} from "./Home"
+export {default as Menu} from "./Menu"
+export {default as About} from "./About"
+export {default as Contact} from "./contact"
+export {default as Auth} from "./Auth"
+export {default as Orders} from "./Orders"
