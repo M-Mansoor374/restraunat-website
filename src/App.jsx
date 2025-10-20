@@ -1,35 +1,77 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Home from "./pages/Home.jsx";
 import Menu from "./pages/Menu.jsx";
-import About from "./pages/About.jsx";
-import Contact from "./pages/contact.jsx";
 import Auth from "./pages/Auth.jsx";
-import Orders from "./pages/Orders.jsx";
+import MyAccount from "./pages/MyAccount.jsx";
+import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
+import TermsOfService from "./pages/TermsOfService.jsx";
 import Header from "./components/shared/Header.jsx";
-import BottomNav from "./components/BottomNav.jsx";
 import Cart from "./components/Cart/Cart.jsx";
 import Splash from "./components/Splash/Splash.jsx";
+import "./App.css";
 
 function App() {
-  // State to control authentication status - check localStorage on initial load
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    const savedAuth = localStorage.getItem('restaurantAuth');
-    console.log('Initial auth check - savedAuth:', savedAuth);
-    const authState = savedAuth ? JSON.parse(savedAuth).isAuthenticated : false;
-    console.log('Initial auth state:', authState);
-    return authState;
-  });
+  // State to control splash screen visibility
+  const [showSplash, setShowSplash] = useState(true);
+  const [splashFadeOut, setSplashFadeOut] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   
-  // State to store user data - load from localStorage on initial load
-  const [user, setUser] = useState(() => {
-    const savedAuth = localStorage.getItem('restaurantAuth');
-    console.log('Initial user check - savedAuth:', savedAuth);
-    const userData = savedAuth ? JSON.parse(savedAuth).user : null;
-    console.log('Initial user data:', userData);
-    return userData;
-  });
+  // State to control authentication status
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  
+  // State to store user data
+  const [user, setUser] = useState(null);
+
+  // Check for existing authentication on app load
+  useEffect(() => {
+    const checkAuth = () => {
+      try {
+        const savedAuth = localStorage.getItem('restaurantAuth');
+        if (savedAuth) {
+          const authData = JSON.parse(savedAuth);
+          if (authData.isAuthenticated && authData.user) {
+            console.log('Restored authentication from localStorage:', authData);
+            setIsAuthenticated(true);
+            setUser(authData.user);
+            setShowSplash(false);
+          }
+        }
+      } catch (error) {
+        console.error('Error restoring authentication:', error);
+        localStorage.removeItem('restaurantAuth');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
+  // Show splash screen for 3 seconds when user is not authenticated
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setShowSplash(true);
+      setSplashFadeOut(false);
+      
+      // Start fade out at 2.5 seconds
+      const fadeOutTimer = setTimeout(() => {
+        setSplashFadeOut(true);
+      }, 2500);
+      
+      // Hide splash completely at 3 seconds
+      const splashTimer = setTimeout(() => {
+        setShowSplash(false);
+      }, 3000);
+
+      return () => {
+        clearTimeout(fadeOutTimer);
+        clearTimeout(splashTimer);
+      };
+    } else {
+      setShowSplash(false);
+    }
+  }, [isAuthenticated]);
 
   // Function to handle successful authentication
   const handleAuthSuccess = (userData) => {
@@ -61,46 +103,26 @@ function App() {
     console.log('App state changed - isAuthenticated:', isAuthenticated, 'user:', user);
   }, [isAuthenticated, user]);
 
-  // Temporary debug function to test localStorage
-  useEffect(() => {
-    // Check if there's any auth data in localStorage
-    const authData = localStorage.getItem('restaurantAuth');
-    console.log('Current localStorage auth data:', authData);
-    
-    // If no auth data, create a test user for debugging
-    if (!authData && !isAuthenticated) {
-      console.log('No auth data found, creating test user for debugging...');
-      const testUser = {
-        id: 1,
-        email: 'test@example.com',
-        name: 'Test User',
-        loginTime: new Date().toISOString(),
-        isLogin: true
-      };
-      
-      const testAuthData = {
-        isAuthenticated: true,
-        user: testUser,
-        loginTime: new Date().toISOString()
-      };
-      
-      // Uncomment the line below to enable test user for debugging
-      // localStorage.setItem('restaurantAuth', JSON.stringify(testAuthData));
-      console.log('Test auth data prepared:', testAuthData);
-    }
-  }, []);
+  // Show loading state while checking authentication
+  if (isLoading) {
+    return null; // Or a loading spinner
+  }
 
-  // Always show split screen with splash and auth (authentication required every time)
+  // Show splash screen for 3 seconds, then show auth page (only on first visit)
   if (!isAuthenticated) {
-    console.log("Showing split screen - user not authenticated");
-    return (
-      <div className="permanent-split-screen">
-        <div className="splash-half-permanent">
+    if (showSplash) {
+      console.log("Showing splash screen");
+      return (
+        <div className={`splash-wrapper ${splashFadeOut ? 'fade-out' : ''}`}>
           <Splash />
         </div>
-        <div className="auth-half-permanent">
-          <Auth onAuthSuccess={handleAuthSuccess} />
-        </div>
+      );
+    }
+    
+    console.log("Showing auth page");
+    return (
+      <div className="auth-fade-in">
+        <Auth onAuthSuccess={handleAuthSuccess} />
       </div>
     );
   }
@@ -110,14 +132,13 @@ function App() {
     <>
       <Header user={user} onLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Navigate to="/menu" replace />} />
         <Route path="/menu" element={<Menu />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/orders" element={<Orders />} />
+        <Route path="/my-account" element={<MyAccount user={user} />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>
-      <BottomNav />
     </>
   );
 }

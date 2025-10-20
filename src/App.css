@@ -5,6 +5,100 @@
   text-align: center;
 }
 
+/* Splash Screen Fade Animation */
+.splash-wrapper {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.splash-wrapper.fade-out {
+  animation: fadeOut 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Auth Page Fade In */
+.auth-fade-in {
+  width: 100%;
+  min-height: 100vh;
+  animation: fadeIn 0.8s ease-in;
+}
+
+/* Responsive Design for Wrappers */
+
+/* Tablet and smaller (max-width: 991px) */
+@media (max-width: 991px) {
+  .splash-wrapper,
+  .auth-fade-in {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Mobile devices (max-width: 767px) */
+@media (max-width: 767px) {
+  .splash-wrapper {
+    height: 100dvh; /* Use dynamic viewport height on mobile */
+  }
+  
+  .auth-fade-in {
+    min-height: 100dvh;
+  }
+}
+
+/* Small mobile devices (max-width: 575px) */
+@media (max-width: 575px) {
+  .splash-wrapper,
+  .auth-fade-in {
+    animation-duration: 0.4s; /* Faster animations on mobile */
+  }
+}
+
+/* Landscape orientation on mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .splash-wrapper,
+  .auth-fade-in {
+    height: 100vh;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .splash-wrapper,
+  .auth-fade-in {
+    animation: none;
+    transition: none;
+  }
+  
+  .splash-wrapper.fade-out {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

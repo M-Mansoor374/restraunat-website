@@ -864,6 +864,35 @@
   }
 }
 
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .auth-page {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  .auth-background {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  
+  .form-group input,
+  .auth-submit-btn,
+  .toggle-btn {
+    -webkit-tap-highlight-color: rgba(76, 175, 80, 0.2);
+    touch-action: manipulation;
+  }
+  
+  /* Remove hover effects on touch devices */
+  .toggle-btn:hover:not(.active) {
+    background: transparent;
+  }
+  
+  .auth-submit-btn:hover {
+    transform: none;
+  }
+}
+
 /* Dark mode support - Optional enhancement */
 @media (prefers-color-scheme: dark) {
   .auth-card {

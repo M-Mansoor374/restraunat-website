@@ -2,6 +2,62 @@
    PROFESSIONAL MENU PAGE STYLES
    =========================================== */
 
+/* Cart Notification */
+.cart-notification {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 
+    0 10px 40px rgba(16, 185, 129, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  font-weight: 600;
+  font-size: 1rem;
+  z-index: 9999;
+  animation: slideInRight 0.3s ease-out, fadeOut 0.3s ease-in 2.7s forwards;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 250px;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(400px);
+  }
+}
+
+/* Responsive Notification */
+@media (max-width: 768px) {
+  .cart-notification {
+    top: 80px;
+    right: 10px;
+    left: 10px;
+    min-width: auto;
+    font-size: 0.9rem;
+    padding: 14px 18px;
+  }
+}
+
 /* Menu Hero Section */
 .menu-hero {
   background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #06b6d4 100%);

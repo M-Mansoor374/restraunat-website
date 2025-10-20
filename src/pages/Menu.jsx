@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./Menu.css";
 
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState("all");
-  const navigate = useNavigate();
+  const [notification, setNotification] = useState(null);
   
   // Debug log to check if component is rendering
   console.log("Menu component is rendering");
@@ -55,12 +54,15 @@ const Menu = () => {
     window.dispatchEvent(new CustomEvent('cartUpdated'));
     console.log('Cart update event dispatched');
     
-    // Navigate to cart page with a small delay to ensure localStorage is saved
-    console.log('Navigating to cart page...');
+    // Show success notification
+    setNotification(`✓ ${item.name} added to cart!`);
+    
+    // Hide notification after 3 seconds
     setTimeout(() => {
-      navigate('/cart');
-      console.log('=== END ADD TO CART DEBUG ===');
-    }, 100);
+      setNotification(null);
+    }, 3000);
+    
+    console.log('=== END ADD TO CART DEBUG ===');
   };
 
   const menuCategories = [
@@ -211,6 +213,13 @@ const Menu = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Success Notification */}
+      {notification && (
+        <div className="cart-notification">
+          {notification}
+        </div>
+      )}
+
       {/* Hero Section */}
       <section className="menu-hero">
         <div className="menu-hero-content">

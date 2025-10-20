@@ -13,6 +13,8 @@
   justify-content: center;
   overflow: hidden;
   z-index: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Background with elegant gradient */
@@ -384,7 +386,8 @@
 /* Mobile Small (320px - 575px) */
 @media (max-width: 575px) {
   .splash-content {
-    max-width: 320px;
+    max-width: 90%;
+    width: 90%;
     padding: 8px;
   }
   
@@ -398,6 +401,8 @@
     font-size: 1.8rem;
     letter-spacing: 0.5px;
     margin-bottom: 12px;
+    word-wrap: break-word;
+    hyphens: auto;
   }
   
   .tagline-underline {
@@ -426,7 +431,8 @@
 /* Extra Small Mobile (max-width: 320px) */
 @media (max-width: 320px) {
   .splash-content {
-    max-width: 280px;
+    max-width: 95%;
+    width: 95%;
     padding: 5px;
   }
   
@@ -438,6 +444,9 @@
   .splash-tagline {
     font-size: 1.5rem;
     letter-spacing: 0.3px;
+    word-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.3;
   }
   
   .tagline-underline {
@@ -488,6 +497,24 @@
   }
 }
 
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .splash-container {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  .splash-background {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  
+  .splash-logo {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+}
+
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
   .splash-background,
@@ -497,8 +524,8 @@
   .decorative-circle,
   .splash-logo,
   .splash-tagline {
-    animation: none;
-    transition: none;
+    animation: none !important;
+    transition: none !important;
   }
   
   .logo-container,
