@@ -40,14 +40,7 @@ const Header = ({ user, onLogout }) => {
     <header className="header">
       {/* Logo section */}
       <div className="logo-section">
-        {logo ? (
-          <img src={logo} alt="Logo" className="logo" onError={(e) => {
-            e.target.style.display = 'none';
-            console.error('Logo failed to load');
-          }} />
-        ) : (
-          <div className="logo-fallback">🍽️</div>
-        )}
+        <img src={logo} alt="Restaurant Logo" className="logo" />
         <h1 className="title">Restaurant</h1>
       </div>
 

@@ -302,7 +302,8 @@
   font-family: 'Poppins', sans-serif;
   transition: all 0.3s ease;
   background: white;
-  color: #333;
+  color: #000000;
+  font-weight: 500;
 }
 
 .form-group input:focus {
@@ -322,7 +323,8 @@
 }
 
 .form-group input::placeholder {
-  color: #999;
+  color: #666;
+  font-weight: 400;
 }
 
 /* Error Message */
@@ -915,13 +917,15 @@
   }
 
   .form-group input {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
-    color: #e0e0e0;
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #000000;
+    font-weight: 500;
   }
 
   .form-group input::placeholder {
-    color: #666;
+    color: #444;
+    font-weight: 400;
   }
 
   .auth-footer p {
