@@ -1,93 +1,103 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./Home.css";
 
-// Dummy product data - same as in Cart component
+// Dummy product data - matching Menu.jsx structure
 const DUMMY_PRODUCTS = [
-  { id: 1, name: 'Margherita Pizza', price: 12.99, image: '🍕' },
-  { id: 2, name: 'Caesar Salad', price: 8.99, image: '🥗' },
-  { id: 3, name: 'Chicken Burger', price: 14.99, image: '🍔' },
-  { id: 4, name: 'Pasta Carbonara', price: 16.99, image: '🍝' },
-  { id: 5, name: 'Fish & Chips', price: 13.99, image: '🐟' },
-  { id: 6, name: 'Chocolate Cake', price: 6.99, image: '🍰' }
+  { id: 1, name: 'Caesar Salad', price: 12.99, image: '🥗', description: 'Fresh romaine lettuce, parmesan cheese, croutons, and our signature Caesar dressing' },
+  { id: 2, name: 'Buffalo Wings', price: 15.99, image: '🍗', description: 'Crispy chicken wings tossed in our spicy buffalo sauce, served with ranch dip' },
+  { id: 3, name: 'Mozzarella Sticks', price: 11.99, image: '🧀', description: 'Golden fried mozzarella sticks served with marinara sauce' },
+  { id: 4, name: 'Grilled Salmon', price: 24.99, image: '🐟', description: 'Fresh Atlantic salmon grilled to perfection with herbs and lemon butter' },
+  { id: 5, name: 'Chocolate Cake', price: 8.99, image: '🍰', description: 'Rich chocolate cake with vanilla ice cream' },
+  { id: 6, name: 'Fresh Lemonade', price: 4.99, image: '🧃', description: 'House-made lemonade with fresh lemons and mint' }
 ];
 
 const Home = () => {
-  // State to store cart items
-  const [cartItems, setCartItems] = useState([]);
+  const navigate = useNavigate();
 
-  // Load cart data from localStorage when component mounts
-  useEffect(() => {
-    const savedCart = localStorage.getItem('restaurantCart');
-    if (savedCart) {
-      setCartItems(JSON.parse(savedCart));
-    }
-  }, []);
-
-  // Save cart data to localStorage whenever cart changes
-  useEffect(() => {
-    localStorage.setItem('restaurantCart', JSON.stringify(cartItems));
-    // Dispatch custom event to notify other components
-    window.dispatchEvent(new CustomEvent('cartUpdated'));
-  }, [cartItems]);
-
-  // Function to add item to cart
+  // Function to add item to cart and navigate to cart page
   const addToCart = (product) => {
-    setCartItems(prevItems => {
-      // Check if item already exists in cart
-      const existingItem = prevItems.find(item => item.id === product.id);
-      
-      if (existingItem) {
-        // If item exists, increase quantity
-        return prevItems.map(item =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      } else {
-        // If item doesn't exist, add it with quantity 1
-        return [...prevItems, { ...product, quantity: 1 }];
-      }
-    });
+    console.log('=== HOME ADD TO CART DEBUG ===');
+    console.log('Adding product to cart:', product);
+    
+    // Ensure product has all required properties
+    const cartItem = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1,
+      image: product.image || '🍽️',
+      description: product.description || 'Delicious item'
+    };
+    
+    console.log('Processed cart item:', cartItem);
+    
+    // Get existing cart from localStorage
+    const existingCart = JSON.parse(localStorage.getItem('restaurantCart') || '[]');
+    console.log('Existing cart before update:', existingCart);
+    
+    // Check if item already exists in cart
+    const existingItemIndex = existingCart.findIndex(item => item.id === product.id);
+    
+    if (existingItemIndex > -1) {
+      // Item exists, increase quantity
+      existingCart[existingItemIndex].quantity += 1;
+      console.log('Item exists, increasing quantity to:', existingCart[existingItemIndex].quantity);
+    } else {
+      // Item doesn't exist, add new item with quantity 1
+      existingCart.push(cartItem);
+      console.log('New item added to cart:', cartItem);
+    }
+    
+    // Save updated cart to localStorage
+    localStorage.setItem('restaurantCart', JSON.stringify(existingCart));
+    console.log('Cart updated and saved:', existingCart);
+    
+    // Dispatch cart update event
+    window.dispatchEvent(new CustomEvent('cartUpdated'));
+    console.log('Cart update event dispatched');
+    
+    // Navigate to cart page with a small delay to ensure localStorage is saved
+    console.log('Navigating to cart page...');
+    setTimeout(() => {
+      navigate('/cart');
+      console.log('=== END HOME ADD TO CART DEBUG ===');
+    }, 100);
   };
 
-  // Calculate total items count
-  const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
-
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="home-page">
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
           <h1 className="hero-title">
-            Welcome to <span className="text-yellow-400">Restaurant</span>
+            Welcome to <span className="highlight-text">Restaurant</span>
           </h1>
           <p className="hero-subtitle">
             Experience culinary excellence with our signature dishes crafted with passion and fresh ingredients
           </p>
           <div className="hero-buttons">
-            <button className="btn-primary">
+            <button 
+              className="btn-primary"
+              onClick={() => navigate('/menu')}
+            >
               View Menu
             </button>
-            <button className="btn-secondary">
+            <button 
+              className="btn-secondary"
+              onClick={() => navigate('/contact')}
+            >
               Make Reservation
             </button>
           </div>
         </div>
-        
-        {/* Cart Badge */}
-        {totalItems > 0 && (
-          <div className="cart-badge">
-            <span className="cart-count">{totalItems}</span>
-            <span className="cart-text">items in cart</span>
-          </div>
-        )}
         
         {/* Scroll Indicator */}
         <div className="scroll-indicator"></div>
       </section>
 
       {/* Featured Dishes Section */}
-      <section className="section-padding bg-white">
+      <section className="section-padding featured-section">
         <div className="container">
           <div className="section-header">
             <h2 className="section-title">Featured Dishes</h2>
@@ -110,11 +120,11 @@ const Home = () => {
                     A delicious dish made with fresh ingredients and traditional cooking methods.
                   </p>
                   <button 
-                    className="btn-primary w-full"
+                    className="btn-primary full-width"
                     onClick={() => addToCart(product)}
                   >
-                    Add to Cart
-                </button>
+                    Add to Order
+                  </button>
               </div>
               </div>
             ))}
@@ -123,7 +133,7 @@ const Home = () => {
       </section>
 
       {/* About Section */}
-      <section className="section-padding bg-gray-50">
+      <section className="section-padding about-section">
         <div className="container">
           <div className="about-content">
             <div>
@@ -137,7 +147,7 @@ const Home = () => {
                 Every dish is crafted with love, using the freshest ingredients and traditional cooking 
                 methods passed down through generations. We believe that great food creates lasting memories.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="about-buttons">
                 <button className="btn-primary">
                   Learn More
                 </button>
@@ -158,11 +168,11 @@ const Home = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="section-padding bg-gray-900 text-white">
+      <section className="section-padding stats-section">
         <div className="container">
           <div className="section-header">
-            <h2 className="section-title text-white">Why Choose Us</h2>
-            <p className="section-subtitle text-gray-300">Numbers that speak for our excellence</p>
+            <h2 className="section-title white-text">Why Choose Us</h2>
+            <p className="section-subtitle light-text">Numbers that speak for our excellence</p>
           </div>
           
           <div className="stats-grid">
@@ -194,10 +204,17 @@ const Home = () => {
             Book your table today and join thousands of satisfied customers who trust us with their dining experience.
           </p>
           <div className="cta-buttons">
-            <button className="btn-primary" style={{background: 'white', color: '#1e3a8a'}}>
+            <button 
+              className="btn-primary" 
+              style={{background: 'white', color: '#1e3a8a'}}
+              onClick={() => navigate('/contact')}
+            >
               Make Reservation
             </button>
-            <button className="btn-secondary">
+            <button 
+              className="btn-secondary"
+              onClick={() => window.open('tel:+1234567890', '_self')}
+            >
               Call Now
             </button>
           </div>

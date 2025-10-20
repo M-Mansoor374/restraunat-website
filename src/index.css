@@ -1,7 +1,24 @@
-/* stylelint-disable at-rule-no-unknown */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Global CSS Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  color: #333;
+  background-color: #ffffff;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
 /* Custom Animations */
 @keyframes fade-in-up {
@@ -135,4 +152,84 @@ html {
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200px 100%;
   animation: shimmer 1.5s infinite;
+}
+
+/* Permanent Split Screen Layout */
+.permanent-split-screen {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.splash-half-permanent {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2d5016 0%, #4a7c59 25%, #8bc34a 75%, #4caf50 100%);
+}
+
+.auth-half-permanent {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2d5016 0%, #4a7c59 25%, #6b8e23 50%, #4a7c59 75%, #2d5016 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Responsive permanent split screen */
+@media (max-width: 768px) {
+  .permanent-split-screen {
+    flex-direction: column;
+  }
+  
+  .splash-half-permanent {
+    flex: 0.4; /* Smaller splash on mobile */
+  }
+  
+  .auth-half-permanent {
+    flex: 0.6; /* Larger auth section on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .splash-half-permanent {
+    flex: 0.35;
+  }
+  
+  .auth-half-permanent {
+    flex: 0.65;
+  }
+}
+
+/* Legacy split screen styles (keeping for compatibility) */
+.split-screen-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.splash-half {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-half {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a0e0e 0%, #2d1414 25%, #4a1f1f 50%, #2d1414 75%, #1a0e0e 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }

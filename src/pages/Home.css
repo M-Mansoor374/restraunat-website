@@ -1,29 +1,35 @@
 /* Home Page Styles */
-.min-h-screen {
+
+/* Home Page Container */
+.home-page {
   min-height: 100vh;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
-.bg-gray-50 {
-  background-color: #f9fafb;
-}
-
-.bg-white {
+/* Section Backgrounds */
+.featured-section {
   background-color: white;
 }
 
-.bg-gray-900 {
-  background-color: #111827;
+.about-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
-.text-yellow-400 {
-  color: #fbbf24;
-}
-
-.text-white {
+.stats-section {
+  background: linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%);
   color: white;
 }
 
-.text-gray-300 {
+/* Text Utilities */
+.highlight-text {
+  color: #4CAF50;
+}
+
+.white-text {
+  color: white;
+}
+
+.light-text {
   color: #d1d5db;
 }
 
@@ -31,29 +37,27 @@
   text-align: left;
 }
 
-.w-full {
+/* Button Utilities */
+.full-width {
   width: 100%;
 }
 
-.flex {
+/* About Buttons */
+.about-buttons {
   display: flex;
-}
-
-.flex-col {
   flex-direction: column;
-}
-
-.sm\:flex-row {
-  flex-direction: row;
-}
-
-.gap-4 {
   gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .about-buttons {
+    flex-direction: row;
+  }
 }
 
 /* Hero Section */
 .hero-section {
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+  background: linear-gradient(135deg, #2E7D32 0%, #4CAF50 50%, #8BC34A 100%);
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -113,7 +117,7 @@
   position: absolute;
   top: 30px;
   right: 30px;
-  background: linear-gradient(135deg, #ffb703, #fb8500);
+  background: linear-gradient(135deg, #4CAF50, #8BC34A);
   color: white;
   padding: 12px 20px;
   border-radius: 25px;
@@ -205,12 +209,12 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: #1f2937;
+  color: #2E7D32;
 }
 
 .section-subtitle {
   font-size: 1.125rem;
-  color: #6b7280;
+  color: #666666;
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
@@ -237,7 +241,7 @@
 .professional-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-  border-color: #ffb703;
+  border-color: #4CAF50;
 }
 
 .card-image {
@@ -260,7 +264,7 @@
   position: absolute;
   top: 15px;
   right: 15px;
-  background: linear-gradient(135deg, #ffb703, #fb8500);
+  background: linear-gradient(135deg, #4CAF50, #8BC34A);
   color: white;
   padding: 8px 16px;
   border-radius: 20px;
@@ -277,18 +281,18 @@
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: #1f2937;
+  color: #2E7D32;
 }
 
 .card-subtitle {
-  color: #6b7280;
+  color: #666666;
   font-size: 0.9rem;
   margin-bottom: 1rem;
   font-weight: 500;
 }
 
 .card-description {
-  color: #4b5563;
+  color: #666666;
   line-height: 1.6;
   margin-bottom: 1.5rem;
   font-size: 0.95rem;
@@ -296,7 +300,7 @@
 
 /* Buttons */
 .btn-primary {
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  background: linear-gradient(135deg, #4CAF50, #2E7D32);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -310,9 +314,9 @@
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  background: linear-gradient(135deg, #2E7D32, #1B5E20);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
 }
 
 .btn-secondary {
@@ -331,7 +335,7 @@
 
 .btn-secondary:hover {
   background: white;
-  color: #3b82f6;
+  color: #4CAF50;
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
 }
@@ -348,7 +352,7 @@
 .about-text {
   font-size: 1.125rem;
   line-height: 1.7;
-  color: #4b5563;
+  color: #666666;
   margin-bottom: 1.5rem;
 }
 
@@ -367,13 +371,13 @@
 .about-image-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1f2937;
+  color: #2E7D32;
   text-align: center;
   margin-bottom: 0.5rem;
 }
 
 .about-image-subtitle {
-  color: #6b7280;
+  color: #666666;
   text-align: center;
   font-weight: 500;
 }

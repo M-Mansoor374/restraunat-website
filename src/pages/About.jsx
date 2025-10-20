@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./About.css";
 
 const About = () => {
+  const navigate = useNavigate();
   const teamMembers = [
     {
       id: 1,
@@ -248,8 +250,18 @@ const About = () => {
               Join us for an unforgettable dining experience that celebrates our rich history and culinary passion
             </p>
             <div className="cta-buttons">
-              <button className="btn-primary">Make a Reservation</button>
-              <button className="btn-secondary">View Our Menu</button>
+              <button 
+                className="btn-primary"
+                onClick={() => navigate('/contact')}
+              >
+                Make a Reservation
+              </button>
+              <button 
+                className="btn-secondary"
+                onClick={() => navigate('/menu')}
+              >
+                View Our Menu
+              </button>
             </div>
           </div>
         </div>

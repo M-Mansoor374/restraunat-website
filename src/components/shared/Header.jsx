@@ -1,48 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../../assets/images/logo.png";
 
 
-const Header = () => {
-  // State to store cart items count
-  const [cartItemsCount, setCartItemsCount] = useState(0);
-
-  // Load cart data from localStorage when component mounts
-  useEffect(() => {
-    const loadCartCount = () => {
-      const savedCart = localStorage.getItem('restaurantCart');
-      if (savedCart) {
-        const cartItems = JSON.parse(savedCart);
-        const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
-        setCartItemsCount(totalItems);
-      }
-    };
-
-    // Load initial count
-    loadCartCount();
-
-    // Listen for storage changes (when cart is updated from other tabs/components)
-    const handleStorageChange = (e) => {
-      if (e.key === 'restaurantCart') {
-        loadCartCount();
-      }
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-
-    // Also listen for custom cart update events
-    const handleCartUpdate = () => {
-      loadCartCount();
-    };
-
-    window.addEventListener('cartUpdated', handleCartUpdate);
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('cartUpdated', handleCartUpdate);
-    };
-  }, []);
+const Header = ({ user, onLogout }) => {
+  console.log('Header received user:', user);
 
   return (
     <header className="header">
@@ -66,24 +29,6 @@ const Header = () => {
         <button>Search</button>
       </div>
 
-      {/* Cart Button */}
-      <Link to="/cart" className="cart-button">
-        <div className="cart-icon">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17C17 18.1 16.1 19 15 19H9C7.9 19 7 18.1 7 17V13M17 13H7"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          {cartItemsCount > 0 && (
-            <span className="cart-badge">{cartItemsCount}</span>
-          )}
-        </div>
-        <span className="cart-text">Cart</span>
-      </Link>
 
       {/* Logged-in user details */}
       <div className="user-info">
@@ -107,9 +52,31 @@ const Header = () => {
         </div>
         
         <div className="user-details">
-          <p className="user-name">Muhammad Mansoor</p>
-          <p className="user-role">Admin</p>
+          <p className="user-name">{user ? user.name : 'Guest'}</p>
+          <p className="user-role">{user ? user.email : 'Not logged in'}</p>
         </div>
+        
+        {/* Logout Button */}
+        {user && (
+          <button 
+            className="logout-btn"
+            onClick={onLogout}
+            title="Logout"
+          >
+            <svg 
+              width="20" 
+              height="20" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path 
+                d="M17 7L15.59 8.41L18.17 11H8V13H18.17L15.59 15.59L17 17L22 12L17 7ZM4 5H12V3H4C2.9 3 2 3.9 2 5V19C2 20.1 2.9 21 4 21H12V19H4V5Z" 
+                fill="white"
+              />
+            </svg>
+          </button>
+        )}
       </div>
     </header>
   );

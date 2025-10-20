@@ -1,11 +1,67 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Menu.css";
 
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState("all");
+  const navigate = useNavigate();
   
   // Debug log to check if component is rendering
   console.log("Menu component is rendering");
+
+  // Function to add item to cart and navigate to cart page
+  const addToCart = (item) => {
+    console.log('=== ADD TO CART DEBUG ===');
+    console.log('Adding item to cart:', item);
+    
+    // Ensure item has all required properties
+    const cartItem = {
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      quantity: 1,
+      image: item.image || '🍽️',
+      description: item.description || 'Delicious item'
+    };
+    
+    console.log('Processed cart item:', cartItem);
+    
+    // Get existing cart from localStorage
+    const existingCart = JSON.parse(localStorage.getItem('restaurantCart') || '[]');
+    console.log('Existing cart before update:', existingCart);
+    
+    // Check if item already exists in cart
+    const existingItemIndex = existingCart.findIndex(cartItem => cartItem.id === item.id);
+    
+    if (existingItemIndex > -1) {
+      // Item exists, increase quantity
+      existingCart[existingItemIndex].quantity += 1;
+      console.log('Item exists, increasing quantity to:', existingCart[existingItemIndex].quantity);
+    } else {
+      // Item doesn't exist, add new item with quantity 1
+      existingCart.push(cartItem);
+      console.log('New item added to cart:', cartItem);
+    }
+    
+    // Save updated cart to localStorage
+    localStorage.setItem('restaurantCart', JSON.stringify(existingCart));
+    console.log('Cart updated and saved to localStorage:', existingCart);
+    
+    // Verify localStorage was saved
+    const verifyCart = localStorage.getItem('restaurantCart');
+    console.log('Verification - localStorage contains:', verifyCart);
+    
+    // Dispatch cart update event
+    window.dispatchEvent(new CustomEvent('cartUpdated'));
+    console.log('Cart update event dispatched');
+    
+    // Navigate to cart page with a small delay to ensure localStorage is saved
+    console.log('Navigating to cart page...');
+    setTimeout(() => {
+      navigate('/cart');
+      console.log('=== END ADD TO CART DEBUG ===');
+    }, 100);
+  };
 
   const menuCategories = [
     { id: "all", name: "All Items" },
@@ -199,7 +255,16 @@ const Menu = () => {
                     <span className="menu-item-price">${item.price}</span>
                   </div>
                   <p className="menu-item-description">{item.description}</p>
-                  <button className="menu-item-btn">Add to Order</button>
+                  <button 
+                    className="menu-item-btn"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      console.log('Button clicked for:', item.name);
+                      addToCart(item);
+                    }}
+                  >
+                    Add to Order
+                  </button>
                 </div>
               </div>
             ))}

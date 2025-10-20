@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './Splash.css';
 import logo from '../../assets/images/logo.png';
 
 const Splash = () => {
-  // Hook to navigate to different pages
-  const navigate = useNavigate();
-  
   // State to control animation visibility
   const [isVisible, setIsVisible] = useState(false);
 
@@ -17,17 +13,11 @@ const Splash = () => {
       setIsVisible(true);
     }, 50);
 
-    // Auto-navigate to home page after 3 seconds
-    const navigateTimer = setTimeout(() => {
-      navigate('/');
-    }, 3000);
-
-    // Cleanup function to clear timers if component unmounts
+    // Cleanup function to clear timer if component unmounts
     return () => {
       clearTimeout(showTimer);
-      clearTimeout(navigateTimer);
     };
-  }, [navigate]); // navigate dependency ensures effect runs when navigate changes
+  }, []); // Empty dependency array - runs once on mount
 
   return (
     <div className="splash-container">
