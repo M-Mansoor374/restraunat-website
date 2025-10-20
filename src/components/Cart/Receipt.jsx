@@ -104,7 +104,7 @@ const Receipt = ({ orderData, onBackToMenu, onPrintReceipt }) => {
                 <span className="item-category">{item.category}</span>
               </div>
               <span className="item-qty">{item.quantity}</span>
-              <span className="item-price">${(item.price * item.quantity).toFixed(2)}</span>
+              <span className="item-price">PKR {(item.price * item.quantity).toLocaleString()}</span>
             </div>
           ))}
         </div>
@@ -114,15 +114,15 @@ const Receipt = ({ orderData, onBackToMenu, onPrintReceipt }) => {
         <div className="receipt-totals">
           <div className="receipt-total-row">
             <span className="label">Subtotal:</span>
-            <span className="value">${orderData.subtotal.toFixed(2)}</span>
+            <span className="value">PKR {orderData.subtotal.toLocaleString()}</span>
           </div>
           <div className="receipt-total-row">
             <span className="label">Tax (8%):</span>
-            <span className="value CAPS">${orderData.tax.toFixed(2)}</span>
+            <span className="value CAPS">PKR {orderData.tax.toLocaleString()}</span>
           </div>
           <div className="receipt-total-row final-total">
             <span className="label">TOTAL:</span>
-            <span className="value">${orderData.total.toFixed(2)}</span>
+            <span className="value">PKR {orderData.total.toLocaleString()}</span>
           </div>
         </div>
 

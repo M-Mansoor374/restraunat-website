@@ -122,7 +122,7 @@ const Menu = ({ onAddToCart }) => {
               <h3 className="item-name">{item.name}</h3>
               <p className="item-description">{item.description}</p>
               <div className="item-footer">
-                <span className="item-price">${item.price.toFixed(2)}</span>
+                <span className="item-price">PKR {item.price.toLocaleString()}</span>
                 <button
                   className="add-to-cart-btn"
                   onClick={() => onAddToCart(item)}

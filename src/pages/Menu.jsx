@@ -79,7 +79,7 @@ const Menu = () => {
       id: 1,
       name: "Caesar Salad",
       description: "Fresh romaine lettuce, parmesan cheese, croutons, and our signature Caesar dressing",
-      price: 12.99,
+      price: 3640,
       category: "appetizers",
       image: "linear-gradient(135deg, #10b981, #059669)",
       popular: true
@@ -88,7 +88,7 @@ const Menu = () => {
       id: 2,
       name: "Buffalo Wings",
       description: "Crispy chicken wings tossed in our spicy buffalo sauce, served with ranch dip",
-      price: 15.99,
+      price: 4480,
       category: "appetizers",
       image: "linear-gradient(135deg, #dc2626, #b91c1c)"
     },
@@ -96,7 +96,7 @@ const Menu = () => {
       id: 3,
       name: "Mozzarella Sticks",
       description: "Golden fried mozzarella sticks served with marinara sauce",
-      price: 9.99,
+      price: 2800,
       category: "appetizers",
       image: "linear-gradient(135deg, #f59e0b, #d97706)"
     },
@@ -104,7 +104,7 @@ const Menu = () => {
       id: 4,
       name: "Bruschetta",
       description: "Toasted bread topped with fresh tomatoes, basil, and garlic",
-      price: 11.99,
+      price: 3360,
       category: "appetizers",
       image: "linear-gradient(135deg, #8b5cf6, #7c3aed)"
     },
@@ -114,7 +114,7 @@ const Menu = () => {
       id: 5,
       name: "Grilled Salmon",
       description: "Fresh Atlantic salmon grilled to perfection with herbs and lemon, served with seasonal vegetables",
-      price: 24.99,
+      price: 7000,
       category: "mains",
       image: "linear-gradient(135deg, #06b6d4, #0891b2)",
       popular: true
@@ -123,7 +123,7 @@ const Menu = () => {
       id: 6,
       name: "Beef Steak",
       description: "Premium Angus beef steak cooked to your preference with our signature marinade and sides",
-      price: 32.99,
+      price: 9240,
       category: "mains",
       image: "linear-gradient(135deg, #dc2626, #b91c1c)",
       popular: true
@@ -132,7 +132,7 @@ const Menu = () => {
       id: 7,
       name: "Pasta Carbonara",
       description: "Authentic Italian pasta with creamy sauce, pancetta, and parmesan cheese",
-      price: 18.99,
+      price: 5320,
       category: "mains",
       image: "linear-gradient(135deg, #059669, #047857)"
     },
@@ -140,7 +140,7 @@ const Menu = () => {
       id: 8,
       name: "Chicken Parmesan",
       description: "Breaded chicken breast topped with marinara sauce and melted mozzarella, served with pasta",
-      price: 22.99,
+      price: 6440,
       category: "mains",
       image: "linear-gradient(135deg, #f59e0b, #d97706)"
     },
@@ -148,7 +148,7 @@ const Menu = () => {
       id: 9,
       name: "Vegetarian Risotto",
       description: "Creamy arborio rice with seasonal vegetables and parmesan cheese",
-      price: 19.99,
+      price: 5600,
       category: "mains",
       image: "linear-gradient(135deg, #10b981, #059669)"
     },
@@ -158,7 +158,7 @@ const Menu = () => {
       id: 10,
       name: "Chocolate Lava Cake",
       description: "Warm chocolate cake with molten center, served with vanilla ice cream",
-      price: 8.99,
+      price: 2520,
       category: "desserts",
       image: "linear-gradient(135deg, #7c2d12, #92400e)",
       popular: true
@@ -167,7 +167,7 @@ const Menu = () => {
       id: 11,
       name: "Tiramisu",
       description: "Classic Italian dessert with coffee-soaked ladyfingers and mascarpone cream",
-      price: 7.99,
+      price: 2240,
       category: "desserts",
       image: "linear-gradient(135deg, #8b5cf6, #7c3aed)"
     },
@@ -175,7 +175,7 @@ const Menu = () => {
       id: 12,
       name: "Cheesecake",
       description: "New York style cheesecake with berry compote",
-      price: 6.99,
+      price: 1960,
       category: "desserts",
       image: "linear-gradient(135deg, #f59e0b, #d97706)"
     },
@@ -185,7 +185,7 @@ const Menu = () => {
       id: 13,
       name: "Fresh Lemonade",
       description: "House-made lemonade with fresh lemons and mint",
-      price: 4.99,
+      price: 1400,
       category: "beverages",
       image: "linear-gradient(135deg, #fbbf24, #f59e0b)"
     },
@@ -193,7 +193,7 @@ const Menu = () => {
       id: 14,
       name: "Craft Beer",
       description: "Selection of local craft beers on tap",
-      price: 6.99,
+      price: 1960,
       category: "beverages",
       image: "linear-gradient(135deg, #92400e, #78350f)"
     },
@@ -201,7 +201,7 @@ const Menu = () => {
       id: 15,
       name: "Wine Selection",
       description: "Curated selection of red and white wines",
-      price: 8.99,
+      price: 2520,
       category: "beverages",
       image: "linear-gradient(135deg, #dc2626, #b91c1c)"
     }
@@ -261,7 +261,7 @@ const Menu = () => {
                 <div className="menu-item-content">
                   <div className="menu-item-header">
                     <h3 className="menu-item-name">{item.name}</h3>
-                    <span className="menu-item-price">${item.price}</span>
+                    <span className="menu-item-price">PKR {item.price.toLocaleString()}</span>
                   </div>
                   <p className="menu-item-description">{item.description}</p>
                   <button 

@@ -19,6 +19,10 @@ const Header = ({ user, onLogout }) => {
     setDropdownOpen(false);
   };
 
+  const handleLogoClick = () => {
+    navigate('/');
+  };
+
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -39,7 +43,7 @@ const Header = ({ user, onLogout }) => {
   return (
     <header className="header">
       {/* Logo section */}
-      <div className="logo-section">
+      <div className="logo-section" onClick={handleLogoClick}>
         <img src={logo} alt="Restaurant Logo" className="logo" />
         <h1 className="title">Restaurant</h1>
       </div>

@@ -6,22 +6,22 @@ const MyAccount = ({ user }) => {
 
   // Sample sales data - you can replace this with real data from your backend
   const dailySales = [
-    { date: '2025-10-20', orders: 45, revenue: 1250.50 },
-    { date: '2025-10-19', orders: 52, revenue: 1450.75 },
-    { date: '2025-10-18', orders: 38, revenue: 980.25 },
-    { date: '2025-10-17', orders: 61, revenue: 1680.00 },
-    { date: '2025-10-16', orders: 55, revenue: 1520.50 },
-    { date: '2025-10-15', orders: 48, revenue: 1340.25 },
-    { date: '2025-10-14', orders: 42, revenue: 1150.75 }
+    { date: '2025-10-20', orders: 45, revenue: 350140 },
+    { date: '2025-10-19', orders: 52, revenue: 406210 },
+    { date: '2025-10-18', orders: 38, revenue: 274470 },
+    { date: '2025-10-17', orders: 61, revenue: 470400 },
+    { date: '2025-10-16', orders: 55, revenue: 425740 },
+    { date: '2025-10-15', orders: 48, revenue: 375270 },
+    { date: '2025-10-14', orders: 42, revenue: 322210 }
   ];
 
   const monthlySales = [
-    { month: 'October 2025', orders: 1245, revenue: 35420.50 },
-    { month: 'September 2025', orders: 1180, revenue: 33250.75 },
-    { month: 'August 2025', orders: 1320, revenue: 37890.25 },
-    { month: 'July 2025', orders: 1410, revenue: 40125.00 },
-    { month: 'June 2025', orders: 1290, revenue: 36740.50 },
-    { month: 'May 2025', orders: 1350, revenue: 38560.25 }
+    { month: 'October 2025', orders: 1245, revenue: 9917740 },
+    { month: 'September 2025', orders: 1180, revenue: 9310210 },
+    { month: 'August 2025', orders: 1320, revenue: 10609270 },
+    { month: 'July 2025', orders: 1410, revenue: 11235000 },
+    { month: 'June 2025', orders: 1290, revenue: 10287340 },
+    { month: 'May 2025', orders: 1350, revenue: 10796870 }
   ];
 
   // Calculate totals
@@ -66,7 +66,7 @@ const MyAccount = ({ user }) => {
             </div>
             <div className="stat-details">
               <p className="stat-label">Total Revenue</p>
-              <h2 className="stat-value">${activeTab === 'daily' ? dailyTotal.toFixed(2) : monthlyTotal.toFixed(2)}</h2>
+              <h2 className="stat-value">PKR {(activeTab === 'daily' ? dailyTotal : monthlyTotal).toLocaleString()}</h2>
             </div>
           </div>
 
@@ -91,7 +91,7 @@ const MyAccount = ({ user }) => {
             </div>
             <div className="stat-details">
               <p className="stat-label">Average Order</p>
-              <h2 className="stat-value">${activeTab === 'daily' ? (dailyTotal / totalOrders).toFixed(2) : (monthlyTotal / totalOrders).toFixed(2)}</h2>
+              <h2 className="stat-value">PKR {(activeTab === 'daily' ? (dailyTotal / totalOrders) : (monthlyTotal / totalOrders)).toLocaleString()}</h2>
             </div>
           </div>
         </div>
@@ -133,16 +133,16 @@ const MyAccount = ({ user }) => {
                       <tr key={index}>
                         <td className="date-cell">{new Date(day.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
                         <td className="orders-cell">{day.orders}</td>
-                        <td className="revenue-cell">${day.revenue.toFixed(2)}</td>
-                        <td className="avg-cell">${(day.revenue / day.orders).toFixed(2)}</td>
+                        <td className="revenue-cell">PKR {day.revenue.toLocaleString()}</td>
+                        <td className="avg-cell">PKR {(day.revenue / day.orders).toLocaleString()}</td>
                       </tr>
                     ))
                   : monthlySales.map((month, index) => (
                       <tr key={index}>
                         <td className="date-cell">{month.month}</td>
                         <td className="orders-cell">{month.orders}</td>
-                        <td className="revenue-cell">${month.revenue.toFixed(2)}</td>
-                        <td className="avg-cell">${(month.revenue / month.orders).toFixed(2)}</td>
+                        <td className="revenue-cell">PKR {month.revenue.toLocaleString()}</td>
+                        <td className="avg-cell">PKR {(month.revenue / month.orders).toLocaleString()}</td>
                       </tr>
                     ))
                 }

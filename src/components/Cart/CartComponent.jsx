@@ -125,7 +125,7 @@ const CartComponent = ({ cart, onUpdateQuantity, onRemoveItem, onClearCart, onPr
                   </button>
                 </div>
                 <div className="item-price">
-                  ${(item.price * item.quantity).toFixed(2)}
+                  PKR {(item.price * item.quantity).toLocaleString()}
                 </div>
               </div>
             </div>
@@ -158,7 +158,7 @@ const CartComponent = ({ cart, onUpdateQuantity, onRemoveItem, onClearCart, onPr
         </div>
         {discount > 0 && (
           <div className="discount-applied">
-            <span className="discount-text">Discount applied: -${discount.toFixed(2)}</span>
+            <span className="discount-text">Discount applied: -PKR {discount.toLocaleString()}</span>
             <button 
               className="remove-discount-btn"
               onClick={() => {
@@ -175,21 +175,21 @@ const CartComponent = ({ cart, onUpdateQuantity, onRemoveItem, onClearCart, onPr
       <div className="cart-summary">
         <div className="summary-row">
           <span>Subtotal:</span>
-          <span>${subtotal.toFixed(2)}</span>
+          <span>PKR {subtotal.toLocaleString()}</span>
         </div>
         <div className="summary-row">
           <span>Tax (8%):</span>
-          <span>${tax.toFixed(2)}</span>
+          <span>PKR {tax.toLocaleString()}</span>
         </div>
         {discount > 0 && (
           <div className="summary-row discount-row">
             <span>Discount:</span>
-            <span>-${discount.toFixed(2)}</span>
+            <span>-PKR {discount.toLocaleString()}</span>
           </div>
         )}
         <div className="summary-row total-row">
           <span>Total:</span>
-          <span>${total.toFixed(2)}</span>
+          <span>PKR {total.toLocaleString()}</span>
         </div>
       </div>
 

@@ -141,7 +141,7 @@ const Checkout = ({ cart, onBackToCart, onCompleteOrder }) => {
                     <span className="item-name">{item.name}</span>
                     <span className="item-quantity">x{item.quantity}</span>
                   </div>
-                  <span className="item-price">${(item.price * item.quantity).toFixed(2)}</span>
+                  <span className="item-price">PKR {(item.price * item.quantity).toLocaleString()}</span>
                 </div>
               ))}
             </div>
@@ -149,15 +149,15 @@ const Checkout = ({ cart, onBackToCart, onCompleteOrder }) => {
             <div className="summary-totals">
               <div className="total-row">
                 <span>Subtotal:</span>
-                <span>${subtotal.toFixed(2)}</span>
+                <span>PKR {subtotal.toLocaleString()}</span>
               </div>
               <div className="total-row">
                 <span>Tax (8%):</span>
-                <span>${tax.toFixed(2)}</span>
+                <span>PKR {tax.toLocaleString()}</span>
               </div>
               <div className="total-row final-total">
                 <span>Total:</span>
-                <span>${total.toFixed(2)}</span>
+                <span>PKR {total.toLocaleString()}</span>
               </div>
             </div>
 

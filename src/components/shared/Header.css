@@ -42,6 +42,12 @@
   gap: 12px;
   flex-shrink: 0;
   z-index: 10;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logo-section:hover {
+  transform: translateY(-1px);
 }
 
 /* Logo image */
@@ -53,6 +59,7 @@
   transition: transform 0.3s ease;
   display: block;
   background: transparent;
+  flex-shrink: 0;
 }
 
 .logo:hover {
@@ -90,6 +97,9 @@
   font-size: 0.95rem;
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+  min-width: 44px;
+  min-height: 44px;
+  justify-content: center;
 }
 
 .cart-btn:hover {
@@ -118,6 +128,9 @@
   font-size: 0.95rem;
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(255, 183, 3, 0.3);
+  min-width: 44px;
+  min-height: 44px;
+  justify-content: center;
 }
 
 .menu-page-btn:hover {
@@ -419,11 +432,29 @@
 @media (max-width: 991px) and (min-width: 768px) {
   .header {
     padding: 15px 30px;
-    gap: 10px;
+    gap: 12px;
+    flex-wrap: nowrap;
   }
   
   .logo-section {
     flex: 1;
+    gap: 12px;
+    min-width: 0;
+  }
+  
+  .title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .header-actions {
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  
+  .user-info {
+    display: none; /* Hide user info on tablet to save space */
   }
 }
 
@@ -431,30 +462,41 @@
 @media (max-width: 767px) and (min-width: 576px) {
   .header {
     padding: 12px 20px;
-    gap: 8px;
+    gap: 12px;
     min-height: 70px;
+    flex-wrap: nowrap;
   }
   
   .logo-section {
     flex: 1;
+    gap: 10px;
+    min-width: 0;
   }
   
   .logo {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
   }
   
   .title {
     font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .header-actions {
-    gap: 10px;
+    gap: 12px;
+    flex-shrink: 0;
   }
 
   .cart-btn {
-    padding: 8px 14px;
+    padding: 10px 12px;
     font-size: 0.85rem;
+    min-width: 44px;
+    min-height: 44px;
   }
 
   .cart-btn span {
@@ -462,8 +504,10 @@
   }
 
   .menu-page-btn {
-    padding: 8px 14px;
+    padding: 10px 12px;
     font-size: 0.85rem;
+    min-width: 44px;
+    min-height: 44px;
   }
 
   .menu-page-btn span {
@@ -488,22 +532,8 @@
     padding: 12px 15px;
   }
   
-  .user-avatar {
-    width: 30px;
-    height: 30px;
-  }
-  
-  .user-avatar-icon {
-    width: 16px;
-    height: 16px;
-  }
-  
-  .user-name {
-    font-size: 12px;
-  }
-  
-  .user-role {
-    font-size: 10px;
+  .user-info {
+    display: none; /* Hide user info on mobile to save space */
   }
 }
 
@@ -511,30 +541,41 @@
 @media (max-width: 575px) {
   .header {
     padding: 10px 15px;
-    gap: 6px;
+    gap: 10px;
     min-height: 60px;
+    flex-wrap: nowrap;
   }
   
   .logo-section {
     flex: 1;
+    gap: 8px;
+    min-width: 0;
   }
   
   .logo {
-    width: 35px;
-    height: 35px;
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
   }
   
   .title {
     font-size: 1rem;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .header-actions {
-    gap: 8px;
+    gap: 10px;
+    flex-shrink: 0;
   }
 
   .cart-btn {
-    padding: 6px 10px;
+    padding: 8px 10px;
     font-size: 0.8rem;
+    min-width: 44px;
+    min-height: 44px;
   }
 
   .cart-btn span {
@@ -542,8 +583,10 @@
   }
 
   .menu-page-btn {
-    padding: 6px 10px;
+    padding: 8px 10px;
     font-size: 0.8rem;
+    min-width: 44px;
+    min-height: 44px;
   }
 
   .menu-page-btn span {
@@ -575,18 +618,8 @@
     height: 18px;
   }
   
-  .user-avatar {
-    width: 28px;
-    height: 28px;
-  }
-  
-  .user-avatar-icon {
-    width: 14px;
-    height: 14px;
-  }
-  
-  .user-details-vertical {
-    display: none; /* Hide user details on very small screens */
+  .user-info {
+    display: none; /* Hide user info on mobile to save space */
   }
 }
 
@@ -594,25 +627,40 @@
 @media (max-width: 320px) {
   .header {
     padding: 8px 10px;
-    gap: 4px;
+    gap: 8px;
+    min-height: 55px;
+    flex-wrap: nowrap;
+  }
+  
+  .logo-section {
+    gap: 6px;
+    min-width: 0;
   }
   
   .logo {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
   }
   
   .title {
     font-size: 0.9rem;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .header-actions {
-    gap: 6px;
+    gap: 8px;
+    flex-shrink: 0;
   }
 
   .cart-btn {
-    padding: 5px 8px;
+    padding: 6px 8px;
     font-size: 0.75rem;
+    min-width: 40px;
+    min-height: 40px;
   }
 
   .cart-btn span {
@@ -620,8 +668,10 @@
   }
 
   .menu-page-btn {
-    padding: 5px 8px;
+    padding: 6px 8px;
     font-size: 0.75rem;
+    min-width: 40px;
+    min-height: 40px;
   }
 
   .menu-page-btn span {
@@ -638,13 +688,33 @@
     height: 20px;
   }
   
-  .user-avatar {
-    width: 24px;
-    height: 24px;
+  .user-info {
+    display: none; /* Hide user info on mobile to save space */
+  }
+}
+
+/* Mobile-specific touch improvements */
+@media (max-width: 991px) {
+  .header {
+    /* Ensure proper touch targets */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
   
-  .user-avatar-icon {
-    width: 12px;
-    height: 12px;
+  .cart-btn,
+  .menu-page-btn,
+  .account-dropdown-btn {
+    /* Improve touch feedback */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    touch-action: manipulation;
+  }
+  
+  .cart-btn:active,
+  .menu-page-btn:active {
+    transform: scale(0.95);
+  }
+  
+  .account-dropdown-btn:active {
+    transform: scale(0.95) rotate(90deg);
   }
 }
