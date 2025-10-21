@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './Splash.css';
-import logo from '../../assets/images/logo.png';
 
 const Splash = () => {
   // State to control animation visibility
@@ -28,11 +27,10 @@ const Splash = () => {
       <div className="splash-content">
         {/* Logo container with animation */}
         <div className={`logo-container ${isVisible ? 'animate' : ''}`}>
-          <img 
-            src={logo} 
-            alt="Restaurant Logo" 
-            className="splash-logo"
-          />
+          <div className="splash-logo">
+            <span className="logo-text">RESTAURANT</span>
+            <span className="logo-subtitle">Fine Dining</span>
+          </div>
         </div>
         
         {/* Tagline with fade-in animation */}

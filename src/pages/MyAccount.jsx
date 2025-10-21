@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './MyAccount.css';
 
-const MyAccount = ({ user }) => {
+const MyAccount = ({ user = {} }) => {
   const [activeTab, setActiveTab] = useState('daily');
 
   // Sample sales data - you can replace this with real data from your backend
@@ -24,15 +24,18 @@ const MyAccount = ({ user }) => {
     { month: 'May 2025', orders: 1350, revenue: 10796870, change: '+22%' }
   ];
 
-  // Calculate totals
-  const dailyTotal = dailySales.reduce((sum, day) => sum + day.revenue, 0);
-  const monthlyTotal = monthlySales.reduce((sum, month) => sum + month.revenue, 0);
+  // Calculate totals with safety checks
+  const dailyTotal = dailySales.reduce((sum, day) => sum + (day.revenue || 0), 0);
+  const monthlyTotal = monthlySales.reduce((sum, month) => sum + (month.revenue || 0), 0);
   const totalOrders = activeTab === 'daily' 
-    ? dailySales.reduce((sum, day) => sum + day.orders, 0)
-    : monthlySales.reduce((sum, month) => sum + month.orders, 0);
+    ? dailySales.reduce((sum, day) => sum + (day.orders || 0), 0)
+    : monthlySales.reduce((sum, month) => sum + (month.orders || 0), 0);
 
   const currentData = activeTab === 'daily' ? dailySales : monthlySales;
   const currentTotal = activeTab === 'daily' ? dailyTotal : monthlyTotal;
+  
+  // Safe average calculation to prevent division by zero
+  const averageOrderValue = totalOrders > 0 ? Math.round(currentTotal / totalOrders) : 0;
 
   return (
     <div className="my-account-page">
@@ -40,8 +43,8 @@ const MyAccount = ({ user }) => {
         {/* Professional Header Section */}
         <div className="account-header">
           <div className="user-profile">
-            <div className="user-avatar-large">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div className="user-avatar-large" role="img" aria-label="User avatar">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path 
                   d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" 
                   fill="currentColor"
@@ -53,10 +56,10 @@ const MyAccount = ({ user }) => {
               </svg>
             </div>
             <div className="user-info">
-              <h1>Welcome back, {user ? user.name : 'Guest'}</h1>
-              <p>{user ? user.email : 'guest@example.com'}</p>
+              <h1>Welcome back, {user?.name || 'Guest'}</h1>
+              <p>{user?.email || 'guest@example.com'}</p>
               <div className="user-status">
-                <div className="status-indicator"></div>
+                <div className="status-indicator" aria-hidden="true"></div>
                 <span className="status-text">Active</span>
               </div>
             </div>
@@ -113,7 +116,7 @@ const MyAccount = ({ user }) => {
                 </div>
                 <div className="stat-details">
                   <p className="stat-label">Average Order Value</p>
-                  <h2 className="stat-value">PKR {Math.round(currentTotal / totalOrders).toLocaleString()}</h2>
+                  <h2 className="stat-value">PKR {averageOrderValue.toLocaleString()}</h2>
                   <div className="stat-change positive">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M7 14L12 9L17 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -129,16 +132,22 @@ const MyAccount = ({ user }) => {
           <div className="sales-section">
             <div className="sales-header">
               <h2>Sales Analytics</h2>
-              <div className="tab-buttons">
+              <div className="tab-buttons" role="tablist" aria-label="Sales data view options">
                 <button 
                   className={`tab-btn ${activeTab === 'daily' ? 'active' : ''}`}
                   onClick={() => setActiveTab('daily')}
+                  role="tab"
+                  aria-selected={activeTab === 'daily'}
+                  aria-controls="sales-table"
                 >
                   Daily Sales
                 </button>
                 <button 
                   className={`tab-btn ${activeTab === 'monthly' ? 'active' : ''}`}
                   onClick={() => setActiveTab('monthly')}
+                  role="tab"
+                  aria-selected={activeTab === 'monthly'}
+                  aria-controls="sales-table"
                 >
                   Monthly Sales
                 </button>
@@ -147,7 +156,7 @@ const MyAccount = ({ user }) => {
 
             {/* Professional Data Table */}
             <div className="sales-table-container">
-              <table className="sales-table">
+              <table className="sales-table" id="sales-table" role="table" aria-label="Sales data table">
                 <thead>
                   <tr>
                     <th>{activeTab === 'daily' ? 'Date' : 'Month'}</th>
@@ -162,19 +171,25 @@ const MyAccount = ({ user }) => {
                     <tr key={index}>
                       <td className="date-cell">
                         {activeTab === 'daily' 
-                          ? new Date(item.date).toLocaleDateString('en-US', { 
-                              month: 'short', 
-                              day: 'numeric', 
-                              year: 'numeric' 
-                            })
+                          ? (() => {
+                              try {
+                                return new Date(item.date).toLocaleDateString('en-US', { 
+                                  month: 'short', 
+                                  day: 'numeric', 
+                                  year: 'numeric' 
+                                });
+                              } catch (error) {
+                                return item.date || 'Invalid Date';
+                              }
+                            })()
                           : item.month
                         }
                       </td>
-                      <td className="orders-cell">{item.orders.toLocaleString()}</td>
-                      <td className="revenue-cell">PKR {item.revenue.toLocaleString()}</td>
-                      <td className="avg-cell">PKR {Math.round(item.revenue / item.orders).toLocaleString()}</td>
-                      <td className={`stat-change ${item.change.startsWith('+') ? 'positive' : 'negative'}`}>
-                        {item.change}
+                      <td className="orders-cell">{(item.orders || 0).toLocaleString()}</td>
+                      <td className="revenue-cell">PKR {(item.revenue || 0).toLocaleString()}</td>
+                      <td className="avg-cell">PKR {item.orders > 0 ? Math.round((item.revenue || 0) / item.orders).toLocaleString() : '0'}</td>
+                      <td className={`stat-change ${(item.change || '').startsWith('+') ? 'positive' : 'negative'}`}>
+                        {item.change || '0%'}
                       </td>
                     </tr>
                   ))}

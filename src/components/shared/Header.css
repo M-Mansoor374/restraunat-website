@@ -55,16 +55,28 @@
   transform: translateY(-1px);
 }
 
-/* Logo image */
+/* Logo container */
 .logo {
   width: 50px;
   height: 50px;
   border-radius: 12px;
-  object-fit: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.3s ease;
-  display: block;
-  background: transparent;
+  background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.1);
   flex-shrink: 0;
+}
+
+.logo-text {
+  font-family: 'Arial', sans-serif;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
 }
 
 .logo:hover {
@@ -495,6 +507,10 @@
     border-radius: 8px;
   }
   
+  .logo-text {
+    font-size: 1.4rem;
+  }
+  
   .title {
     font-size: 1rem;
     letter-spacing: 0.3px;
@@ -624,6 +640,10 @@
     border-radius: 6px;
   }
   
+  .logo-text {
+    font-size: 1.2rem;
+  }
+  
   .title {
     font-size: 0.9rem;
     letter-spacing: 0.2px;
@@ -750,6 +770,10 @@
     width: 30px;
     height: 30px;
     border-radius: 4px;
+  }
+  
+  .logo-text {
+    font-size: 1rem;
   }
   
   .title {

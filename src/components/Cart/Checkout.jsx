@@ -17,14 +17,17 @@ const Checkout = ({ cart, onBackToCart, onCompleteOrder }) => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!customerInfo.fullName.trim()) {
-      newErrors.fullName = 'Full name is required';
-    }
+    // Only validate name and phone for delivery orders
+    if (customerInfo.orderType === 'Delivery') {
+      if (!customerInfo.fullName.trim()) {
+        newErrors.fullName = 'Full name is required for delivery orders';
+      }
 
-    if (!customerInfo.phoneNumber.trim()) {
-      newErrors.phoneNumber = 'Phone number is required';
-    } else if (!/^\+?[\d\s\-\(\)]{10,}$/.test(customerInfo.phoneNumber)) {
-      newErrors.phoneNumber = 'Please enter a valid phone number';
+      if (!customerInfo.phoneNumber.trim()) {
+        newErrors.phoneNumber = 'Phone number is required for delivery orders';
+      } else if (!/^\+?[\d\s\-\(\)]{10,}$/.test(customerInfo.phoneNumber)) {
+        newErrors.phoneNumber = 'Please enter a valid phone number';
+      }
     }
 
     // Validate table number for dine-in orders
@@ -101,44 +104,49 @@ const Checkout = ({ cart, onBackToCart, onCompleteOrder }) => {
               <h3>Customer Information</h3>
             </div>
             <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="fullName">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  id="fullName"
-                  name="fullName"
-                  value={customerInfo.fullName}
-                  onChange={handleInputChange}
-                  className={errors.fullName ? 'error' : ''}
-                  placeholder="Enter your full name"
-                />
-                {errors.fullName && <span className="error-message">⚠️ {errors.fullName}</span>}
-              </div>
+              {/* Only show name and phone fields for delivery orders */}
+              {customerInfo.orderType === 'Delivery' && (
+                <>
+                  <div className="form-group">
+                    <label htmlFor="fullName">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      id="fullName"
+                      name="fullName"
+                      value={customerInfo.fullName}
+                      onChange={handleInputChange}
+                      className={errors.fullName ? 'error' : ''}
+                      placeholder="Enter your full name"
+                    />
+                    {errors.fullName && <span className="error-message">⚠️ {errors.fullName}</span>}
+                  </div>
 
-              <div className="form-group">
-                <label htmlFor="phoneNumber">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M22 16.92V19.92C22 20.4728 21.5523 20.92 21 20.92C9.40202 20.92 0 11.518 0 0C0 -0.552285 0.447715 -1 1 -1H4C4.55228 -1 5 -0.552285 5 0C5 2.25 5.5 4.5 6.5 6.5L5 8C7 12 12 17 16 19L17.5 17.5C19.5 18.5 21.75 19 24 19C24.5523 19 25 19.4477 25 20V23Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  Phone Number *
-                </label>
-                <input
-                  type="tel"
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  value={customerInfo.phoneNumber}
-                  onChange={handleInputChange}
-                  className={errors.phoneNumber ? 'error' : ''}
-                  placeholder="Enter your phone number"
-                />
-                {errors.phoneNumber && <span className="error-message">⚠️ {errors.phoneNumber}</span>}
-              </div>
+                  <div className="form-group">
+                    <label htmlFor="phoneNumber">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 16.92V19.92C22 20.4728 21.5523 20.92 21 20.92C9.40202 20.92 0 11.518 0 0C0 -0.552285 0.447715 -1 1 -1H4C4.55228 -1 5 -0.552285 5 0C5 2.25 5.5 4.5 6.5 6.5L5 8C7 12 12 17 16 19L17.5 17.5C19.5 18.5 21.75 19 24 19C24.5523 19 25 19.4477 25 20V23Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                      Phone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      value={customerInfo.phoneNumber}
+                      onChange={handleInputChange}
+                      className={errors.phoneNumber ? 'error' : ''}
+                      placeholder="Enter your phone number"
+                    />
+                    {errors.phoneNumber && <span className="error-message">⚠️ {errors.phoneNumber}</span>}
+                  </div>
+                </>
+              )}
 
               <div className="form-group">
                 <label htmlFor="orderType">
@@ -231,9 +239,20 @@ const Checkout = ({ cart, onBackToCart, onCompleteOrder }) => {
               {customerInfo.orderType === 'Dine-in' && customerInfo.tableNumber && (
                 <p><strong>Table Number:</strong> {customerInfo.tableNumber}</p>
               )}
+              {customerInfo.orderType === 'Delivery' && customerInfo.fullName && (
+                <p><strong>Delivery to:</strong> {customerInfo.fullName}</p>
+              )}
+              {customerInfo.orderType === 'Delivery' && customerInfo.phoneNumber && (
+                <p><strong>Contact:</strong> {customerInfo.phoneNumber}</p>
+              )}
               {customerInfo.orderType === 'Delivery' && (
                 <p className="delivery-note">
                   <em>Delivery charges may apply. Please confirm with restaurant.</em>
+                </p>
+              )}
+              {customerInfo.orderType === 'Takeout' && (
+                <p className="takeout-note">
+                  <em>Order will be ready for pickup. Please arrive within 15-20 minutes.</em>
                 </p>
               )}
             </div>

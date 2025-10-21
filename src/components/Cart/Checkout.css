@@ -531,11 +531,16 @@
   margin-right: 8px;
 }
 
-.delivery-note {
+.delivery-note,
+.takeout-note {
   font-size: 0.9rem;
   color: #6c757d !important;
   font-weight: 500 !important;
   font-style: italic;
+}
+
+.takeout-note {
+  color: #17a2b8 !important;
 }
 
 /* Table Number Group Animation */
