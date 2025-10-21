@@ -102,12 +102,12 @@ const CartComponent = ({ cart, onUpdateQuantity, onRemoveItem, onClearCart, onPr
       <div className="cart-items">
         {cart.map((item) => (
           <div key={item.id} className="cart-item" style={{ animationDelay: `${cart.indexOf(item) * 0.1}s` }}>
-            <div className="item-image">
-              <span className="item-emoji">{item.image}</span>
+            <div className="item-image" style={{backgroundImage: item.image}}>
+              {!item.image || item.image.startsWith('url(') ? null : <span className="item-emoji">🍽️</span>}
             </div>
             <div className="item-details">
               <h3 className="item-name">{item.name}</h3>
-              <p className="item-category">{item.category}</p>
+              <p className="item-category">{item.category ? item.category.charAt(0).toUpperCase() + item.category.slice(1) : 'Menu Item'}</p>
               <div className="item-controls">
                 <div className="quantity-controls">
                   <button 
