@@ -1,8 +1,24 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+/* Responsive root container */
+@media (min-width: 1200px) {
+  #root {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 1199px) {
+  #root {
+    width: 100%;
+    margin: 0;
+  }
 }
 
 /* Splash Screen Fade Animation */

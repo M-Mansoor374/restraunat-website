@@ -132,8 +132,12 @@ const Header = ({ user, onLogout }) => {
                     </svg>
                   </div>
                   <div className="user-details-small">
-                    <p className="user-name-small">{user.name}</p>
+                    <p className="user-name-small">Welcome back, {user.name}</p>
                     <p className="user-email-small">{user.email}</p>
+                    <div className="user-status-small">
+                      <div className="status-dot"></div>
+                      <span>ACTIVE</span>
+                    </div>
                   </div>
                 </div>
               )}
