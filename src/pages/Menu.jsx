@@ -4,6 +4,7 @@ import "./Menu.css";
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [notification, setNotification] = useState(null);
+  const [imageErrors, setImageErrors] = useState(new Set());
   
   // Debug log to check if component is rendering
   console.log("Menu component is rendering");
@@ -90,7 +91,7 @@ const Menu = () => {
       description: "Crispy chicken wings tossed in our spicy buffalo sauce, served with ranch dip",
       price: 4480,
       category: "appetizers",
-      image: "url('https://images.unsplash.com/photo-1567620832904-9fe5cf23db13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')",
+      image: "url('https://images.unsplash.com/photo-1567620832904-9fe5cf23db13?w=1000&h=600&fit=crop&crop=center')",
       popular: true
     },
     {
@@ -99,7 +100,7 @@ const Menu = () => {
       description: "Golden fried mozzarella sticks served with marinara sauce",
       price: 2800,
       category: "appetizers",
-      image: "url('https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')",
+      image: "url('https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=1000&h=600&fit=crop&crop=center')",
       popular: true
     },
     {
@@ -108,7 +109,7 @@ const Menu = () => {
       description: "Toasted bread topped with fresh tomatoes, basil, and garlic",
       price: 3360,
       category: "appetizers",
-      image: "url('https://images.unsplash.com/photo-1572441713132-51c75654db73?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')",
+      image: "url('https://images.unsplash.com/photo-1572441713132-51c75654db73?w=1000&h=600&fit=crop&crop=center')",
       popular: true
     },
 
@@ -137,7 +138,7 @@ const Menu = () => {
       description: "Authentic Italian pasta with creamy sauce, pancetta, and parmesan cheese",
       price: 5320,
       category: "mains",
-      image: "url('https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"
+      image: "url('https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=1000&h=600&fit=crop&crop=center')"
     },
     {
       id: 8,
@@ -214,6 +215,11 @@ const Menu = () => {
     ? menuItems 
     : menuItems.filter(item => item.category === activeCategory);
 
+  // Function to handle image load errors
+  const handleImageError = (itemId) => {
+    setImageErrors(prev => new Set([...prev, itemId]));
+  };
+
   return (
     <div className="menu-page-container">
       {/* Success Notification */}
@@ -256,7 +262,27 @@ const Menu = () => {
           <div className="menu-grid">
             {filteredItems.map((item) => (
               <div key={item.id} className="menu-item-card">
-                <div className="menu-item-image" style={{backgroundImage: item.image}}>
+                <div 
+                  className={`menu-item-image ${imageErrors.has(item.id) ? 'error' : ''}`} 
+                  style={{
+                    backgroundImage: imageErrors.has(item.id) ? 'none' : item.image,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat'
+                  }}
+                >
+                  {imageErrors.has(item.id) && (
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '100%',
+                      fontSize: '3rem',
+                      opacity: 0.5
+                    }}>
+                      🍽️
+                    </div>
+                  )}
                   {item.popular && (
                     <div className="popular-badge">Popular</div>
                   )}

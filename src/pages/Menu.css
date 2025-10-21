@@ -530,7 +530,7 @@
 /* Tablet Portrait (481px - 768px) */
 @media (max-width: 768px) and (min-width: 481px) {
   .menu-hero {
-    padding: 3rem 0 2rem;
+    padding: 4.5rem 0 2rem;
   }
   
   .menu-hero-title {
@@ -617,7 +617,7 @@
 /* Mobile Large (376px - 480px) */
 @media (max-width: 480px) and (min-width: 376px) {
   .menu-hero {
-    padding: 2.5rem 0 1.5rem;
+    padding: 4rem 0 1.5rem;
   }
   
   .menu-hero-title {
@@ -748,7 +748,7 @@
 /* Mobile Medium (321px - 375px) */
 @media (max-width: 375px) and (min-width: 321px) {
   .menu-hero {
-    padding: 2rem 0 1rem;
+    padding: 3.5rem 0 1rem;
   }
   
   .menu-hero-title {
@@ -850,7 +850,7 @@
 /* Mobile Small (≤320px) */
 @media (max-width: 320px) {
   .menu-hero {
-    padding: 1.5rem 0 0.75rem;
+    padding: 3rem 0 0.75rem;
   }
   
   .menu-hero-title {
@@ -971,7 +971,7 @@
 /* Landscape orientation adjustments */
 @media (max-width: 768px) and (orientation: landscape) {
   .menu-hero {
-    padding: 1.5rem 0 1rem;
+    padding: 3rem 0 1rem;
   }
   
   .menu-hero-title {
@@ -1023,7 +1023,7 @@
   }
   
   .menu-hero {
-    padding: 3rem 0 2rem;
+    padding: 4.5rem 0 2rem;
   }
   
   .menu-hero-title {
@@ -1121,7 +1121,7 @@
   }
   
   .menu-hero {
-    padding: 2.5rem 0 1.5rem;
+    padding: 4rem 0 1.5rem;
   }
   
   .menu-hero-title {
@@ -1227,7 +1227,7 @@
   }
   
   .menu-hero {
-    padding: 2rem 0 1rem;
+    padding: 3.5rem 0 1rem;
   }
   
   .menu-hero-title {

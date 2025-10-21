@@ -122,6 +122,22 @@ const Header = ({ user, onLogout }) => {
 
           {dropdownOpen && (
             <div className="dropdown-menu">
+              {/* User Info Section */}
+              {user && (
+                <div className="user-info-section">
+                  <div className="user-avatar-small">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" fill="currentColor"/>
+                      <path d="M12 14C7.58172 14 4 17.5817 4 22H20C20 17.5817 16.4183 14 12 14Z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                  <div className="user-details-small">
+                    <p className="user-name-small">{user.name}</p>
+                    <p className="user-email-small">{user.email}</p>
+                  </div>
+                </div>
+              )}
+              
               <div className="dropdown-item" onClick={() => handleMenuClick('/my-account')}>
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" fill="currentColor"/>
@@ -141,59 +157,21 @@ const Header = ({ user, onLogout }) => {
                 </svg>
                 <span>Terms of Service</span>
               </div>
+              
+              {/* Logout Button */}
+              {user && (
+                <div className="dropdown-item logout-item" onClick={onLogout}>
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 7L15.59 8.41L18.17 11H8V13H18.17L15.59 15.59L17 17L22 12L17 7ZM4 5H12V3H4C2.9 3 2 3.9 2 5V19C2 20.1 2.9 21 4 21H12V19H4V5Z" fill="currentColor"/>
+                  </svg>
+                  <span>Logout</span>
+                </div>
+              )}
             </div>
           )}
         </div>
       </div>
 
-      {/* Logged-in user details */}
-      <div className="user-info">
-        {/* Profile Picture */}
-        <div className="user-avatar">
-          <svg 
-            className="user-avatar-icon" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path 
-              d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" 
-              fill="white"
-            />
-            <path 
-              d="M12 14C7.58172 14 4 17.5817 4 22H20C20 17.5817 16.4183 14 12 14Z" 
-              fill="white"
-            />
-          </svg>
-        </div>
-        
-        <div className="user-details-vertical">
-          <p className="user-name">{user ? user.name : 'Guest'}</p>
-          <p className="user-email">{user ? user.email : 'Not logged in'}</p>
-        </div>
-        
-        {/* Logout Button */}
-        {user && (
-          <button 
-            className="logout-btn"
-            onClick={onLogout}
-            title="Logout"
-          >
-            <svg 
-              width="20" 
-              height="20" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path 
-                d="M17 7L15.59 8.41L18.17 11H8V13H18.17L15.59 15.59L17 17L22 12L17 7ZM4 5H12V3H4C2.9 3 2 3.9 2 5V19C2 20.1 2.9 21 4 21H12V19H4V5Z" 
-                fill="white"
-              />
-            </svg>
-          </button>
-        )}
-      </div>
     </header>
   );
 };
