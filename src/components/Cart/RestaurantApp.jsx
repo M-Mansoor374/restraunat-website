@@ -174,19 +174,25 @@ const RestaurantApp = () => {
     return cart.reduce((total, item) => total + item.quantity, 0);
   };
 
+  const getSubtotal = () => {
+    return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  };
+
   return (
     <div className="restaurant-app">
       {/* Navigation Header */}
       <div className="app-header">
         <div className="header-content">
           <h1 className="app-title">Your Cart</h1>
-          <div className="nav-buttons">
-            <button 
-              className={`nav-btn ${currentView === 'cart' ? 'active' : ''}`}
-              onClick={() => setCurrentView('cart')}
-            >
-              Cart ({getCartItemCount()})
-            </button>
+          <div className="header-summary">
+            <div className="summary-badge">
+              <span className="summary-label">Items</span>
+              <span className="summary-value">{getCartItemCount()}</span>
+            </div>
+            <div className="summary-badge">
+              <span className="summary-label">Subtotal</span>
+              <span className="summary-value">PKR {getSubtotal().toLocaleString()}</span>
+            </div>
           </div>
         </div>
       </div>
