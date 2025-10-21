@@ -252,9 +252,23 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+  .checkout-container {
+    padding: 20px 15px;
+  }
+  
+  .checkout-content {
+    gap: 25px;
+  }
+  
+  .form-card, .summary-card {
+    padding: 25px;
+  }
+}
+
 @media (max-width: 768px) {
   .checkout-container {
-    padding: 15px;
+    padding: 15px 10px;
   }
 
   .checkout-content {
@@ -266,11 +280,14 @@
     flex-direction: column;
     gap: 15px;
     align-items: stretch;
+    margin-bottom: 25px;
   }
 
   .back-btn {
     margin-right: 0;
     align-self: flex-start;
+    padding: 12px 20px;
+    font-size: 0.9rem;
   }
 
   .checkout-header h2 {
@@ -280,27 +297,268 @@
 
   .form-card, .summary-card {
     padding: 20px;
+    border-radius: 15px;
+  }
+
+  .form-card h3, .summary-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
   }
 
   .form-group input, .form-group select {
-    padding: 12px 16px;
+    padding: 14px 16px;
+    font-size: 1rem;
+    border-radius: 10px;
   }
 
   .complete-order-btn {
-    padding: 15px;
+    padding: 16px;
+    font-size: 1rem;
+    border-radius: 20px;
+  }
+
+  .summary-item {
+    padding: 12px 0;
+  }
+
+  .item-name {
+    font-size: 0.95rem;
+  }
+
+  .item-quantity {
+    font-size: 0.85rem;
+  }
+
+  .total-row {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+  }
+
+  .final-total {
+    font-size: 1.1rem;
+  }
+
+  .final-total span:last-child {
+    font-size: 1.3rem;
+  }
+
+  .order-type-info {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .order-type-info p {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 576px) {
+  .checkout-container {
+    padding: 10px 8px;
+  }
+
+  .checkout-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+  }
+
+  .back-btn {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+  }
+
   .checkout-header h2 {
     font-size: 1.4rem;
   }
 
   .form-card, .summary-card {
     padding: 15px;
+    border-radius: 12px;
   }
 
   .form-card h3, .summary-card h3 {
     font-size: 1.3rem;
+    margin-bottom: 18px;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .form-group label {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+  }
+
+  .form-group input, .form-group select {
+    padding: 12px 14px;
+    font-size: 0.95rem;
+    border-radius: 8px;
+  }
+
+  .complete-order-btn {
+    padding: 14px;
+    font-size: 0.95rem;
+    border-radius: 18px;
+  }
+
+  .summary-item {
+    padding: 10px 0;
+  }
+
+  .item-name {
+    font-size: 0.9rem;
+  }
+
+  .item-quantity {
+    font-size: 0.8rem;
+  }
+
+  .total-row {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+  }
+
+  .final-total {
+    font-size: 1rem;
+  }
+
+  .final-total span:last-child {
+    font-size: 1.2rem;
+  }
+
+  .order-type-info {
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .order-type-info p {
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+  }
+
+  .delivery-note {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .checkout-container {
+    padding: 8px 6px;
+  }
+
+  .checkout-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .form-card, .summary-card {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .form-card h3, .summary-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group label {
+    font-size: 0.85rem;
+  }
+
+  .form-group input, .form-group select {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+  }
+
+  .complete-order-btn {
+    padding: 12px;
+    font-size: 0.9rem;
+    border-radius: 15px;
+  }
+
+  .summary-item {
+    padding: 8px 0;
+  }
+
+  .item-name {
+    font-size: 0.85rem;
+  }
+
+  .item-quantity {
+    font-size: 0.75rem;
+  }
+
+  .total-row {
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+  }
+
+  .final-total {
+    font-size: 0.95rem;
+  }
+
+  .final-total span:last-child {
+    font-size: 1.1rem;
+  }
+
+  .order-type-info {
+    padding: 8px;
+    border-radius: 6px;
+  }
+
+  .order-type-info p {
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+  }
+
+  .delivery-note {
+    font-size: 0.75rem;
+  }
+}
+
+/* Mobile-specific touch improvements */
+@media (max-width: 768px) {
+  .form-group input, .form-group select {
+    /* Improve touch targets */
+    min-height: 44px;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  .complete-order-btn {
+    /* Better touch feedback */
+    min-height: 48px;
+    -webkit-tap-highlight-color: rgba(46, 125, 50, 0.2);
+    touch-action: manipulation;
+  }
+  
+  .complete-order-btn:active {
+    transform: scale(0.98);
+  }
+  
+  .back-btn {
+    /* Better touch feedback */
+    min-height: 44px;
+    -webkit-tap-highlight-color: rgba(46, 125, 50, 0.2);
+    touch-action: manipulation;
+  }
+  
+  .back-btn:active {
+    transform: scale(0.98);
   }
 }

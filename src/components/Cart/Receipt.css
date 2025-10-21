@@ -257,6 +257,16 @@
   margin: 0;
 }
 
+.made-by {
+  font-size: 0.7rem;
+  color: #ccc;
+  font-style: italic;
+  margin: 10px 0 0 0;
+  font-family: 'Poppins', sans-serif;
+  text-transform: lowercase;
+  letter-spacing: 0.5px;
+}
+
 /* Print Styles */
 @media print {
   body * {
@@ -315,6 +325,10 @@
   .final-total {
     border-top-color: #000;
   }
+  
+  .made-by {
+    color: #666;
+  }
 }
 
 /* Responsive Design */
@@ -368,5 +382,10 @@
 
   .receipt-total-row {
     font-size: 0.85rem;
+  }
+  
+  .made-by {
+    font-size: 0.65rem;
+    margin: 8px 0 0 0;
   }
 }

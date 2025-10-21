@@ -139,6 +139,9 @@ const Receipt = ({ orderData, onBackToMenu, onPrintReceipt }) => {
           <p className="receipt-note">
             Please keep this receipt for your records
           </p>
+          <p className="made-by">
+            made by APEXIUMS TECHNOLOGIES
+          </p>
         </div>
       </div>
     </div>

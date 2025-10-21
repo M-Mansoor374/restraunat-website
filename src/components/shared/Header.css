@@ -8,8 +8,13 @@
   padding: 15px 40px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   gap: 15px;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   min-height: 80px;
+  z-index: 1001;
 }
 
 /* Mobile Menu Toggle */
@@ -462,87 +467,8 @@
 @media (max-width: 767px) and (min-width: 576px) {
   .header {
     padding: 12px 20px;
-    gap: 12px;
+    gap: 8px;
     min-height: 70px;
-    flex-wrap: nowrap;
-  }
-  
-  .logo-section {
-    flex: 1;
-    gap: 10px;
-    min-width: 0;
-  }
-  
-  .logo {
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
-  }
-  
-  .title {
-    font-size: 1.1rem;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  .header-actions {
-    gap: 12px;
-    flex-shrink: 0;
-  }
-
-  .cart-btn {
-    padding: 10px 12px;
-    font-size: 0.85rem;
-    min-width: 44px;
-    min-height: 44px;
-  }
-
-  .cart-btn span {
-    display: none;
-  }
-
-  .menu-page-btn {
-    padding: 10px 12px;
-    font-size: 0.85rem;
-    min-width: 44px;
-    min-height: 44px;
-  }
-
-  .menu-page-btn span {
-    display: none;
-  }
-
-  .account-dropdown-btn {
-    width: 50px;
-    height: 50px;
-  }
-
-  .account-dropdown-btn svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  .dropdown-menu {
-    min-width: 200px;
-  }
-
-  .dropdown-item {
-    padding: 12px 15px;
-  }
-  
-  .user-info {
-    display: none; /* Hide user info on mobile to save space */
-  }
-}
-
-/* Mobile Small (320px - 575px) */
-@media (max-width: 575px) {
-  .header {
-    padding: 10px 15px;
-    gap: 10px;
-    min-height: 60px;
     flex-wrap: nowrap;
   }
   
@@ -553,8 +479,8 @@
   }
   
   .logo {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: 8px;
   }
   
@@ -567,45 +493,57 @@
   }
   
   .header-actions {
-    gap: 10px;
+    gap: 8px;
     flex-shrink: 0;
   }
 
   .cart-btn {
     padding: 8px 10px;
     font-size: 0.8rem;
-    min-width: 44px;
-    min-height: 44px;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 6px;
   }
 
   .cart-btn span {
     display: none;
   }
 
+  .cart-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
   .menu-page-btn {
     padding: 8px 10px;
     font-size: 0.8rem;
-    min-width: 44px;
-    min-height: 44px;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 6px;
   }
 
   .menu-page-btn span {
     display: none;
   }
 
+  .menu-page-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
   .account-dropdown-btn {
-    width: 46px;
-    height: 46px;
+    width: 40px;
+    height: 40px;
   }
 
   .account-dropdown-btn svg {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
   }
 
   .dropdown-menu {
     min-width: 180px;
-    right: -10px;
+    right: -5px;
   }
 
   .dropdown-item {
@@ -614,8 +552,8 @@
   }
 
   .dropdown-item svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
   }
   
   .user-info {
@@ -623,23 +561,24 @@
   }
 }
 
-/* Extra Small Mobile (max-width: 320px) */
-@media (max-width: 320px) {
+/* Mobile Small (320px - 575px) */
+@media (max-width: 575px) {
   .header {
-    padding: 8px 10px;
-    gap: 8px;
-    min-height: 55px;
+    padding: 8px 12px;
+    gap: 6px;
+    min-height: 60px;
     flex-wrap: nowrap;
   }
   
   .logo-section {
+    flex: 1;
     gap: 6px;
     min-width: 0;
   }
   
   .logo {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 6px;
   }
   
@@ -652,40 +591,164 @@
   }
   
   .header-actions {
-    gap: 8px;
+    gap: 6px;
     flex-shrink: 0;
   }
 
   .cart-btn {
     padding: 6px 8px;
     font-size: 0.75rem;
-    min-width: 40px;
-    min-height: 40px;
+    min-width: 36px;
+    min-height: 36px;
+    border-radius: 6px;
   }
 
   .cart-btn span {
     display: none;
   }
 
+  .cart-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
   .menu-page-btn {
     padding: 6px 8px;
     font-size: 0.75rem;
-    min-width: 40px;
-    min-height: 40px;
+    min-width: 36px;
+    min-height: 36px;
+    border-radius: 6px;
   }
 
   .menu-page-btn span {
     display: none;
   }
 
+  .menu-page-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
   .account-dropdown-btn {
-    width: 42px;
-    height: 42px;
+    width: 36px;
+    height: 36px;
   }
 
   .account-dropdown-btn svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .dropdown-menu {
+    min-width: 160px;
+    right: -8px;
+  }
+
+  .dropdown-item {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+
+  .dropdown-item svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .user-info {
+    display: none; /* Hide user info on mobile to save space */
+  }
+}
+
+/* Extra Small Mobile (max-width: 320px) */
+@media (max-width: 320px) {
+  .header {
+    padding: 6px 8px;
+    gap: 4px;
+    min-height: 55px;
+    flex-wrap: nowrap;
+  }
+  
+  .logo-section {
+    gap: 4px;
+    min-width: 0;
+  }
+  
+  .logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+  }
+  
+  .title {
+    font-size: 0.8rem;
+    letter-spacing: 0.1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .header-actions {
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .cart-btn {
+    padding: 4px 6px;
+    font-size: 0.7rem;
+    min-width: 32px;
+    min-height: 32px;
+    border-radius: 4px;
+  }
+
+  .cart-btn span {
+    display: none;
+  }
+
+  .cart-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .menu-page-btn {
+    padding: 4px 6px;
+    font-size: 0.7rem;
+    min-width: 32px;
+    min-height: 32px;
+    border-radius: 4px;
+  }
+
+  .menu-page-btn span {
+    display: none;
+  }
+
+  .menu-page-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .account-dropdown-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .account-dropdown-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .dropdown-menu {
+    min-width: 140px;
+    right: -5px;
+  }
+
+  .dropdown-item {
+    padding: 6px 8px;
+    font-size: 0.75rem;
+  }
+
+  .dropdown-item svg {
+    width: 14px;
+    height: 14px;
   }
   
   .user-info {

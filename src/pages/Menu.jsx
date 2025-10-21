@@ -81,7 +81,7 @@ const Menu = () => {
       description: "Fresh romaine lettuce, parmesan cheese, croutons, and our signature Caesar dressing",
       price: 3640,
       category: "appetizers",
-      image: "linear-gradient(135deg, #10b981, #059669)",
+      image: "url('https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')",
       popular: true
     },
     {
@@ -90,7 +90,8 @@ const Menu = () => {
       description: "Crispy chicken wings tossed in our spicy buffalo sauce, served with ranch dip",
       price: 4480,
       category: "appetizers",
-      image: "linear-gradient(135deg, #dc2626, #b91c1c)"
+      image: "url('https://images.unsplash.com/photo-1567620832904-9fe5cf23db13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')",
+      popular: true
     },
     {
       id: 3,
@@ -98,7 +99,8 @@ const Menu = () => {
       description: "Golden fried mozzarella sticks served with marinara sauce",
       price: 2800,
       category: "appetizers",
-      image: "linear-gradient(135deg, #f59e0b, #d97706)"
+      image: "url('https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')",
+      popular: true
     },
     {
       id: 4,
@@ -106,7 +108,8 @@ const Menu = () => {
       description: "Toasted bread topped with fresh tomatoes, basil, and garlic",
       price: 3360,
       category: "appetizers",
-      image: "linear-gradient(135deg, #8b5cf6, #7c3aed)"
+      image: "url('https://images.unsplash.com/photo-1572441713132-51c75654db73?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')",
+      popular: true
     },
 
     // Main Courses
@@ -116,7 +119,7 @@ const Menu = () => {
       description: "Fresh Atlantic salmon grilled to perfection with herbs and lemon, served with seasonal vegetables",
       price: 7000,
       category: "mains",
-      image: "linear-gradient(135deg, #06b6d4, #0891b2)",
+      image: "url('https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')",
       popular: true
     },
     {
@@ -125,7 +128,7 @@ const Menu = () => {
       description: "Premium Angus beef steak cooked to your preference with our signature marinade and sides",
       price: 9240,
       category: "mains",
-      image: "linear-gradient(135deg, #dc2626, #b91c1c)",
+      image: "url('https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')",
       popular: true
     },
     {
@@ -134,7 +137,7 @@ const Menu = () => {
       description: "Authentic Italian pasta with creamy sauce, pancetta, and parmesan cheese",
       price: 5320,
       category: "mains",
-      image: "linear-gradient(135deg, #059669, #047857)"
+      image: "url('https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"
     },
     {
       id: 8,
@@ -142,7 +145,7 @@ const Menu = () => {
       description: "Breaded chicken breast topped with marinara sauce and melted mozzarella, served with pasta",
       price: 6440,
       category: "mains",
-      image: "linear-gradient(135deg, #f59e0b, #d97706)"
+      image: "url('https://images.unsplash.com/photo-1562967914-608f82629710?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"
     },
     {
       id: 9,
@@ -150,7 +153,7 @@ const Menu = () => {
       description: "Creamy arborio rice with seasonal vegetables and parmesan cheese",
       price: 5600,
       category: "mains",
-      image: "linear-gradient(135deg, #10b981, #059669)"
+      image: "url('https://images.unsplash.com/photo-1476124369491-e7addf5db371?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"
     },
 
     // Desserts
@@ -160,7 +163,7 @@ const Menu = () => {
       description: "Warm chocolate cake with molten center, served with vanilla ice cream",
       price: 2520,
       category: "desserts",
-      image: "linear-gradient(135deg, #7c2d12, #92400e)",
+      image: "url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')",
       popular: true
     },
     {
@@ -169,7 +172,7 @@ const Menu = () => {
       description: "Classic Italian dessert with coffee-soaked ladyfingers and mascarpone cream",
       price: 2240,
       category: "desserts",
-      image: "linear-gradient(135deg, #8b5cf6, #7c3aed)"
+      image: "url('https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"
     },
     {
       id: 12,
@@ -177,7 +180,7 @@ const Menu = () => {
       description: "New York style cheesecake with berry compote",
       price: 1960,
       category: "desserts",
-      image: "linear-gradient(135deg, #f59e0b, #d97706)"
+      image: "url('https://images.unsplash.com/photo-1533134242443-d4fd215305ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"
     },
 
     // Beverages
@@ -187,7 +190,7 @@ const Menu = () => {
       description: "House-made lemonade with fresh lemons and mint",
       price: 1400,
       category: "beverages",
-      image: "linear-gradient(135deg, #fbbf24, #f59e0b)"
+      image: "url('https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"
     },
     {
       id: 14,
@@ -195,7 +198,7 @@ const Menu = () => {
       description: "Selection of local craft beers on tap",
       price: 1960,
       category: "beverages",
-      image: "linear-gradient(135deg, #92400e, #78350f)"
+      image: "url('https://images.unsplash.com/photo-1608270586620-248524c67de9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"
     },
     {
       id: 15,
@@ -203,7 +206,7 @@ const Menu = () => {
       description: "Curated selection of red and white wines",
       price: 2520,
       category: "beverages",
-      image: "linear-gradient(135deg, #dc2626, #b91c1c)"
+      image: "url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"
     }
   ];
 
@@ -212,7 +215,7 @@ const Menu = () => {
     : menuItems.filter(item => item.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="menu-page-container">
       {/* Success Notification */}
       {notification && (
         <div className="cart-notification">
@@ -287,23 +290,32 @@ const Menu = () => {
           <div className="special-offers-content">
             <h2 className="special-offers-title">Special Offers</h2>
             <div className="offers-grid">
-              <div className="offer-card">
-                <div className="offer-icon">🍽️</div>
-                <h3 className="offer-title">Family Dinner</h3>
-                <p className="offer-description">Get 20% off when you order for 4 or more people</p>
-                <span className="offer-code">Code: FAMILY20</span>
+              <div className="offer-card family-offer">
+                <div className="offer-image"></div>
+                <div className="offer-content">
+                  <div className="offer-icon">🍽️</div>
+                  <h3 className="offer-title">Family Dinner</h3>
+                  <p className="offer-description">Get 20% off when you order for 4 or more people</p>
+                  <span className="offer-code">Code: FAMILY20</span>
+                </div>
               </div>
-              <div className="offer-card">
-                <div className="offer-icon">🍷</div>
-                <h3 className="offer-title">Wine Wednesday</h3>
-                <p className="offer-description">50% off all wine bottles every Wednesday</p>
-                <span className="offer-code">Code: WINE50</span>
+              <div className="offer-card wine-offer">
+                <div className="offer-image"></div>
+                <div className="offer-content">
+                  <div className="offer-icon">🍷</div>
+                  <h3 className="offer-title">Wine Wednesday</h3>
+                  <p className="offer-description">50% off all wine bottles every Wednesday</p>
+                  <span className="offer-code">Code: WINE50</span>
+                </div>
               </div>
-              <div className="offer-card">
-                <div className="offer-icon">🎂</div>
-                <h3 className="offer-title">Dessert Combo</h3>
-                <p className="offer-description">Buy 2 desserts and get 1 free</p>
-                <span className="offer-code">Code: DESSERT3</span>
+              <div className="offer-card dessert-offer">
+                <div className="offer-image"></div>
+                <div className="offer-content">
+                  <div className="offer-icon">🎂</div>
+                  <h3 className="offer-title">Dessert Combo</h3>
+                  <p className="offer-description">Buy 2 desserts and get 1 free</p>
+                  <span className="offer-code">Code: DESSERT3</span>
+                </div>
               </div>
             </div>
           </div>

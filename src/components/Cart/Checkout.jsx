@@ -5,7 +5,8 @@ const Checkout = ({ cart, onBackToCart, onCompleteOrder }) => {
   const [customerInfo, setCustomerInfo] = useState({
     fullName: '',
     phoneNumber: '',
-    orderType: 'Dine-in'
+    orderType: 'Dine-in',
+    tableNumber: ''
   });
   const [errors, setErrors] = useState({});
 
@@ -24,6 +25,13 @@ const Checkout = ({ cart, onBackToCart, onCompleteOrder }) => {
       newErrors.phoneNumber = 'Phone number is required';
     } else if (!/^\+?[\d\s\-\(\)]{10,}$/.test(customerInfo.phoneNumber)) {
       newErrors.phoneNumber = 'Please enter a valid phone number';
+    }
+
+    // Validate table number for dine-in orders
+    if (customerInfo.orderType === 'Dine-in' && !customerInfo.tableNumber.trim()) {
+      newErrors.tableNumber = 'Table number is required for dine-in orders';
+    } else if (customerInfo.orderType === 'Dine-in' && customerInfo.tableNumber.trim() && !/^\d+$/.test(customerInfo.tableNumber.trim())) {
+      newErrors.tableNumber = 'Please enter a valid table number';
     }
 
     return newErrors;
@@ -123,6 +131,22 @@ const Checkout = ({ cart, onBackToCart, onCompleteOrder }) => {
                 </select>
               </div>
 
+              {customerInfo.orderType === 'Dine-in' && (
+                <div className="form-group">
+                  <label htmlFor="tableNumber">Table Number *</label>
+                  <input
+                    type="text"
+                    id="tableNumber"
+                    name="tableNumber"
+                    value={customerInfo.tableNumber}
+                    onChange={handleInputChange}
+                    className={errors.tableNumber ? 'error' : ''}
+                    placeholder="Enter table number (e.g., 5)"
+                  />
+                  {errors.tableNumber && <span className="error-message">{errors.tableNumber}</span>}
+                </div>
+              )}
+
               <button type="submit" className="complete-order-btn">
                 Complete Order
               </button>
@@ -163,6 +187,9 @@ const Checkout = ({ cart, onBackToCart, onCompleteOrder }) => {
 
             <div className="order-type-info">
               <p><strong>Order Type:</strong> {customerInfo.orderType}</p>
+              {customerInfo.orderType === 'Dine-in' && customerInfo.tableNumber && (
+                <p><strong>Table Number:</strong> {customerInfo.tableNumber}</p>
+              )}
               {customerInfo.orderType === 'Delivery' && (
                 <p className="delivery-note">
                   <em>Delivery charges may apply. Please confirm with restaurant.</em>
