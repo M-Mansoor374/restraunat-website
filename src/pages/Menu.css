@@ -12,28 +12,46 @@
   overflow-y: auto;
   z-index: 1000;
   padding-top: 80px; /* Account for fixed header */
+  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 50%, #dcfce7 100%);
+  background-attachment: fixed;
 }
 
 /* Cart Notification */
 .cart-notification {
   position: fixed;
-  top: 100px;
-  right: 20px;
+  top: 110px;
+  right: 30px;
   background: linear-gradient(135deg, #10b981, #059669);
   color: white;
-  padding: 16px 24px;
-  border-radius: 12px;
+  padding: 18px 28px;
+  border-radius: 16px;
   box-shadow: 
-    0 10px 40px rgba(16, 185, 129, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
+    0 10px 40px rgba(16, 185, 129, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.2);
   font-weight: 600;
   font-size: 1rem;
-  z-index: 9999;
-  animation: slideInRight 0.3s ease-out, fadeOut 0.3s ease-in 2.7s forwards;
+  z-index: 10000;
+  animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1), fadeOut 0.4s ease-in 2.6s forwards;
   display: flex;
   align-items: center;
-  gap: 8px;
-  min-width: 250px;
+  gap: 10px;
+  min-width: 280px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.cart-notification::before {
+  content: '✓';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 @keyframes slideInRight {
@@ -61,12 +79,19 @@
 /* Responsive Notification */
 @media (max-width: 768px) {
   .cart-notification {
-    top: 80px;
-    right: 10px;
-    left: 10px;
+    top: 90px;
+    right: 15px;
+    left: 15px;
     min-width: auto;
-    font-size: 0.9rem;
-    padding: 14px 18px;
+    font-size: 0.95rem;
+    padding: 16px 20px;
+    border-radius: 14px;
+  }
+  
+  .cart-notification::before {
+    width: 22px;
+    height: 22px;
+    font-size: 13px;
   }
 }
 
@@ -99,13 +124,13 @@
 
 /* Menu Categories Section */
 .menu-categories-section {
-  background: white;
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
   padding: 2rem 0;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 2px solid #4CAF50;
   position: sticky;
   top: 0;
   z-index: 10;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15);
 }
 
 .menu-categories {
@@ -150,7 +175,7 @@
 /* Menu Items Section */
 .menu-items-section {
   padding: 4rem 0;
-  background: #f8fafc;
+  background: transparent;
 }
 
 .menu-grid {
@@ -290,7 +315,7 @@
 
 /* Special Offers Section */
 .special-offers-section {
-  background: white;
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 50%, #dcfce7 100%);
   padding: 4rem 0;
 }
 
@@ -1356,22 +1381,36 @@
   
   .cart-notification {
     /* Better positioning on mobile */
-    top: 80px;
-    right: 10px;
-    left: 10px;
+    top: 90px;
+    right: 12px;
+    left: 12px;
     min-width: auto;
     font-size: 0.9rem;
-    padding: 12px 16px;
+    padding: 14px 18px;
+    border-radius: 12px;
+  }
+  
+  .cart-notification::before {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
   }
 }
 
 @media (max-width: 575px) {
   .cart-notification {
-    top: 70px;
-    right: 8px;
-    left: 8px;
-    font-size: 0.85rem;
-    padding: 10px 14px;
+    top: 80px;
+    right: 10px;
+    left: 10px;
+    font-size: 0.88rem;
+    padding: 12px 16px;
+    border-radius: 10px;
+  }
+  
+  .cart-notification::before {
+    width: 18px;
+    height: 18px;
+    font-size: 11px;
   }
   
   .menu-item-btn {
@@ -1381,11 +1420,18 @@
 
 @media (max-width: 320px) {
   .cart-notification {
-    top: 65px;
-    right: 6px;
-    left: 6px;
-    font-size: 0.8rem;
-    padding: 8px 12px;
+    top: 75px;
+    right: 8px;
+    left: 8px;
+    font-size: 0.82rem;
+    padding: 10px 14px;
+    border-radius: 8px;
+  }
+  
+  .cart-notification::before {
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
   }
   
   .menu-item-btn {
