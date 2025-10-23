@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import Logo from "./Logo";
 import "./Header.css";
 
 
@@ -43,10 +44,8 @@ const Header = ({ user, onLogout }) => {
     <header className="header">
       {/* Logo section */}
       <div className="logo-section" onClick={handleLogoClick}>
-        <div className="logo">
-          <span className="logo-text">R</span>
-        </div>
-        <h1 className="title">Restaurant</h1>
+        <Logo size="medium" showText={true} />
+        <h1 className="title">POS Restaurant</h1>
       </div>
 
       {/* Header Actions */}

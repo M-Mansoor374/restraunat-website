@@ -1,0 +1,269 @@
+/* Logo Container */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.logo-container:hover {
+  transform: translateY(-1px);
+}
+
+/* Logo Icon */
+.logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #20B2AA 0%, #17a2b8 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(32, 178, 170, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.logo-container:hover .logo-icon {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(32, 178, 170, 0.3);
+}
+
+.logo-svg {
+  display: block;
+  transition: all 0.3s ease;
+}
+
+/* Logo Text */
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.company-name {
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.apex {
+  color: #ffffff;
+}
+
+.ums {
+  color: #20B2AA;
+}
+
+.technologies {
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.tech {
+  color: #ffffff;
+}
+
+.ologies {
+  color: #20B2AA;
+}
+
+/* Size Variations */
+.logo-small .logo-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.logo-small .logo-svg {
+  width: 24px;
+  height: 24px;
+}
+
+.logo-small .company-name {
+  font-size: 1rem;
+}
+
+.logo-small .technologies {
+  font-size: 0.7rem;
+}
+
+.logo-medium .logo-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+}
+
+.logo-medium .logo-svg {
+  width: 30px;
+  height: 30px;
+}
+
+.logo-medium .company-name {
+  font-size: 1.2rem;
+}
+
+.logo-medium .technologies {
+  font-size: 0.8rem;
+}
+
+.logo-large .logo-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+}
+
+.logo-large .logo-svg {
+  width: 36px;
+  height: 36px;
+}
+
+.logo-large .company-name {
+  font-size: 1.4rem;
+}
+
+.logo-large .technologies {
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+  .logo-container {
+    gap: 8px;
+  }
+  
+  .logo-small .logo-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+  }
+  
+  .logo-small .logo-svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .logo-small .company-name {
+    font-size: 0.9rem;
+  }
+  
+  .logo-small .technologies {
+    font-size: 0.65rem;
+  }
+  
+  .logo-medium .logo-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+  }
+  
+  .logo-medium .logo-svg {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .logo-medium .company-name {
+    font-size: 1rem;
+  }
+  
+  .logo-medium .technologies {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .logo-container {
+    gap: 6px;
+  }
+  
+  .logo-small .logo-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+  }
+  
+  .logo-small .logo-svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .logo-small .company-name {
+    font-size: 0.8rem;
+  }
+  
+  .logo-small .technologies {
+    font-size: 0.6rem;
+  }
+  
+  .logo-medium .logo-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+  }
+  
+  .logo-medium .logo-svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .logo-medium .company-name {
+    font-size: 0.9rem;
+  }
+  
+  .logo-medium .technologies {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .logo-container {
+    gap: 4px;
+  }
+  
+  .logo-small .logo-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+  }
+  
+  .logo-small .logo-svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .logo-small .company-name {
+    font-size: 0.7rem;
+  }
+  
+  .logo-small .technologies {
+    font-size: 0.55rem;
+  }
+  
+  .logo-medium .logo-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+  }
+  
+  .logo-medium .logo-svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .logo-medium .company-name {
+    font-size: 0.8rem;
+  }
+  
+  .logo-medium .technologies {
+    font-size: 0.6rem;
+  }
+}
