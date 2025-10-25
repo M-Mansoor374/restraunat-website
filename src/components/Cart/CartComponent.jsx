@@ -48,7 +48,7 @@ const CartComponent = ({ cart, onUpdateQuantity, onRemoveItem, onClearCart, onPr
             className="back-to-home-btn"
             onClick={() => window.location.href = '/'}
             style={{
-              background: '#4CAF50',
+              background: '#20B2AA',
               color: 'white',
               border: 'none',
               padding: '12px 24px',

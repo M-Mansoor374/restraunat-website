@@ -1,16 +1,16 @@
 /* Restaurant App Main Styles */
 .restaurant-app {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, #f0f8ff 0%, #e0f2ff 100%);
   font-family: 'Poppins', sans-serif;
   padding-top: 100px; /* Clear global fixed header */
 }
 
 .app-header {
-  background: linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%);
+  background: linear-gradient(135deg, #20B2AA 0%, #17a2b8 100%);
   color: white;
   padding: 20px 0;
-  box-shadow: 0 4px 20px rgba(46, 125, 50, 0.3);
+  box-shadow: 0 4px 20px rgba(32, 178, 170, 0.3);
   position: sticky;
   top: 80px; /* Stick below global header */
   z-index: 100;

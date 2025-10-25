@@ -17,7 +17,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
-  color: #1a202c;
+  color: #000000;
   background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%);
   background-attachment: fixed;
   overflow-x: hidden;
@@ -129,11 +129,11 @@ html {
   }
   
   ::-webkit-scrollbar-thumb {
-    background: #4CAF50;
+    background: #20B2AA;
   }
   
   ::-webkit-scrollbar-thumb:hover {
-    background: #2E7D32;
+    background: #17a2b8;
   }
 }
 
@@ -212,7 +212,7 @@ html {
   flex: 1;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #2d5016 0%, #4a7c59 25%, #8bc34a 75%, #4caf50 100%);
+  background: linear-gradient(135deg, #0d7377 0%, #17a2b8 25%, #17a2b8 75%, #20B2AA 100%);
 }
 
 .auth-half-permanent {
@@ -387,7 +387,7 @@ html {
   }
   
   .gradient-text {
-    background: linear-gradient(45deg, #4CAF50, #2E7D32, #1B5E20);
+    background: linear-gradient(45deg, #20B2AA, #17a2b8, #0d7377);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -432,7 +432,7 @@ html {
 
 /* Focus visible for accessibility */
 *:focus-visible {
-  outline: 2px solid #4CAF50;
+  outline: 2px solid #20B2AA;
   outline-offset: 2px;
 }
 
@@ -441,7 +441,7 @@ html {
   position: absolute;
   top: -40px;
   left: 6px;
-  background: #4CAF50;
+  background: #20B2AA;
   color: white;
   padding: 8px;
   text-decoration: none;

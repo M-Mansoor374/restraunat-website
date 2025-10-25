@@ -221,7 +221,7 @@ const Menu = () => {
   };
 
   return (
-    <div className="menu-page-container">
+    <div className="menu-page-container page-container">
       {/* Success Notification */}
       {notification && (
         <div className="cart-notification">

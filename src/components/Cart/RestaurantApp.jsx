@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CartComponent from './CartComponent';
 import Checkout from './Checkout';
 import Receipt from './Receipt';
+import { trackOrder } from '../../utils/orderTracking';
 
 const RestaurantApp = () => {
   const [currentView, setCurrentView] = useState('cart'); // Always start with cart view
@@ -101,6 +102,14 @@ const RestaurantApp = () => {
     const existingOrders = JSON.parse(localStorage.getItem('restaurantOrders') || '[]');
     existingOrders.push(orderInfo);
     localStorage.setItem('restaurantOrders', JSON.stringify(existingOrders));
+    
+    // Track order for MyAccount analytics
+    trackOrder({
+      totalAmount: orderInfo.total,
+      items: orderInfo.items || cart,
+      orderId: orderInfo.orderId,
+      timestamp: orderInfo.timestamp
+    });
     
     // Clear cart after successful order
     setCart([]);

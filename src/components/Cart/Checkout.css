@@ -56,8 +56,8 @@
   align-items: center;
   gap: 8px;
   background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
-  color: #4CAF50;
-  border: 2px solid #4CAF50;
+  color: #20B2AA;
+  border: 2px solid #20B2AA;
   border-radius: 12px;
   padding: 12px 24px;
   font-family: 'Poppins', sans-serif;
@@ -70,7 +70,7 @@
 }
 
 .back-btn:hover {
-  background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+  background: linear-gradient(135deg, #20B2AA 0%, #17a2b8 100%);
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
@@ -95,7 +95,7 @@
 .checkout-header h2 {
   font-size: 2.5rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%);
+  background: linear-gradient(135deg, #17a2b8 0%, #20B2AA 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -161,7 +161,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #4CAF50 0%, #2E7D32 100%);
+  background: linear-gradient(90deg, #20B2AA 0%, #17a2b8 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -188,14 +188,14 @@
 }
 
 .card-header svg {
-  color: #4CAF50;
+  color: #20B2AA;
   flex-shrink: 0;
 }
 
 .card-header h3 {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #2E7D32;
+  color: #17a2b8;
   margin: 0;
   letter-spacing: -0.3px;
 }
@@ -227,14 +227,14 @@
   align-items: center;
   gap: 8px;
   font-weight: 600;
-  color: #2E7D32;
+  color: #17a2b8;
   margin-bottom: 10px;
   font-size: 0.95rem;
   letter-spacing: 0.2px;
 }
 
 .form-group label svg {
-  color: #4CAF50;
+  color: #20B2AA;
   flex-shrink: 0;
 }
 
@@ -257,7 +257,7 @@
 }
 
 .form-group input:focus, .form-group select:focus {
-  border-color: #4CAF50;
+  border-color: #20B2AA;
   background: white;
   box-shadow: 
     0 0 0 4px rgba(76, 175, 80, 0.1),
@@ -312,7 +312,7 @@
 .complete-order-btn {
   width: 100%;
   padding: 20px;
-  background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+  background: linear-gradient(135deg, #20B2AA 0%, #17a2b8 100%);
   color: white;
   border: none;
   border-radius: 16px;
@@ -388,7 +388,7 @@
 }
 
 .order-items::-webkit-scrollbar-thumb {
-  background: #4CAF50;
+  background: #20B2AA;
   border-radius: 10px;
 }
 
@@ -404,7 +404,7 @@
 .summary-item:hover {
   background: linear-gradient(90deg, rgba(76, 175, 80, 0.05) 0%, transparent 100%);
   padding-left: 10px;
-  border-bottom-color: #4CAF50;
+  border-bottom-color: #20B2AA;
 }
 
 .summary-item:last-child {
@@ -419,7 +419,7 @@
 
 .item-name {
   font-weight: 600;
-  color: #2E7D32;
+  color: #17a2b8;
   font-size: 1rem;
 }
 
@@ -431,7 +431,7 @@
 
 .item-price {
   font-weight: 700;
-  color: #4CAF50;
+  color: #20B2AA;
   font-size: 1.05rem;
 }
 
@@ -466,7 +466,7 @@
 
 .total-row span:last-child {
   font-weight: 700;
-  color: #2E7D32;
+  color: #17a2b8;
 }
 
 .final-total {
@@ -474,7 +474,7 @@
   font-weight: 800;
   padding-top: 20px;
   margin-top: 10px;
-  border-top: 3px solid #4CAF50;
+  border-top: 3px solid #20B2AA;
   background: linear-gradient(90deg, rgba(76, 175, 80, 0.08) 0%, transparent 100%);
   padding: 20px;
   margin-left: -20px;
@@ -483,12 +483,12 @@
 }
 
 .final-total span:first-child {
-  color: #2E7D32;
+  color: #17a2b8;
 }
 
 .final-total span:last-child {
   font-size: 1.6rem;
-  background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+  background: linear-gradient(135deg, #20B2AA 0%, #17a2b8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -511,12 +511,12 @@
   left: 0;
   width: 4px;
   height: 100%;
-  background: linear-gradient(180deg, #4CAF50 0%, #2E7D32 100%);
+  background: linear-gradient(180deg, #20B2AA 0%, #17a2b8 100%);
 }
 
 .order-type-info p {
   margin: 0 0 12px 0;
-  color: #2E7D32;
+  color: #17a2b8;
   font-weight: 600;
   font-size: 0.95rem;
   padding-left: 16px;
@@ -527,7 +527,7 @@
 }
 
 .order-type-info strong {
-  color: #4CAF50;
+  color: #20B2AA;
   margin-right: 8px;
 }
 
@@ -904,6 +904,6 @@
 .form-group select:focus-visible,
 .complete-order-btn:focus-visible,
 .back-btn:focus-visible {
-  outline: 3px solid #4CAF50;
+  outline: 3px solid #20B2AA;
   outline-offset: 2px;
 }

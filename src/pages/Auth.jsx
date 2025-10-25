@@ -12,6 +12,7 @@ const Auth = ({ onAuthSuccess }) => {
   });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleToggle = (loginState) => {
     setIsLogin(loginState);
@@ -75,51 +76,63 @@ const Auth = ({ onAuthSuccess }) => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSuccessMessage("");
+    setErrors({});
+    setIsLoading(true);
 
     const newErrors = validateForm();
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      setIsLoading(false);
       return;
     }
 
-    // Simulate successful authentication
-    setSuccessMessage(
-      isLogin
-        ? `Login successful! Welcome back, ${formData.email.split('@')[0]}.`
-        : "Account created successfully! You can now login."
-    );
-    
-    // Create user data object
-    const userData = {
-      id: Date.now(), // Simple ID generation
-      email: formData.email,
-      name: isLogin ? formData.email.split('@')[0] : formData.fullName,
-      loginTime: new Date().toISOString(),
-      isLogin: isLogin
-    };
+    try {
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
 
-    // Call the authentication success callback after a short delay
-    setTimeout(() => {
-      if (onAuthSuccess) {
-        onAuthSuccess(userData);
-      }
+      // Simulate successful authentication
+      setSuccessMessage(
+        isLogin
+          ? `Login successful! Welcome back, ${formData.email.split('@')[0]}.`
+          : "Account created successfully! You can now login."
+      );
       
-      // Reset form
-      setFormData({
-        fullName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
-      setSuccessMessage("");
-      if (!isLogin) {
-        setIsLogin(true); // Switch to login after signup
-      }
-    }, 2000);
+      // Create user data object
+      const userData = {
+        id: Date.now(), // Simple ID generation
+        email: formData.email,
+        name: isLogin ? formData.email.split('@')[0] : formData.fullName,
+        loginTime: new Date().toISOString(),
+        isLogin: isLogin
+      };
+
+      // Call the authentication success callback after a short delay
+      setTimeout(() => {
+        if (onAuthSuccess) {
+          onAuthSuccess(userData);
+        }
+        
+        // Reset form
+        setFormData({
+          fullName: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
+        setSuccessMessage("");
+        if (!isLogin) {
+          setIsLogin(true); // Switch to login after signup
+        }
+      }, 2000);
+    } catch (error) {
+      setErrors({ general: "An error occurred. Please try again." });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -132,7 +145,11 @@ const Auth = ({ onAuthSuccess }) => {
         <div className="auth-card">
           {/* Logo */}
           <div className="auth-logo">
-            <div className="logo-placeholder">🍽️</div>
+            <img 
+              src="/logo.jpg" 
+              alt="APEXIUMS TECHNOLOGIES Logo"
+              className="auth-logo-img"
+            />
           </div>
 
           {/* Header */}
@@ -173,6 +190,25 @@ const Auth = ({ onAuthSuccess }) => {
                 />
               </svg>
               {successMessage}
+            </div>
+          )}
+
+          {/* General Error Message */}
+          {errors.general && (
+            <div className="error-message-general">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM11 15H9V13H11V15ZM11 11H9V5H11V11Z"
+                  fill="currentColor"
+                />
+              </svg>
+              {errors.general}
             </div>
           )}
 
@@ -258,8 +294,19 @@ const Auth = ({ onAuthSuccess }) => {
             )}
 
             {/* Submit Button */}
-            <button type="submit" className="auth-submit-btn">
-              {isLogin ? "Login" : "Sign Up"}
+            <button 
+              type="submit" 
+              className={`auth-submit-btn ${isLoading ? 'loading' : ''}`}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <span className="loading-spinner"></span>
+                  {isLogin ? "Logging in..." : "Creating Account..."}
+                </>
+              ) : (
+                isLogin ? "Login" : "Sign Up"
+              )}
             </button>
           </form>
 

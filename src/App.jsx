@@ -131,14 +131,16 @@ function App() {
   return (
     <>
       <Header user={user} onLogout={handleLogout} />
-      <Routes>
-        <Route path="/" element={<Navigate to="/menu" replace />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/my-account" element={<MyAccount user={user} />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/terms-of-service" element={<TermsOfService />} />
-        <Route path="/cart" element={<Cart />} />
-      </Routes>
+      <div className="main-content">
+        <Routes>
+          <Route path="/" element={<Navigate to="/menu" replace />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/my-account" element={<MyAccount user={user} />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+      </div>
     </>
   );
 }

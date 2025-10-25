@@ -1,28 +1,134 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { resetSalesData } from '../utils/orderTracking';
 import './MyAccount.css';
 
 const MyAccount = ({ user = {} }) => {
   const [activeTab, setActiveTab] = useState('daily');
+  const [salesData, setSalesData] = useState({
+    daily: [],
+    monthly: []
+  });
 
-  // Sample sales data - you can replace this with real data from your backend
-  const dailySales = [
-    { date: '2025-10-20', orders: 45, revenue: 350140, change: '+12%' },
-    { date: '2025-10-19', orders: 52, revenue: 406210, change: '+8%' },
-    { date: '2025-10-18', orders: 38, revenue: 274470, change: '-5%' },
-    { date: '2025-10-17', orders: 61, revenue: 470400, change: '+15%' },
-    { date: '2025-10-16', orders: 55, revenue: 425740, change: '+3%' },
-    { date: '2025-10-15', orders: 48, revenue: 375270, change: '+7%' },
-    { date: '2025-10-14', orders: 42, revenue: 322210, change: '-2%' }
-  ];
+  // Initialize with zero data
+  const initializeZeroData = () => {
+    const today = new Date();
+    const dailyData = [];
+    const monthlyData = [];
 
-  const monthlySales = [
-    { month: 'October 2025', orders: 1245, revenue: 9917740, change: '+18%' },
-    { month: 'September 2025', orders: 1180, revenue: 9310210, change: '+12%' },
-    { month: 'August 2025', orders: 1320, revenue: 10609270, change: '+25%' },
-    { month: 'July 2025', orders: 1410, revenue: 11235000, change: '+8%' },
-    { month: 'June 2025', orders: 1290, revenue: 10287340, change: '+15%' },
-    { month: 'May 2025', orders: 1350, revenue: 10796870, change: '+22%' }
-  ];
+    // Generate last 7 days with zero data
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
+      dailyData.push({
+        date: date.toISOString().split('T')[0],
+        orders: 0,
+        revenue: 0,
+        change: '0%'
+      });
+    }
+
+    // Generate last 6 months with zero data
+    for (let i = 5; i >= 0; i--) {
+      const date = new Date(today);
+      date.setMonth(date.getMonth() - i);
+      monthlyData.push({
+        month: date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+        orders: 0,
+        revenue: 0,
+        change: '0%'
+      });
+    }
+
+    return { daily: dailyData, monthly: monthlyData };
+  };
+
+  // Load sales data from localStorage or initialize with zero data
+  useEffect(() => {
+    const loadSalesData = () => {
+      try {
+        const savedData = localStorage.getItem('restaurantSalesData');
+        if (savedData) {
+          const parsedData = JSON.parse(savedData);
+          setSalesData(parsedData);
+        } else {
+          const zeroData = initializeZeroData();
+          setSalesData(zeroData);
+          localStorage.setItem('restaurantSalesData', JSON.stringify(zeroData));
+        }
+      } catch (error) {
+        console.error('Error loading sales data:', error);
+        const zeroData = initializeZeroData();
+        setSalesData(zeroData);
+      }
+    };
+
+    loadSalesData();
+  }, []);
+
+  // Function to update sales data when an order is placed
+  const updateSalesData = (orderAmount) => {
+    const today = new Date();
+    const todayStr = today.toISOString().split('T')[0];
+    const currentMonth = today.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+    setSalesData(prevData => {
+      const newData = { ...prevData };
+
+      // Update daily data
+      const dailyIndex = newData.daily.findIndex(day => day.date === todayStr);
+      if (dailyIndex !== -1) {
+        newData.daily[dailyIndex].orders += 1;
+        newData.daily[dailyIndex].revenue += orderAmount;
+      } else {
+        // Add new day if not exists
+        newData.daily.unshift({
+          date: todayStr,
+          orders: 1,
+          revenue: orderAmount,
+          change: '0%'
+        });
+        // Keep only last 7 days
+        newData.daily = newData.daily.slice(0, 7);
+      }
+
+      // Update monthly data
+      const monthlyIndex = newData.monthly.findIndex(month => month.month === currentMonth);
+      if (monthlyIndex !== -1) {
+        newData.monthly[monthlyIndex].orders += 1;
+        newData.monthly[monthlyIndex].revenue += orderAmount;
+      } else {
+        // Add new month if not exists
+        newData.monthly.unshift({
+          month: currentMonth,
+          orders: 1,
+          revenue: orderAmount,
+          change: '0%'
+        });
+        // Keep only last 6 months
+        newData.monthly = newData.monthly.slice(0, 6);
+      }
+
+      // Save to localStorage
+      localStorage.setItem('restaurantSalesData', JSON.stringify(newData));
+      return newData;
+    });
+  };
+
+  // Listen for order events (this would be called when an order is placed)
+  useEffect(() => {
+    const handleOrderPlaced = (event) => {
+      const { orderAmount } = event.detail;
+      if (orderAmount) {
+        updateSalesData(orderAmount);
+      }
+    };
+
+    window.addEventListener('orderPlaced', handleOrderPlaced);
+    return () => window.removeEventListener('orderPlaced', handleOrderPlaced);
+  }, []);
+
+  const dailySales = salesData.daily;
+  const monthlySales = salesData.monthly;
 
   // Calculate totals with safety checks
   const dailyTotal = dailySales.reduce((sum, day) => sum + (day.revenue || 0), 0);
@@ -36,6 +142,42 @@ const MyAccount = ({ user = {} }) => {
   
   // Safe average calculation to prevent division by zero
   const averageOrderValue = totalOrders > 0 ? Math.round(currentTotal / totalOrders) : 0;
+
+  // Calculate change percentages
+  const calculateChangePercentage = (current, previous) => {
+    if (previous === 0) return current > 0 ? '+100%' : '0%';
+    const change = ((current - previous) / previous) * 100;
+    return change >= 0 ? `+${change.toFixed(1)}%` : `${change.toFixed(1)}%`;
+  };
+
+  // Get previous period data for comparison
+  const getPreviousPeriodData = () => {
+    if (activeTab === 'daily') {
+      const yesterday = dailySales[1] || { orders: 0, revenue: 0 };
+      return yesterday;
+    } else {
+      const lastMonth = monthlySales[1] || { orders: 0, revenue: 0 };
+      return lastMonth;
+    }
+  };
+
+  const previousData = getPreviousPeriodData();
+  const revenueChange = calculateChangePercentage(currentTotal, previousData.revenue);
+  const ordersChange = calculateChangePercentage(totalOrders, previousData.orders);
+  
+  // Calculate average order value change
+  const previousAvgOrderValue = previousData.orders > 0 ? Math.round(previousData.revenue / previousData.orders) : 0;
+  const avgOrderValueChange = calculateChangePercentage(averageOrderValue, previousAvgOrderValue);
+
+  // Function to reset sales data
+  const handleResetData = () => {
+    if (window.confirm('Are you sure you want to reset all sales data? This action cannot be undone.')) {
+      resetSalesData();
+      const zeroData = initializeZeroData();
+      setSalesData(zeroData);
+      localStorage.setItem('restaurantSalesData', JSON.stringify(zeroData));
+    }
+  };
 
   return (
     <div className="my-account-page">
@@ -80,11 +222,11 @@ const MyAccount = ({ user = {} }) => {
                 <div className="stat-details">
                   <p className="stat-label">Total Revenue</p>
                   <h2 className="stat-value">PKR {currentTotal.toLocaleString()}</h2>
-                  <div className="stat-change positive">
+                  <div className={`stat-change ${revenueChange.startsWith('+') ? 'positive' : 'negative'}`}>
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M7 14L12 9L17 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
-                    +12.5% from last period
+                    {revenueChange} from last period
                   </div>
                 </div>
               </div>
@@ -99,11 +241,11 @@ const MyAccount = ({ user = {} }) => {
                 <div className="stat-details">
                   <p className="stat-label">Total Orders</p>
                   <h2 className="stat-value">{totalOrders.toLocaleString()}</h2>
-                  <div className="stat-change positive">
+                  <div className={`stat-change ${ordersChange.startsWith('+') ? 'positive' : 'negative'}`}>
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M7 14L12 9L17 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
-                    +8.2% from last period
+                    {ordersChange} from last period
                   </div>
                 </div>
               </div>
@@ -117,11 +259,11 @@ const MyAccount = ({ user = {} }) => {
                 <div className="stat-details">
                   <p className="stat-label">Average Order Value</p>
                   <h2 className="stat-value">PKR {averageOrderValue.toLocaleString()}</h2>
-                  <div className="stat-change positive">
+                  <div className={`stat-change ${avgOrderValueChange.startsWith('+') ? 'positive' : 'negative'}`}>
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M7 14L12 9L17 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
-                    +4.1% from last period
+                    {avgOrderValueChange} from last period
                   </div>
                 </div>
               </div>
@@ -132,24 +274,38 @@ const MyAccount = ({ user = {} }) => {
           <div className="sales-section">
             <div className="sales-header">
               <h2>Sales Analytics</h2>
-              <div className="tab-buttons" role="tablist" aria-label="Sales data view options">
+              <div className="header-actions">
+                <div className="tab-buttons" role="tablist" aria-label="Sales data view options">
+                  <button 
+                    className={`tab-btn ${activeTab === 'daily' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('daily')}
+                    role="tab"
+                    aria-selected={activeTab === 'daily'}
+                    aria-controls="sales-table"
+                  >
+                    Daily Sales
+                  </button>
+                  <button 
+                    className={`tab-btn ${activeTab === 'monthly' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('monthly')}
+                    role="tab"
+                    aria-selected={activeTab === 'monthly'}
+                    aria-controls="sales-table"
+                  >
+                    Monthly Sales
+                  </button>
+                </div>
                 <button 
-                  className={`tab-btn ${activeTab === 'daily' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('daily')}
-                  role="tab"
-                  aria-selected={activeTab === 'daily'}
-                  aria-controls="sales-table"
+                  className="reset-btn"
+                  onClick={handleResetData}
+                  title="Reset all sales data"
                 >
-                  Daily Sales
-                </button>
-                <button 
-                  className={`tab-btn ${activeTab === 'monthly' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('monthly')}
-                  role="tab"
-                  aria-selected={activeTab === 'monthly'}
-                  aria-controls="sales-table"
-                >
-                  Monthly Sales
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 4V10H7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M23 20V14H17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10M23 14L18.36 18.36A9 9 0 0 1 3.51 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  Reset Data
                 </button>
               </div>
             </div>

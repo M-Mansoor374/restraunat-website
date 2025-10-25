@@ -133,14 +133,14 @@ const Receipt = ({ orderData, onBackToMenu, onPrintReceipt }) => {
             GreenLeaf Bistro<br />
             123 Healthy Street<br />
             Green City, GC 12345<br />
-            Phone: (555) 123-4567
+            Phone: <strong>03405542097</strong>
           </p>
           <div className="receipt-divider"></div>
           <p className="receipt-note">
             Please keep this receipt for your records
           </p>
           <p className="made-by">
-            made by APEXIUMS TECHNOLOGIES
+            <strong>A system by APEXIUMS TECHNOLOGIES</strong>
           </p>
         </div>
       </div>
