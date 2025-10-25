@@ -43,14 +43,21 @@ const RestaurantApp = () => {
         try {
           const cartData = JSON.parse(updatedCart);
           console.log('Parsed cart data:', cartData);
+          console.log('Cart length:', cartData.length);
           console.log('Setting cart state to:', cartData);
           setCart(cartData);
           console.log('Cart state updated successfully');
+          
+          // Force a re-render by logging current state
+          setTimeout(() => {
+            console.log('Current cart state after update:', cart);
+          }, 100);
         } catch (error) {
           console.error('Error parsing updated cart:', error);
         }
       } else {
         console.log('No cart data found in localStorage');
+        setCart([]);
       }
       console.log('=== END CART UPDATE EVENT ===');
     };
@@ -64,7 +71,30 @@ const RestaurantApp = () => {
 
   // Save cart to localStorage whenever cart changes
   useEffect(() => {
+    console.log('Cart state changed, saving to localStorage:', cart);
     localStorage.setItem('restaurantCart', JSON.stringify(cart));
+  }, [cart]);
+
+  // Force refresh cart from localStorage every 2 seconds (for debugging)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const savedCart = localStorage.getItem('restaurantCart');
+      if (savedCart) {
+        try {
+          const cartData = JSON.parse(savedCart);
+          if (JSON.stringify(cartData) !== JSON.stringify(cart)) {
+            console.log('Cart mismatch detected, refreshing from localStorage');
+            console.log('localStorage cart:', cartData);
+            console.log('Current cart state:', cart);
+            setCart(cartData);
+          }
+        } catch (error) {
+          console.error('Error refreshing cart from localStorage:', error);
+        }
+      }
+    }, 2000);
+
+    return () => clearInterval(interval);
   }, [cart]);
 
   const updateQuantity = (itemId, newQuantity) => {
@@ -123,12 +153,22 @@ const RestaurantApp = () => {
       return;
     }
     
+    // Track order when printing receipt
+    if (orderData) {
+      trackOrder({
+        totalAmount: orderData.total,
+        items: orderData.items || cart,
+        orderId: orderData.orderId,
+        timestamp: orderData.timestamp
+      });
+    }
+    
     // Create a new window for printing
     const printWindow = window.open('', '_blank');
     printWindow.document.write(`
       <html>
         <head>
-          <title>Receipt - GreenLeaf Bistro</title>
+          <title>Receipt - APEXIUMS TECHNOLOGIES</title>
           <style>
             body { 
               font-family: 'Courier New', monospace; 
@@ -174,7 +214,7 @@ const RestaurantApp = () => {
       setTimeout(() => {
         printWindow.print();
         printWindow.close();
-        alert('Receipt printed successfully!');
+        alert('Receipt printed successfully! Order tracked in dashboard.');
       }, 500);
     };
   };
@@ -186,6 +226,29 @@ const RestaurantApp = () => {
   const getSubtotal = () => {
     return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   };
+
+  // Manual refresh function for debugging
+  const refreshCart = () => {
+    console.log('=== MANUAL CART REFRESH ===');
+    const savedCart = localStorage.getItem('restaurantCart');
+    console.log('localStorage cart:', savedCart);
+    if (savedCart) {
+      try {
+        const cartData = JSON.parse(savedCart);
+        console.log('Setting cart to:', cartData);
+        setCart(cartData);
+      } catch (error) {
+        console.error('Error refreshing cart:', error);
+      }
+    }
+  };
+
+  // Debug: Log current cart state on every render
+  console.log('=== CART RENDER DEBUG ===');
+  console.log('Current cart state:', cart);
+  console.log('Cart length:', cart.length);
+  console.log('Cart items:', cart.map(item => ({ id: item.id, name: item.name, quantity: item.quantity })));
+  console.log('=== END CART RENDER DEBUG ===');
 
   return (
     <div className="restaurant-app">
@@ -202,6 +265,21 @@ const RestaurantApp = () => {
               <span className="summary-label">Subtotal</span>
               <span className="summary-value">PKR {getSubtotal().toLocaleString()}</span>
             </div>
+            <button 
+              onClick={refreshCart}
+              style={{
+                background: '#20B2AA',
+                color: 'white',
+                border: 'none',
+                padding: '8px 12px',
+                borderRadius: '6px',
+                fontSize: '12px',
+                cursor: 'pointer',
+                marginLeft: '10px'
+              }}
+            >
+              🔄 Refresh
+            </button>
           </div>
         </div>
       </div>

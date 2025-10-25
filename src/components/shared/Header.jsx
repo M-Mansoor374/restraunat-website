@@ -47,8 +47,19 @@ const Header = ({ user, onLogout }) => {
         <Logo size="medium" showText={true} />
       </div>
 
-      {/* Header Actions */}
-      <div className="header-actions">
+      {/* Mobile Menu Toggle */}
+      <button 
+        className="mobile-menu-toggle"
+        onClick={toggleDropdown}
+        title="Menu"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 6H21V8H3V6ZM3 11H21V13H3V11ZM3 16H21V18H3V16Z" fill="white"/>
+        </svg>
+      </button>
+
+      {/* Header Actions - Desktop */}
+      <div className="header-actions desktop-actions">
         {/* Cart Button */}
         <button 
           className="cart-btn"
@@ -88,7 +99,7 @@ const Header = ({ user, onLogout }) => {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path 
-              d="M3 6H21V8H3V6ZM3 11H21V13H3V11ZM3 16H21V18H3V16Z" 
+              d="M8.1 13.34L2 19.44V21H4.56L10.66 14.9L8.1 13.34ZM21.71 7.04C22.1 6.65 22.1 6.02 21.71 5.63L19.37 3.29C18.98 2.9 18.35 2.9 17.96 3.29L15.12 6.13L17.87 8.88L21.71 7.04Z" 
               fill="white"
             />
           </svg>
@@ -174,6 +185,83 @@ const Header = ({ user, onLogout }) => {
           )}
         </div>
       </div>
+
+      {/* Mobile Dropdown Menu */}
+      {dropdownOpen && (
+        <div className="mobile-dropdown">
+          <div className="mobile-dropdown-content">
+            {/* User Info Section */}
+            {user && (
+              <div className="mobile-user-info">
+                <div className="mobile-user-avatar">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" fill="currentColor"/>
+                    <path d="M12 14C7.58172 14 4 17.5817 4 22H20C20 17.5817 16.4183 14 12 14Z" fill="currentColor"/>
+                  </svg>
+                </div>
+                <div className="mobile-user-details">
+                  <p className="mobile-user-name">Welcome back, {user.name}</p>
+                  <p className="mobile-user-email">{user.email}</p>
+                  <div className="mobile-user-status">
+                    <div className="status-dot"></div>
+                    <span>ACTIVE</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Mobile Menu Items */}
+            <div className="mobile-menu-items">
+              <div className="mobile-menu-item" onClick={() => handleMenuClick('/cart')}>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7ZM9 3V4H15V3H9ZM7 6V19H17V6H7Z" fill="currentColor"/>
+                  <path d="M9 8V17H11V8H9ZM13 8V17H15V8H13Z" fill="currentColor"/>
+                </svg>
+                <span>Cart</span>
+              </div>
+
+              <div className="mobile-menu-item" onClick={() => handleMenuClick('/menu')}>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 6H21V8H3V6ZM3 11H21V13H3V11ZM3 16H21V18H3V16Z" fill="currentColor"/>
+                </svg>
+                <span>Menu</span>
+              </div>
+
+              <div className="mobile-menu-item" onClick={() => handleMenuClick('/my-account')}>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" fill="currentColor"/>
+                  <path d="M12 14C7.58172 14 4 17.5817 4 22H20C20 17.5817 16.4183 14 12 14Z" fill="currentColor"/>
+                </svg>
+                <span>My Account</span>
+              </div>
+
+              <div className="mobile-menu-item" onClick={() => handleMenuClick('/privacy-policy')}>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1Z" fill="currentColor"/>
+                </svg>
+                <span>Privacy Policy</span>
+              </div>
+
+              <div className="mobile-menu-item" onClick={() => handleMenuClick('/terms-of-service')}>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.89 22 5.99 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
+                </svg>
+                <span>Terms of Service</span>
+              </div>
+
+              <div className="mobile-menu-divider"></div>
+
+              <div className="mobile-menu-item logout" onClick={onLogout}>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 7L15.59 8.41L18.17 11H8V13H18.17L15.59 15.59L17 17L22 12L17 7Z" fill="currentColor"/>
+                  <path d="M4 5H12V3H4C2.9 3 2 3.9 2 5V19C2 20.1 2.9 21 4 21H12V19H4V5Z" fill="currentColor"/>
+                </svg>
+                <span>Logout</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
     </header>
   );

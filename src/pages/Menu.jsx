@@ -21,7 +21,8 @@ const Menu = () => {
       price: item.price,
       quantity: 1,
       image: item.image || '🍽️',
-      description: item.description || 'Delicious item'
+      description: item.description || 'Delicious item',
+      category: item.category || 'Menu Item'
     };
     
     console.log('Processed cart item:', cartItem);

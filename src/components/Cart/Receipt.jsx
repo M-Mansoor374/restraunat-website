@@ -57,7 +57,7 @@ const Receipt = ({ orderData, onBackToMenu, onPrintReceipt }) => {
           <div className="restaurant-logo">
             <span className="logo-emoji">🌿</span>
           </div>
-          <h1 className="restaurant-name">GreenLeaf Bistro</h1>
+          <h1 className="restaurant-name">APEXIUMS TECHNOLOGIES</h1>
           <p className="restaurant-tagline">Fresh • Healthy • Delicious</p>
         </div>
 
@@ -130,17 +130,12 @@ const Receipt = ({ orderData, onBackToMenu, onPrintReceipt }) => {
           <div className="receipt-divider"></div>
           <p className="thank-you">Thank you for your order!</p>
           <p className="restaurant-info">
-            GreenLeaf Bistro<br />
-            123 Healthy Street<br />
-            Green City, GC 12345<br />
-            Phone: <strong>03405542097</strong>
+            <strong>A system by APEXIUMS TECHNOLOGIES</strong><br />
+            <strong>03405542097</strong>
           </p>
           <div className="receipt-divider"></div>
           <p className="receipt-note">
             Please keep this receipt for your records
-          </p>
-          <p className="made-by">
-            <strong>A system by APEXIUMS TECHNOLOGIES</strong>
           </p>
         </div>
       </div>

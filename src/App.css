@@ -11,7 +11,7 @@
 
 /* Main content container with proper header spacing */
 .main-content {
-  padding-top: 80px; /* Space for fixed header */
+  padding-top: 60px; /* Space for fixed header */
   min-height: 100vh;
   position: relative;
   z-index: 1;
@@ -237,25 +237,25 @@ p {
   }
   
   .main-content {
-    padding-top: 75px;
+    padding-top: 55px;
   }
 }
 
 @media (max-width: 767px) {
   .main-content {
-    padding-top: 70px;
+    padding-top: 50px;
   }
 }
 
 @media (max-width: 575px) {
   .main-content {
-    padding-top: 65px;
+    padding-top: 35px;
   }
 }
 
 @media (max-width: 320px) {
   .main-content {
-    padding-top: 60px;
+    padding-top: 30px;
   }
 }
 
