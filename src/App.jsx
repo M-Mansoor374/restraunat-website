@@ -2,13 +2,13 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Menu from "./pages/Menu.jsx";
-import Auth from "./pages/Auth.jsx";
+import Auth from "./components/forms/Auth.jsx";
 import MyAccount from "./pages/MyAccount.jsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 import TermsOfService from "./pages/TermsOfService.jsx";
-import Header from "./components/shared/Header.jsx";
+import Header from "./components/layout/Header.jsx";
 import Cart from "./components/Cart/Cart.jsx";
-import Splash from "./components/Splash/Splash.jsx";
+import Splash from "./components/ui/Splash/Splash.jsx";
 import "./App.css";
 
 function App() {

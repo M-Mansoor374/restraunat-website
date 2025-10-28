@@ -252,39 +252,6 @@ const RestaurantApp = () => {
 
   return (
     <div className="restaurant-app">
-      {/* Navigation Header */}
-      <div className="app-header">
-        <div className="header-content">
-          <h1 className="app-title">Your Cart</h1>
-          <div className="header-summary">
-            <div className="summary-badge">
-              <span className="summary-label">Items</span>
-              <span className="summary-value">{getCartItemCount()}</span>
-            </div>
-            <div className="summary-badge">
-              <span className="summary-label">Subtotal</span>
-              <span className="summary-value">PKR {getSubtotal().toLocaleString()}</span>
-            </div>
-            <button 
-              onClick={refreshCart}
-              style={{
-                background: '#20B2AA',
-                color: 'white',
-                border: 'none',
-                padding: '8px 12px',
-                borderRadius: '6px',
-                fontSize: '12px',
-                cursor: 'pointer',
-                marginLeft: '10px'
-              }}
-            >
-              🔄 Refresh
-            </button>
-          </div>
-        </div>
-      </div>
-
-
       {/* Main Content */}
       <div className="app-content">
         {currentView === 'cart' && (
