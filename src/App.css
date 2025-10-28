@@ -11,7 +11,7 @@
 
 /* Main content container with proper header spacing */
 .main-content {
-  padding-top: 60px; /* Space for fixed header */
+  padding-top: 70px; /* Space for fixed header - Desktop default */
   min-height: 100vh;
   position: relative;
   z-index: 1;
@@ -218,7 +218,7 @@ p {
   100% { left: 100%; }
 }
 
-/* Responsive root container */
+/* Responsive root container - Match header heights */
 @media (min-width: 1200px) {
   #root {
     max-width: 1400px;
@@ -226,7 +226,7 @@ p {
   }
   
   .main-content {
-    padding-top: 80px;
+    padding-top: 70px;
   }
 }
 
@@ -237,25 +237,28 @@ p {
   }
   
   .main-content {
-    padding-top: 55px;
+    padding-top: 70px;
   }
 }
 
+/* Tablet and below - header height is 46px */
+@media (max-width: 991px) {
+  .main-content {
+    padding-top: 46px;
+  }
+}
+
+/* Mobile large - header height is 44px */
 @media (max-width: 767px) {
   .main-content {
-    padding-top: 50px;
+    padding-top: 44px;
   }
 }
 
-@media (max-width: 575px) {
+/* Mobile small - header height is 42px */
+@media (max-width: 480px) {
   .main-content {
-    padding-top: 35px;
-  }
-}
-
-@media (max-width: 320px) {
-  .main-content {
-    padding-top: 30px;
+    padding-top: 42px;
   }
 }
 
