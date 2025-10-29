@@ -1,0 +1,84 @@
+/* Restaurant App Main Styles */
+.restaurant-app {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f8ff 0%, #ffffff 50%, #e0f2ff 100%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.app-content {
+  min-height: 100vh;
+  padding: 0;
+  padding-top: 110px; /* Account for fixed header */
+  width: 100%;
+}
+
+/* Responsive padding adjustments for header */
+@media (max-width: 991px) {
+  .app-content {
+    padding-top: 80px;
+  }
+}
+
+@media (max-width: 767px) {
+  .app-content {
+    padding-top: 70px;
+  }
+}
+
+@media (max-width: 575px) {
+  .app-content {
+    padding-top: 65px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-content {
+    padding-top: 60px;
+  }
+}
+
+@media (max-width: 360px) {
+  .app-content {
+    padding-top: 55px;
+  }
+}
+
+@media (max-width: 320px) {
+  .app-content {
+    padding-top: 50px;
+  }
+}
+
+/* Remove the sticky header since we have global header */
+.app-header {
+  display: none;
+}
+
+.header-content {
+  display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .restaurant-app {
+    background: linear-gradient(135deg, #f8fffe 0%, #ffffff 50%, #f0f8ff 100%);
+  }
+}
+
+@media (max-width: 480px) {
+  .restaurant-app {
+    background: white;
+  }
+}
