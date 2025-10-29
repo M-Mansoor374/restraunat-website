@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import CartComponent from './CartComponent';
 import Checkout from './Checkout';
 import Receipt from './Receipt';
@@ -8,93 +8,111 @@ const RestaurantApp = () => {
   const [currentView, setCurrentView] = useState('cart'); // Always start with cart view
   const [cart, setCart] = useState([]);
   const [orderData, setOrderData] = useState(null);
+  const isLoadingFromStorage = useRef(false);
 
-  // Load cart from localStorage on component mount
-  useEffect(() => {
-    console.log('=== CART COMPONENT MOUNTING ===');
-    console.log('RestaurantApp mounting, checking localStorage...');
-    const savedCart = localStorage.getItem('restaurantCart');
-    console.log('Raw localStorage data on mount:', savedCart);
-    
-    if (savedCart) {
-      try {
+  // Function to load cart from localStorage
+  const loadCartFromStorage = React.useCallback(() => {
+    isLoadingFromStorage.current = true;
+    try {
+      const savedCart = localStorage.getItem('restaurantCart');
+      if (savedCart) {
         const cartData = JSON.parse(savedCart);
-        console.log('Loading cart from localStorage:', cartData);
-        console.log('Setting initial cart state to:', cartData);
-        setCart(cartData);
-        console.log('Initial cart state set successfully');
-      } catch (error) {
-        console.error('Error loading cart from localStorage:', error);
-        setCart([]);
+        console.log('Loaded cart from localStorage:', cartData);
+        if (Array.isArray(cartData)) {
+          setCart(cartData);
+          setTimeout(() => {
+            isLoadingFromStorage.current = false;
+          }, 100);
+          return cartData;
+        }
       }
-    } else {
-      console.log('No cart data in localStorage, starting with empty cart');
+      // If no saved cart, set empty array
       setCart([]);
+      setTimeout(() => {
+        isLoadingFromStorage.current = false;
+      }, 100);
+      return [];
+    } catch (error) {
+      console.error('Error loading cart from localStorage:', error);
+      setCart([]);
+      setTimeout(() => {
+        isLoadingFromStorage.current = false;
+      }, 100);
+      return [];
     }
+  }, []);
 
-    // Listen for cart updates from other components
+  // Load cart from localStorage on component mount AND when window gains focus
+  useEffect(() => {
+    console.log('=== RESTAURANT APP MOUNTING ===');
+    
+    // Initial load
+    loadCartFromStorage();
+
+    // Listen for cart updates from other components (Menu page)
     const handleCartUpdate = () => {
       console.log('=== CART UPDATE EVENT RECEIVED ===');
-      console.log('Cart update event received, reloading cart...');
-      const updatedCart = localStorage.getItem('restaurantCart');
-      console.log('Raw localStorage data received:', updatedCart);
-      
-      if (updatedCart) {
-        try {
-          const cartData = JSON.parse(updatedCart);
-          console.log('Parsed cart data:', cartData);
-          console.log('Cart length:', cartData.length);
-          console.log('Setting cart state to:', cartData);
-          setCart(cartData);
-          console.log('Cart state updated successfully');
-          
-          // Force a re-render by logging current state
-          setTimeout(() => {
-            console.log('Current cart state after update:', cart);
-          }, 100);
-        } catch (error) {
-          console.error('Error parsing updated cart:', error);
-        }
-      } else {
-        console.log('No cart data found in localStorage');
-        setCart([]);
+      // Small delay to ensure localStorage is written
+      setTimeout(() => {
+        loadCartFromStorage();
+      }, 50);
+    };
+
+    // Listen for window focus (when user returns to cart tab)
+    const handleWindowFocus = () => {
+      console.log('Window focused - checking for cart updates');
+      loadCartFromStorage();
+    };
+
+    // Listen for storage events (cross-tab updates)
+    const handleStorageChange = (e) => {
+      if (e.key === 'restaurantCart') {
+        console.log('localStorage changed - reloading cart');
+        loadCartFromStorage();
       }
-      console.log('=== END CART UPDATE EVENT ===');
+    };
+
+    // Listen for visibility changes (tab becomes visible)
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        console.log('Tab became visible - checking cart');
+        loadCartFromStorage();
+      }
     };
 
     window.addEventListener('cartUpdated', handleCartUpdate);
+    window.addEventListener('focus', handleWindowFocus);
+    window.addEventListener('storage', handleStorageChange);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
     
     return () => {
       window.removeEventListener('cartUpdated', handleCartUpdate);
+      window.removeEventListener('focus', handleWindowFocus);
+      window.removeEventListener('storage', handleStorageChange);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, []);
+  }, [loadCartFromStorage]);
 
-  // Save cart to localStorage whenever cart changes
+  // Save cart to localStorage whenever cart changes (but prevent save loops during loading)
   useEffect(() => {
-    console.log('Cart state changed, saving to localStorage:', cart);
-    localStorage.setItem('restaurantCart', JSON.stringify(cart));
-  }, [cart]);
-
-  // Force refresh cart from localStorage every 2 seconds (for debugging)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const savedCart = localStorage.getItem('restaurantCart');
-      if (savedCart) {
-        try {
-          const cartData = JSON.parse(savedCart);
-          if (JSON.stringify(cartData) !== JSON.stringify(cart)) {
-            console.log('Cart mismatch detected, refreshing from localStorage');
-            console.log('localStorage cart:', cartData);
-            console.log('Current cart state:', cart);
-            setCart(cartData);
-          }
-        } catch (error) {
-          console.error('Error refreshing cart from localStorage:', error);
-        }
+    // Don't save if we're currently loading from storage (prevents race conditions)
+    if (isLoadingFromStorage.current) {
+      return;
+    }
+    
+    // Always save, even if empty
+    try {
+      const cartString = JSON.stringify(cart);
+      const existingCart = localStorage.getItem('restaurantCart');
+      
+      // Only save if different to prevent unnecessary writes
+      if (cartString !== existingCart) {
+        localStorage.setItem('restaurantCart', cartString);
+        console.log('Cart saved to localStorage:', cart);
       }
-    }, 2000);
-
-    return () => clearInterval(interval);
+    } catch (error) {
+      console.error('Error saving cart to localStorage:', error);
+    }
   }, [cart]);
 
   const updateQuantity = (itemId, newQuantity) => {
@@ -125,6 +143,17 @@ const RestaurantApp = () => {
   };
 
   const completeOrder = (orderInfo) => {
+    console.log('=== COMPLETE ORDER CALLED ===');
+    console.log('Order Info:', orderInfo);
+    console.log('Cart:', cart);
+    
+    // Validate order info
+    if (!orderInfo || !orderInfo.total) {
+      console.error('Invalid order info:', orderInfo);
+      alert('Error: Invalid order information. Please try again.');
+      return;
+    }
+    
     setOrderData(orderInfo);
     setCurrentView('receipt');
     
@@ -133,9 +162,15 @@ const RestaurantApp = () => {
     existingOrders.push(orderInfo);
     localStorage.setItem('restaurantOrders', JSON.stringify(existingOrders));
     
-    // Track order for MyAccount analytics
+    // Track order for MyAccount analytics - Use orderInfo.total for the amount
+    const orderAmount = Number(orderInfo.total) || 0;
+    console.log('=== TRACKING ORDER FOR ANALYTICS ===');
+    console.log('Order amount to track:', orderAmount);
+    console.log('Order ID:', orderInfo.orderId);
+    
+    // CRITICAL: Track order immediately when completed (not when printed)
     trackOrder({
-      totalAmount: orderInfo.total,
+      totalAmount: orderAmount,
       items: orderInfo.items || cart,
       orderId: orderInfo.orderId,
       timestamp: orderInfo.timestamp
@@ -144,6 +179,14 @@ const RestaurantApp = () => {
     // Clear cart after successful order
     setCart([]);
     localStorage.removeItem('restaurantCart');
+    
+    console.log('=== ORDER COMPLETED AND TRACKED ===');
+    
+    // Force a storage event to notify MyAccount if it's open in another tab
+    window.dispatchEvent(new StorageEvent('storage', {
+      key: 'restaurantSalesData',
+      newValue: localStorage.getItem('restaurantSalesData')
+    }));
   };
 
   const printReceipt = () => {
@@ -153,15 +196,9 @@ const RestaurantApp = () => {
       return;
     }
     
-    // Track order when printing receipt
-    if (orderData) {
-      trackOrder({
-        totalAmount: orderData.total,
-        items: orderData.items || cart,
-        orderId: orderData.orderId,
-        timestamp: orderData.timestamp
-      });
-    }
+    // Note: Order is already tracked when completeOrder is called
+    // No need to track again when printing (would cause double counting)
+    console.log('Printing receipt for order:', orderData?.orderId);
     
     // Create a new window for printing
     const printWindow = window.open('', '_blank');

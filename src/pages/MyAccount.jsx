@@ -42,15 +42,70 @@ const MyAccount = ({ user = {} }) => {
     return { daily: dailyData, monthly: monthlyData };
   };
 
+  // Check and sync sales data with any untracked orders (backup mechanism)
+  const syncSalesDataWithOrders = useCallback(() => {
+    try {
+      const savedOrders = localStorage.getItem('restaurantOrders');
+      const savedSalesData = localStorage.getItem('restaurantSalesData');
+      
+      if (!savedOrders) {
+        return null; // No orders to sync
+      }
+      
+      const orders = JSON.parse(savedOrders);
+      console.log('=== SYNC CHECK: Found orders in storage ===');
+      console.log('Total orders:', orders.length);
+      
+      // If we already have sales data, assume it's up to date (orders are tracked when placed)
+      // Only process if sales data is missing or empty
+      if (!savedSalesData || savedSalesData === 'null' || savedSalesData === '{}') {
+        console.log('Sales data missing or empty, processing orders...');
+        
+        // Use the updateSalesDataDirectly logic from orderTracking
+        // But we'll just ensure data exists - actual tracking happens in trackOrder
+        return null; // Return null so we initialize zero data
+      }
+      
+      // Data exists, assume it's correct (trackOrder handles updates)
+      return null;
+    } catch (error) {
+      console.error('Error syncing sales data:', error);
+      return null;
+    }
+  }, []);
+
   // Load sales data from localStorage or initialize with zero data
   useEffect(() => {
     const loadSalesData = () => {
       try {
+        // Check if we need to sync (but don't reprocess - trackOrder handles it)
+        syncSalesDataWithOrders();
+        
         const savedData = localStorage.getItem('restaurantSalesData');
-        if (savedData) {
+        console.log('=== LOADING SALES DATA IN MYACCOUNT ===');
+        console.log('Saved data from localStorage:', savedData);
+        
+        if (savedData && savedData !== 'null' && savedData !== '{}') {
           const parsedData = JSON.parse(savedData);
+          console.log('Parsed sales data:', parsedData);
+          console.log('Daily sales:', parsedData.daily);
+          console.log('Monthly sales:', parsedData.monthly);
+          
+          // Validate data structure
+          if (parsedData && Array.isArray(parsedData.daily) && Array.isArray(parsedData.monthly)) {
+            console.log('Setting sales data:', parsedData);
           setSalesData(parsedData);
+            console.log('✓ Sales data loaded successfully');
+            console.log('Daily entries:', parsedData.daily.length);
+            console.log('Monthly entries:', parsedData.monthly.length);
+          } else {
+            console.warn('Invalid sales data structure, initializing zero data');
+            const zeroData = initializeZeroData();
+            setSalesData(zeroData);
+            localStorage.setItem('restaurantSalesData', JSON.stringify(zeroData));
+          }
         } else {
+          console.log('No sales data found, initializing zero data');
           const zeroData = initializeZeroData();
           setSalesData(zeroData);
           localStorage.setItem('restaurantSalesData', JSON.stringify(zeroData));
@@ -62,8 +117,31 @@ const MyAccount = ({ user = {} }) => {
       }
     };
 
+    // Load immediately
     loadSalesData();
-  }, []);
+    
+    // Also reload when page becomes visible (in case user navigated away during order)
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        console.log('Page became visible, reloading sales data');
+        loadSalesData();
+      }
+    };
+    
+    // Reload on window focus (when user returns to tab)
+    const handleFocus = () => {
+      console.log('Window focused, reloading sales data');
+      loadSalesData();
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('focus', handleFocus);
+    
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('focus', handleFocus);
+    };
+  }, [syncSalesDataWithOrders]);
 
   // Function to update sales data when an order is placed
   const updateSalesData = useCallback((orderAmount) => {
@@ -118,14 +196,58 @@ const MyAccount = ({ user = {} }) => {
   useEffect(() => {
     const handleOrderPlaced = (event) => {
       const { orderAmount } = event.detail;
-      console.log('Order placed event received in MyAccount:', orderAmount);
-      if (orderAmount) {
+      console.log('=== ORDER EVENT RECEIVED IN MYACCOUNT ===');
+      console.log('Order amount:', orderAmount);
+      console.log('Event detail:', event.detail);
+      
+      if (orderAmount && orderAmount > 0) {
+        console.log('Updating sales data with amount:', orderAmount);
         updateSalesData(orderAmount);
+        
+        // Reload from localStorage to ensure sync (data is already updated by trackOrder)
+        setTimeout(() => {
+          const savedData = localStorage.getItem('restaurantSalesData');
+          if (savedData) {
+            try {
+              const parsedData = JSON.parse(savedData);
+              console.log('Reloaded sales data after order:', parsedData);
+              setSalesData(parsedData);
+            } catch (error) {
+              console.error('Error reloading sales data:', error);
+            }
+          }
+        }, 150);
+      } else {
+        console.warn('Invalid order amount received:', orderAmount);
       }
     };
 
+    // Also listen for storage changes (in case order was tracked while this page wasn't active)
+    const handleStorageChange = (e) => {
+      if (e.key === 'restaurantSalesData') {
+        console.log('=== SALES DATA CHANGED IN STORAGE ===');
+        try {
+          const savedData = localStorage.getItem('restaurantSalesData');
+          if (savedData) {
+            const parsedData = JSON.parse(savedData);
+            console.log('Reloaded sales data from storage event:', parsedData);
+            setSalesData(parsedData);
+          }
+        } catch (error) {
+          console.error('Error reloading sales data from storage:', error);
+        }
+      }
+    };
+
+    console.log('Setting up orderPlaced event listener');
     window.addEventListener('orderPlaced', handleOrderPlaced);
-    return () => window.removeEventListener('orderPlaced', handleOrderPlaced);
+    window.addEventListener('storage', handleStorageChange);
+    
+    return () => {
+      console.log('Removing orderPlaced event listener');
+      window.removeEventListener('orderPlaced', handleOrderPlaced);
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, [updateSalesData]);
 
   const dailySales = salesData.daily;

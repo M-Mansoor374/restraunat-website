@@ -46,21 +46,12 @@ const CartComponent = ({ cart, onUpdateQuantity, onRemoveItem, onClearCart, onPr
           <p>Add some delicious items from our menu!</p>
           <button 
             className="back-to-home-btn"
-            onClick={() => window.location.href = '/'}
-            style={{
-              background: '#20B2AA',
-              color: 'white',
-              border: 'none',
-              padding: '12px 24px',
-              borderRadius: '8px',
-              fontSize: '16px',
-              fontWeight: '600',
-              cursor: 'pointer',
-              marginTop: '20px',
-              transition: 'all 0.3s ease'
-            }}
+            onClick={() => window.location.href = '/menu'}
           >
-            ← Back to Homepage
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Back to Menu
           </button>
         </div>
       </div>
@@ -79,7 +70,7 @@ const CartComponent = ({ cart, onUpdateQuantity, onRemoveItem, onClearCart, onPr
           <div className="header-actions">
             <button 
               className="back-to-home-btn"
-              onClick={() => window.location.href = '/'}
+              onClick={() => window.location.href = '/menu'}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -112,14 +103,28 @@ const CartComponent = ({ cart, onUpdateQuantity, onRemoveItem, onClearCart, onPr
           {cart.map((item) => (
             <div key={item.id} className="cart-item" style={{ animationDelay: `${cart.indexOf(item) * 0.1}s` }}>
               <div className="item-image-container">
-                <div className="item-image" style={{backgroundImage: item.image}}>
-                  {!item.image || item.image.startsWith('url(') ? (
+                <div className="item-image">
+                  {item.image && (item.image.startsWith('http://') || item.image.startsWith('https://') || item.image.startsWith('/')) ? (
+                    <img 
+                      src={item.image} 
+                      alt={item.name}
+                      loading="lazy"
+                      onError={(e) => {
+                        console.error('Image failed to load:', item.image);
+                        e.target.style.display = 'none';
+                      }}
+                    />
+                  ) : item.image ? (
                     <div className="item-placeholder">
-                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 12H21M3 6H21M9 18H15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <span className="item-emoji">{item.image}</span>
+                    </div>
+                  ) : (
+                    <div className="item-placeholder">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
                       </svg>
                     </div>
-                  ) : null}
+                  )}
                 </div>
               </div>
               
