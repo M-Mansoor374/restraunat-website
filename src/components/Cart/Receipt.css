@@ -334,23 +334,26 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .receipt-container {
-    padding: 15px;
+    padding: 15px 10px;
   }
 
   .receipt-actions {
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
     align-items: stretch;
+    margin-bottom: 20px;
   }
 
   .back-to-menu-btn,
   .print-receipt-btn {
     width: 100%;
     text-align: center;
+    padding: 14px 20px;
+    font-size: 0.9rem;
   }
 
   .receipt {
-    padding: 20px;
+    padding: 20px 16px;
     max-width: 100%;
   }
 
@@ -358,34 +361,235 @@
     font-size: 1.5rem;
   }
 
+  .restaurant-tagline {
+    font-size: 0.85rem;
+  }
+
   .logo-emoji {
     font-size: 2.5rem;
   }
-}
 
-@media (max-width: 480px) {
-  .receipt {
-    padding: 15px;
+  .receipt-row {
+    font-size: 0.85rem;
+    flex-wrap: wrap;
   }
 
-  .restaurant-name {
-    font-size: 1.3rem;
-  }
-
-  .logo-emoji {
-    font-size: 2rem;
+  .receipt-items-header {
+    font-size: 0.8rem;
+    padding-bottom: 6px;
+    margin-bottom: 8px;
   }
 
   .receipt-item {
     font-size: 0.8rem;
+    margin-bottom: 8px;
   }
 
   .receipt-total-row {
     font-size: 0.85rem;
+    margin-bottom: 6px;
   }
-  
+
+  .final-total {
+    font-size: 1rem;
+    padding-top: 8px;
+    margin-top: 12px;
+  }
+
+  .thank-you {
+    font-size: 1rem;
+    margin: 0 0 12px 0;
+  }
+
+  .restaurant-info {
+    font-size: 0.75rem;
+    margin: 0 0 12px 0;
+  }
+
+  .receipt-note {
+    font-size: 0.7rem;
+  }
+
   .made-by {
     font-size: 0.65rem;
     margin: 8px 0 0 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .receipt-container {
+    padding: 10px 8px;
+  }
+
+  .receipt-actions {
+    gap: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+  }
+
+  .back-to-menu-btn,
+  .print-receipt-btn {
+    padding: 12px 18px;
+    font-size: 0.875rem;
+    border-radius: 16px;
+  }
+
+  .receipt {
+    padding: 16px 12px;
+    border-width: 1.5px;
+  }
+
+  .restaurant-name {
+    font-size: 1.25rem;
+    margin: 0 0 6px 0;
+  }
+
+  .restaurant-tagline {
+    font-size: 0.8rem;
+  }
+
+  .logo-emoji {
+    font-size: 1.75rem;
+    margin-bottom: 10px;
+  }
+
+  .receipt-header {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+  }
+
+  .receipt-info {
+    margin-bottom: 15px;
+  }
+
+  .receipt-row {
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+  }
+
+  .receipt-divider {
+    margin: 12px 0;
+  }
+
+  .receipt-items {
+    margin-bottom: 15px;
+  }
+
+  .receipt-items-header {
+    font-size: 0.75rem;
+    padding-bottom: 5px;
+    margin-bottom: 6px;
+  }
+
+  .receipt-item {
+    font-size: 0.75rem;
+    margin-bottom: 6px;
+  }
+
+  .item-name {
+    font-size: 0.75rem;
+    margin-bottom: 1px;
+  }
+
+  .item-category {
+    font-size: 0.65rem;
+  }
+
+  .receipt-totals {
+    margin-bottom: 15px;
+  }
+
+  .receipt-total-row {
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+  }
+
+  .final-total {
+    font-size: 0.95rem;
+    padding-top: 6px;
+    margin-top: 10px;
+  }
+
+  .thank-you {
+    font-size: 0.95rem;
+    margin: 0 0 10px 0;
+  }
+
+  .restaurant-info {
+    font-size: 0.7rem;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+  }
+
+  .receipt-note {
+    font-size: 0.65rem;
+  }
+
+  .made-by {
+    font-size: 0.6rem;
+    margin: 6px 0 0 0;
+  }
+}
+
+@media (max-width: 360px) {
+  .receipt-container {
+    padding: 8px 6px;
+  }
+
+  .receipt {
+    padding: 14px 10px;
+    border-radius: 12px;
+  }
+
+  .restaurant-name {
+    font-size: 1.1rem;
+  }
+
+  .logo-emoji {
+    font-size: 1.5rem;
+  }
+
+  .receipt-row {
+    font-size: 0.75rem;
+  }
+
+  .receipt-items-header,
+  .receipt-item,
+  .receipt-total-row {
+    font-size: 0.7rem;
+  }
+
+  .final-total {
+    font-size: 0.9rem;
+  }
+
+  .thank-you {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .receipt {
+    padding: 12px 8px;
+    border-width: 1px;
+  }
+
+  .restaurant-name {
+    font-size: 1rem;
+  }
+
+  .logo-emoji {
+    font-size: 1.25rem;
+  }
+
+  .receipt-row,
+  .receipt-items-header,
+  .receipt-item,
+  .receipt-total-row {
+    font-size: 0.65rem;
+  }
+
+  .final-total {
+    font-size: 0.85rem;
   }
 }

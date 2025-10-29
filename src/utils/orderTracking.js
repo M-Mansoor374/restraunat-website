@@ -5,6 +5,11 @@ export const trackOrder = (orderData) => {
   try {
     const { totalAmount, items } = orderData;
     
+    console.log('=== TRACKING ORDER ===');
+    console.log('Order data received:', orderData);
+    console.log('Total amount:', totalAmount);
+    console.log('Items:', items);
+    
     // Dispatch custom event for MyAccount to listen to
     const orderEvent = new CustomEvent('orderPlaced', {
       detail: {
@@ -14,9 +19,9 @@ export const trackOrder = (orderData) => {
       }
     });
     
+    console.log('Dispatching orderPlaced event with orderAmount:', totalAmount || 0);
     window.dispatchEvent(orderEvent);
-    
-    console.log('Order tracked:', orderData);
+    console.log('=== ORDER TRACKED SUCCESSFULLY ===');
   } catch (error) {
     console.error('Error tracking order:', error);
   }

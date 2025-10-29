@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { resetSalesData } from '../utils/orderTracking';
 import './MyAccount.css';
 
@@ -66,7 +66,7 @@ const MyAccount = ({ user = {} }) => {
   }, []);
 
   // Function to update sales data when an order is placed
-  const updateSalesData = (orderAmount) => {
+  const updateSalesData = useCallback((orderAmount) => {
     const today = new Date();
     const todayStr = today.toISOString().split('T')[0];
     const currentMonth = today.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
@@ -112,12 +112,13 @@ const MyAccount = ({ user = {} }) => {
       localStorage.setItem('restaurantSalesData', JSON.stringify(newData));
       return newData;
     });
-  };
+  }, []);
 
   // Listen for order events (this would be called when an order is placed)
   useEffect(() => {
     const handleOrderPlaced = (event) => {
       const { orderAmount } = event.detail;
+      console.log('Order placed event received in MyAccount:', orderAmount);
       if (orderAmount) {
         updateSalesData(orderAmount);
       }
@@ -125,7 +126,7 @@ const MyAccount = ({ user = {} }) => {
 
     window.addEventListener('orderPlaced', handleOrderPlaced);
     return () => window.removeEventListener('orderPlaced', handleOrderPlaced);
-  }, []);
+  }, [updateSalesData]);
 
   const dailySales = salesData.daily;
   const monthlySales = salesData.monthly;
