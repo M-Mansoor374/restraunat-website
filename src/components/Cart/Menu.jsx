@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Menu.css';
 
 const Menu = ({ onAddToCart }) => {
-  const [menuItems, setMenuItems] = useState([
+  const [menuItems] = useState([
     {
       id: 1,
       name: "Classic Burger",

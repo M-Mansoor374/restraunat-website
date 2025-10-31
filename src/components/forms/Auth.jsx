@@ -145,7 +145,7 @@ const Auth = ({ onAuthSuccess }) => {
           setIsLogin(true); // Switch to login after signup
         }
       }, 2000);
-    } catch (error) {
+    } catch {
       setErrors({ general: "An error occurred. Please try again." });
     } finally {
       setIsLoading(false);

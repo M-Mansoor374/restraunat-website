@@ -42,7 +42,7 @@ const Checkout = ({ cart, onBackToCart, onCompleteOrder }) => {
 
       if (!customerInfo.phoneNumber.trim()) {
         newErrors.phoneNumber = 'Phone number is required for delivery orders';
-      } else if (!/^\+?[\d\s\-\(\)]{10,}$/.test(customerInfo.phoneNumber)) {
+      } else if (!/^\+?[\d\s\-()]{10,}$/.test(customerInfo.phoneNumber)) {
         newErrors.phoneNumber = 'Please enter a valid phone number';
       }
     }

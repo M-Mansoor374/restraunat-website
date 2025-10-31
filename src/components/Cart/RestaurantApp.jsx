@@ -478,29 +478,30 @@ const RestaurantApp = () => {
     }, 800);
   };
 
-  const getCartItemCount = () => {
-    return cart.reduce((total, item) => total + item.quantity, 0);
-  };
+  // Helper functions (commented out but kept for potential future use)
+  // const getCartItemCount = () => {
+  //   return cart.reduce((total, item) => total + item.quantity, 0);
+  // };
 
-  const getSubtotal = () => {
-    return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  };
+  // const getSubtotal = () => {
+  //   return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  // };
 
-  // Manual refresh function for debugging
-  const refreshCart = () => {
-    console.log('=== MANUAL CART REFRESH ===');
-    const savedCart = localStorage.getItem('restaurantCart');
-    console.log('localStorage cart:', savedCart);
-    if (savedCart) {
-      try {
-        const cartData = JSON.parse(savedCart);
-        console.log('Setting cart to:', cartData);
-        setCart(cartData);
-      } catch (error) {
-        console.error('Error refreshing cart:', error);
-      }
-    }
-  };
+  // Manual refresh function for debugging (commented out but kept for potential future use)
+  // const refreshCart = () => {
+  //   console.log('=== MANUAL CART REFRESH ===');
+  //   const savedCart = localStorage.getItem('restaurantCart');
+  //   console.log('localStorage cart:', savedCart);
+  //   if (savedCart) {
+  //     try {
+  //       const cartData = JSON.parse(savedCart);
+  //       console.log('Setting cart to:', cartData);
+  //       setCart(cartData);
+  //     } catch (error) {
+  //       console.error('Error refreshing cart:', error);
+  //     }
+  //   }
+  // };
 
   // Debug: Log current cart state on every render
   console.log('=== CART RENDER DEBUG ===');

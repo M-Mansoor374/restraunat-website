@@ -474,7 +474,7 @@ const MyAccount = ({ user = {} }) => {
                                   day: 'numeric', 
                                   year: 'numeric' 
                                 });
-                              } catch (error) {
+                              } catch {
                                 return item.date || 'Invalid Date';
                               }
                             })()

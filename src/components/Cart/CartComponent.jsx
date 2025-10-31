@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Cart.css';
 
 const CartComponent = ({ cart, onUpdateQuantity, onRemoveItem, onClearCart, onProceedToCheckout }) => {
