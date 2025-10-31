@@ -1,61 +1,68 @@
-# Restaurant Website
+# TR Project
 
-A modern, responsive restaurant website built with React and Vite.
+A full-stack restaurant management application with sales tracking.
 
-## Features
+## 📁 Project Structure
 
-- 🎬 **Splash Screen** - Beautiful animated splash screen with logo
-- 🔐 **Authentication** - Login/Signup functionality
-- 📱 **Responsive Design** - Optimized for all devices (320px - 2560px+)
-- 🍽️ **Menu System** - Interactive menu with cart functionality
-- 📄 **Pages** - Home, About, Contact, Terms of Service, Privacy Policy
-- 🛒 **Shopping Cart** - Add items, checkout, and order tracking
-- 🎨 **Modern UI** - Clean, professional design with smooth animations
-
-## Tech Stack
-
-- **Frontend**: React 19, Vite
-- **Styling**: Custom CSS with responsive design
-- **Icons**: React Icons
-- **Routing**: React Router DOM
-- **Build Tool**: Vite
-
-## Getting Started
-
-1. Install dependencies:
-```bash
-npm install
+```
+tr/
+├── frontend/          # React + Vite frontend application
+│   ├── src/          # Source code
+│   ├── public/       # Static assets
+│   └── package.json  # Frontend dependencies
+│
+└── backend/          # Node.js + Express + MongoDB backend
+    ├── config/       # Configuration files
+    ├── models/       # MongoDB models
+    ├── controllers/  # Business logic
+    ├── routes/       # API routes
+    └── server.js     # Backend server entry point
 ```
 
-2. Start development server:
+## 🚀 Quick Start
+
+### Frontend Setup
+
 ```bash
+cd frontend
+npm install
 npm run dev
 ```
 
-3. Open [http://localhost:5173](http://localhost:5173) in your browser
+Frontend will run on `http://localhost:5173` (or similar port)
 
-## Project Structure
-
-```
-src/
-├── components/          # Reusable components
-│   ├── Cart/           # Shopping cart components
-│   ├── shared/         # Shared components (Header, Logo)
-│   └── Splash/         # Splash screen component
-├── pages/              # Page components
-├── utils/              # Utility functions
-├── App.jsx             # Main app component
-├── App.css             # Global styles
-├── index.css           # Base styles and animations
-└── main.jsx            # App entry point
-```
-
-## Build for Production
+### Backend Setup
 
 ```bash
-npm run build
+cd backend
+npm install
+
+# Create .env file with:
+# MONGODB_URI=mongodb://127.0.0.1:27017/tr
+# PORT=5000
+
+npm start
 ```
 
-## License
+Backend will run on `http://localhost:5000`
 
-MIT License
+## 📚 Documentation
+
+- **Backend Setup Guide**: See `backend/BACKEND_SETUP_GUIDE.md`
+- **API Endpoints**: 
+  - `POST /api/sales` - Create a new sale
+  - `GET /api/sales/weekly` - Get weekly sales totals
+  - `GET /api/sales/monthly` - Get monthly sales totals
+
+## 🔧 Prerequisites
+
+- Node.js (v14 or higher)
+- MongoDB (running locally on port 27017)
+- npm or yarn
+
+## 📝 Notes
+
+- Make sure MongoDB is running before starting the backend
+- The frontend and backend run on separate ports
+- Backend must be running to save sales data from the frontend
+
