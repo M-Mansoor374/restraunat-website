@@ -15,38 +15,12 @@ function App() {
   // State to control splash screen visibility
   const [showSplash, setShowSplash] = useState(true);
   const [splashFadeOut, setSplashFadeOut] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   
   // State to control authentication status
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   
   // State to store user data
   const [user, setUser] = useState(null);
-
-  // Check for existing authentication on app load
-  useEffect(() => {
-    const checkAuth = () => {
-      try {
-        const savedAuth = localStorage.getItem('restaurantAuth');
-        if (savedAuth) {
-          const authData = JSON.parse(savedAuth);
-          if (authData.isAuthenticated && authData.user) {
-            console.log('Restored authentication from localStorage:', authData);
-            setIsAuthenticated(true);
-            setUser(authData.user);
-            setShowSplash(false);
-          }
-        }
-      } catch (error) {
-        console.error('Error restoring authentication:', error);
-        localStorage.removeItem('restaurantAuth');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    checkAuth();
-  }, []);
 
   // Show splash screen for 3 seconds when user is not authenticated
   useEffect(() => {
@@ -79,15 +53,6 @@ function App() {
     // Update state and persist to localStorage
     setIsAuthenticated(true);
     setUser(userData);
-    
-    // Save authentication state to localStorage
-    const authData = {
-      isAuthenticated: true,
-      user: userData,
-      loginTime: new Date().toISOString()
-    };
-    localStorage.setItem('restaurantAuth', JSON.stringify(authData));
-    console.log('Auth data saved to localStorage:', authData);
   };
 
   // Function to handle logout
@@ -95,18 +60,12 @@ function App() {
     // Reset authentication state and clear localStorage
     setIsAuthenticated(false);
     setUser(null);
-    localStorage.removeItem('restaurantAuth');
   };
 
   // Debug effect to monitor state changes
   useEffect(() => {
     console.log('App state changed - isAuthenticated:', isAuthenticated, 'user:', user);
   }, [isAuthenticated, user]);
-
-  // Show loading state while checking authentication
-  if (isLoading) {
-    return null; // Or a loading spinner
-  }
 
   // Show splash screen for 3 seconds, then show auth page (only on first visit)
   if (!isAuthenticated) {
