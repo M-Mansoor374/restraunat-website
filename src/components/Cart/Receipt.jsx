@@ -5,9 +5,6 @@ import './Receipt.css';
 const Receipt = ({ orderData, onBackToMenu, onPrintReceipt }) => {
   const location = useLocation();
   
-  // Debug: Log order data to console
-  console.log('Receipt orderData:', orderData);
-
   // Scroll to top when component mounts or route changes
   useEffect(() => {
     // Use requestAnimationFrame to ensure DOM is ready
@@ -144,6 +141,12 @@ const Receipt = ({ orderData, onBackToMenu, onPrintReceipt }) => {
             <span className="label">Tax (8%):</span>
             <span className="value CAPS">PKR {orderData.tax.toLocaleString()}</span>
           </div>
+          {orderData.serviceFee ? (
+            <div className="receipt-total-row">
+              <span className="label">Service Fee (5%):</span>
+              <span className="value">PKR {orderData.serviceFee.toLocaleString()}</span>
+            </div>
+          ) : null}
           <div className="receipt-total-row final-total">
             <span className="label">TOTAL:</span>
             <span className="value">PKR {orderData.total.toLocaleString()}</span>

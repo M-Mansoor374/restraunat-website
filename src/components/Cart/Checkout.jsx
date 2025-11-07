@@ -29,7 +29,8 @@ const Checkout = ({ cart, onBackToCart, onCompleteOrder }) => {
 
   const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const tax = subtotal * 0.08;
-  const total = subtotal + tax;
+  const serviceFee = subtotal * 0.05;
+  const total = subtotal + tax + serviceFee;
 
   const validateForm = () => {
     const newErrors = {};
@@ -87,6 +88,7 @@ const Checkout = ({ cart, onBackToCart, onCompleteOrder }) => {
       items: cart,
       subtotal,
       tax,
+      serviceFee,
       total,
       orderId: `GLB-${Date.now()}`,
       timestamp: new Date().toISOString()
@@ -97,14 +99,13 @@ const Checkout = ({ cart, onBackToCart, onCompleteOrder }) => {
 
   return (
     <div className="checkout-container">
-      <div className="checkout-header">
-        <div className="header-content">
-          <h2>🛍️ Secure Checkout</h2>
-          <p className="checkout-subtitle">Complete your order in just a few steps</p>
-        </div>
-      </div>
-
       <div className="checkout-content">
+        <div className="checkout-hero">
+          <span className="hero-badge">Step 02 of 03</span>
+          <h1 className="hero-title">Secure Checkout</h1>
+          <p className="hero-subtitle">Confirm your details so our team can craft your experience perfectly.</p>
+        </div>
+
         <button className="back-btn" onClick={onBackToCart}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

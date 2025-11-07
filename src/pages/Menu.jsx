@@ -8,9 +8,6 @@ const Menu = () => {
   const [notification, setNotification] = useState(null);
   const [imageErrors, setImageErrors] = useState(new Set());
   
-  // Debug log to check if component is rendering
-  console.log("Menu component is rendering");
-
   // Scroll to top when component mounts or route changes
   useEffect(() => {
     // Use requestAnimationFrame to ensure DOM is ready
@@ -28,9 +25,6 @@ const Menu = () => {
 
   // Function to add item to cart and navigate to cart page
   const addToCart = (item) => {
-    console.log('=== ADD TO CART DEBUG ===');
-    console.log('Adding item to cart:', item);
-    
     // Ensure item has all required properties
     const cartItem = {
       id: item.id,
@@ -42,36 +36,23 @@ const Menu = () => {
       category: item.category || 'Menu Item'
     };
     
-    console.log('Processed cart item:', cartItem);
-    
     // Get existing cart from localStorage
     const existingCart = JSON.parse(localStorage.getItem('restaurantCart') || '[]');
-    console.log('Existing cart before update:', existingCart);
     
     // Check if item already exists in cart
     const existingItemIndex = existingCart.findIndex(cartItem => cartItem.id === item.id);
     
     if (existingItemIndex > -1) {
-      // Item exists, increase quantity
       existingCart[existingItemIndex].quantity += 1;
-      console.log('Item exists, increasing quantity to:', existingCart[existingItemIndex].quantity);
     } else {
-      // Item doesn't exist, add new item with quantity 1
       existingCart.push(cartItem);
-      console.log('New item added to cart:', cartItem);
     }
     
     // Save updated cart to localStorage
     localStorage.setItem('restaurantCart', JSON.stringify(existingCart));
-    console.log('Cart updated and saved to localStorage:', existingCart);
-    
-    // Verify localStorage was saved
-    const verifyCart = localStorage.getItem('restaurantCart');
-    console.log('Verification - localStorage contains:', verifyCart);
     
     // Dispatch cart update event
     window.dispatchEvent(new CustomEvent('cartUpdated'));
-    console.log('Cart update event dispatched');
     
     // Show success notification
     setNotification(`✓ ${item.name} added to cart!`);
@@ -80,8 +61,6 @@ const Menu = () => {
     setTimeout(() => {
       setNotification(null);
     }, 3000);
-    
-    console.log('=== END ADD TO CART DEBUG ===');
   };
 
   const menuCategories = [
@@ -100,7 +79,7 @@ const Menu = () => {
       description: "Fresh romaine lettuce, parmesan cheese, croutons, and our signature Caesar dressing",
       price: 3640,
       category: "appetizers",
-      image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1000&q=80",
+      image: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800",
       popular: true
     },
     {
@@ -109,7 +88,7 @@ const Menu = () => {
       description: "Crispy chicken wings tossed in our spicy buffalo sauce, served with ranch dip",
       price: 4480,
       category: "appetizers",
-      image: "https://images.unsplash.com/photo-1604908176997-4319b3d72431?auto=format&fit=crop&w=1000&q=80",
+      image: "https://images.pexels.com/photos/4106488/pexels-photo-4106488.jpeg?auto=compress&cs=tinysrgb&w=800",
       popular: true
     },
     {
@@ -118,7 +97,7 @@ const Menu = () => {
       description: "Golden fried mozzarella sticks served with marinara sauce",
       price: 2800,
       category: "appetizers",
-      image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1000&q=80",
+      image: "https://images.pexels.com/photos/7084862/pexels-photo-7084862.jpeg?auto=compress&cs=tinysrgb&w=800",
       popular: true
     },
     {
@@ -127,7 +106,7 @@ const Menu = () => {
       description: "Toasted bread topped with fresh tomatoes, basil, and garlic",
       price: 3360,
       category: "appetizers",
-      image: "https://images.unsplash.com/photo-1523986371872-9d3ba2e2abf8?auto=format&fit=crop&w=1000&q=80",
+      image: "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=800",
       popular: true
     },
 
@@ -138,7 +117,7 @@ const Menu = () => {
       description: "Fresh Atlantic salmon grilled to perfection with herbs and lemon, served with seasonal vegetables",
       price: 7000,
       category: "mains",
-      image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1000&q=80",
+      image: "https://images.pexels.com/photos/3298637/pexels-photo-3298637.jpeg?auto=compress&cs=tinysrgb&w=800",
       popular: true
     },
     {
@@ -147,7 +126,7 @@ const Menu = () => {
       description: "Premium Angus beef steak cooked to your preference with our signature marinade and sides",
       price: 9240,
       category: "mains",
-      image: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=1000&q=80",
+      image: "https://images.pexels.com/photos/4106483/pexels-photo-4106483.jpeg?auto=compress&cs=tinysrgb&w=800",
       popular: true
     },
     {
@@ -156,7 +135,7 @@ const Menu = () => {
       description: "Authentic Italian pasta with creamy sauce, pancetta, and parmesan cheese",
       price: 5320,
       category: "mains",
-      image: "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=1000&q=80"
+      image: "https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
     {
       id: 8,
@@ -164,7 +143,7 @@ const Menu = () => {
       description: "Breaded chicken breast topped with marinara sauce and melted mozzarella, served with pasta",
       price: 6440,
       category: "mains",
-      image: "https://images.unsplash.com/photo-1604908554049-9c58e4458b33?auto=format&fit=crop&w=1000&q=80"
+      image: "https://images.pexels.com/photos/1352278/pexels-photo-1352278.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
     {
       id: 9,
@@ -172,7 +151,7 @@ const Menu = () => {
       description: "Creamy arborio rice with seasonal vegetables and parmesan cheese",
       price: 5600,
       category: "mains",
-      image: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=1000&q=80"
+      image: "https://images.pexels.com/photos/58723/pexels-photo-58723.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
 
     // Desserts
@@ -182,7 +161,7 @@ const Menu = () => {
       description: "Warm chocolate cake with molten center, served with vanilla ice cream",
       price: 2520,
       category: "desserts",
-      image: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=1000&q=80",
+      image: "https://images.pexels.com/photos/3026808/pexels-photo-3026808.jpeg?auto=compress&cs=tinysrgb&w=800",
       popular: true
     },
     {
@@ -191,7 +170,7 @@ const Menu = () => {
       description: "Classic Italian dessert with coffee-soaked ladyfingers and mascarpone cream",
       price: 2240,
       category: "desserts",
-      image: "https://images.unsplash.com/photo-1599785209790-c5b3283c34a5?auto=format&fit=crop&w=1000&q=80"
+      image: "https://images.pexels.com/photos/4110005/pexels-photo-4110005.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
     {
       id: 12,
@@ -199,7 +178,7 @@ const Menu = () => {
       description: "New York style cheesecake with berry compote",
       price: 1960,
       category: "desserts",
-      image: "https://images.unsplash.com/photo-1541976076758-347942db1970?auto=format&fit=crop&w=1000&q=80"
+      image: "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
 
     // Beverages
@@ -209,23 +188,23 @@ const Menu = () => {
       description: "House-made lemonade with fresh lemons and mint",
       price: 1400,
       category: "beverages",
-      image: "https://images.unsplash.com/photo-1497534547324-957bd527cfde?auto=format&fit=crop&w=1000&q=80"
+      image: "https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
     {
       id: 14,
-      name: "Craft Beer",
-      description: "Selection of local craft beers on tap",
-      price: 1960,
+      name: "Signature Coffee",
+      description: "Freshly brewed Arabica coffee with optional flavors and cream",
+      price: 1600,
       category: "beverages",
-      image: "https://images.unsplash.com/photo-1541557435981-cb1466c80f51?auto=format&fit=crop&w=1000&q=80"
+      image: "https://images.pexels.com/photos/374885/pexels-photo-374885.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
     {
       id: 15,
-      name: "Wine Selection",
-      description: "Curated selection of red and white wines",
-      price: 2520,
+      name: "Artisan Tea",
+      description: "Premium loose-leaf teas with herbal and classic blends",
+      price: 1500,
       category: "beverages",
-      image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1000&q=80"
+      image: "https://images.pexels.com/photos/1417945/pexels-photo-1417945.jpeg?auto=compress&cs=tinysrgb&w=800"
     }
   ];
 
@@ -239,7 +218,7 @@ const Menu = () => {
   };
 
   return (
-    <div className="menu-page-container page-container">
+    <main className="menu-page">
       {/* Success Notification */}
       {notification && (
         <div className="cart-notification">
@@ -249,11 +228,13 @@ const Menu = () => {
 
       {/* Hero Section */}
       <section className="menu-hero">
-        <div className="menu-hero-content">
-          <h1 className="menu-hero-title">Our Menu</h1>
-          <p className="menu-hero-subtitle">
-            Discover our carefully crafted dishes made with the finest ingredients
-          </p>
+        <div className="container">
+          <div className="menu-hero-content">
+            <h1 className="menu-hero-title">Our Menu</h1>
+            <p className="menu-hero-subtitle">
+              Discover our carefully crafted dishes made with the finest ingredients
+            </p>
+          </div>
         </div>
       </section>
 
@@ -317,7 +298,6 @@ const Menu = () => {
                     className="menu-item-btn"
                     onClick={(e) => {
                       e.preventDefault();
-                      console.log('Button clicked for:', item.name);
                       addToCart(item);
                     }}
                   >
@@ -367,7 +347,7 @@ const Menu = () => {
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 };
 

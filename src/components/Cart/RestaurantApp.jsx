@@ -34,7 +34,6 @@ const RestaurantApp = () => {
       const savedCart = localStorage.getItem('restaurantCart');
       if (savedCart) {
         const cartData = JSON.parse(savedCart);
-        console.log('Loaded cart from localStorage:', cartData);
         if (Array.isArray(cartData)) {
           setCart(cartData);
           setTimeout(() => {
@@ -61,14 +60,11 @@ const RestaurantApp = () => {
 
   // Load cart from localStorage on component mount AND when window gains focus
   useEffect(() => {
-    console.log('=== RESTAURANT APP MOUNTING ===');
-    
     // Initial load
     loadCartFromStorage();
 
     // Listen for cart updates from other components (Menu page)
     const handleCartUpdate = () => {
-      console.log('=== CART UPDATE EVENT RECEIVED ===');
       // Small delay to ensure localStorage is written
       setTimeout(() => {
         loadCartFromStorage();
@@ -77,14 +73,12 @@ const RestaurantApp = () => {
 
     // Listen for window focus (when user returns to cart tab)
     const handleWindowFocus = () => {
-      console.log('Window focused - checking for cart updates');
       loadCartFromStorage();
     };
 
     // Listen for storage events (cross-tab updates)
     const handleStorageChange = (e) => {
       if (e.key === 'restaurantCart') {
-        console.log('localStorage changed - reloading cart');
         loadCartFromStorage();
       }
     };
@@ -92,7 +86,6 @@ const RestaurantApp = () => {
     // Listen for visibility changes (tab becomes visible)
     const handleVisibilityChange = () => {
       if (!document.hidden) {
-        console.log('Tab became visible - checking cart');
         loadCartFromStorage();
       }
     };
@@ -125,7 +118,6 @@ const RestaurantApp = () => {
       // Only save if different to prevent unnecessary writes
       if (cartString !== existingCart) {
         localStorage.setItem('restaurantCart', cartString);
-        console.log('Cart saved to localStorage:', cart);
       }
     } catch (error) {
       console.error('Error saving cart to localStorage:', error);
@@ -160,10 +152,6 @@ const RestaurantApp = () => {
   };
 
   const completeOrder = (orderInfo) => {
-    console.log('=== COMPLETE ORDER CALLED ===');
-    console.log('Order Info:', orderInfo);
-    console.log('Cart:', cart);
-    
     // Validate order info
     if (!orderInfo || !orderInfo.total) {
       console.error('Invalid order info:', orderInfo);
@@ -181,10 +169,6 @@ const RestaurantApp = () => {
     
     // Track order for MyAccount analytics - Use orderInfo.total for the amount
     const orderAmount = Number(orderInfo.total) || 0;
-    console.log('=== TRACKING ORDER FOR ANALYTICS ===');
-    console.log('Order amount to track:', orderAmount);
-    console.log('Order ID:', orderInfo.orderId);
-    
     // CRITICAL: Track order immediately when completed (not when printed)
     trackOrder({
       totalAmount: orderAmount,
@@ -196,8 +180,6 @@ const RestaurantApp = () => {
     // Clear cart after successful order
     setCart([]);
     localStorage.removeItem('restaurantCart');
-    
-    console.log('=== ORDER COMPLETED AND TRACKED ===');
     
     // Force a storage event to notify MyAccount if it's open in another tab
     window.dispatchEvent(new StorageEvent('storage', {
@@ -215,8 +197,6 @@ const RestaurantApp = () => {
     
     // Note: Order is already tracked when completeOrder is called
     // No need to track again when printing (would cause double counting)
-    console.log('Printing receipt for order:', orderData?.orderId);
-    
     // Create a new window for printing (better mobile support)
     const printWindow = window.open('', '_blank');
     if (!printWindow) {
@@ -502,13 +482,6 @@ const RestaurantApp = () => {
   //     }
   //   }
   // };
-
-  // Debug: Log current cart state on every render
-  console.log('=== CART RENDER DEBUG ===');
-  console.log('Current cart state:', cart);
-  console.log('Cart length:', cart.length);
-  console.log('Cart items:', cart.map(item => ({ id: item.id, name: item.name, quantity: item.quantity })));
-  console.log('=== END CART RENDER DEBUG ===');
 
   return (
     <div className="restaurant-app">

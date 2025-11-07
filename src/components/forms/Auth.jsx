@@ -108,45 +108,61 @@ const Auth = ({ onAuthSuccess }) => {
     }
 
     try {
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const endpoint = isLogin ? "login" : "signup";
+      const payload = isLogin
+        ? {
+            email: formData.email,
+            password: formData.password,
+          }
+        : {
+            name: formData.fullName,
+            email: formData.email,
+            password: formData.password,
+          };
 
-      // Simulate successful authentication
+      const response = await fetch(`http://localhost:5000/${endpoint}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || data.error || "Request failed");
+      }
+
       setSuccessMessage(
         isLogin
-          ? `Login successful! Welcome back, ${formData.email.split('@')[0]}.`
+          ? "Login successful!"
           : "Account created successfully! You can now login."
       );
-      
-      // Create user data object
-      const userData = {
-        id: Date.now(), // Simple ID generation
-        email: formData.email,
-        name: isLogin ? formData.email.split('@')[0] : formData.fullName,
-        loginTime: new Date().toISOString(),
-        isLogin: isLogin
-      };
 
-      // Call the authentication success callback after a short delay
-      setTimeout(() => {
-        if (onAuthSuccess) {
-          onAuthSuccess(userData);
-        }
-        
-        // Reset form
-        setFormData({
-          fullName: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
+      if (onAuthSuccess) {
+        onAuthSuccess({
+          email: formData.email,
+          name: isLogin ? formData.email.split("@")[0] : formData.fullName,
+          token: data.token,
         });
-        setSuccessMessage("");
-        if (!isLogin) {
-          setIsLogin(true); // Switch to login after signup
-        }
-      }, 2000);
-    } catch {
-      setErrors({ general: "An error occurred. Please try again." });
+      }
+
+      setFormData({
+        fullName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+
+      if (!isLogin) {
+        setIsLogin(true);
+      }
+    } catch (err) {
+      setErrors({
+        general:
+          err.message || "An error occurred. Please check your details and try again.",
+      });
     } finally {
       setIsLoading(false);
     }

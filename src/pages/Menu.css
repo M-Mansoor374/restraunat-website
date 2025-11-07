@@ -3,12 +3,13 @@
    =========================================== */
 
 /* Professional menu page container */
-.menu-page-container {
+.menu-page {
+  --header-height: 70px;
   min-height: 100vh;
-  background: transparent;
+  background: linear-gradient(135deg, #f8fffe 0%, #ffffff 50%, #f0f8ff 100%);
   position: relative;
   z-index: 1;
-  padding-top: 0; /* No padding-top, let header be fixed */
+  padding: clamp(1.5rem, 4vw, 2.75rem) 0 clamp(3rem, 6vw, 4.5rem);
   width: 100%;
   overflow-x: hidden;
 }
@@ -124,8 +125,7 @@
 /* Menu Hero Section */
 .menu-hero {
   background: linear-gradient(135deg, #20B2AA 0%, #17a2b8 50%, #0d7377 100%);
-  padding: 4rem 0 3rem;
-  padding-top: calc(70px + 4rem); /* Account for fixed header */
+  padding: calc(var(--header-height) + clamp(3.5rem, 6vw, 5.5rem)) 0 3.5rem;
   text-align: center;
   color: white;
   position: relative;
@@ -1094,23 +1094,27 @@
 
 /* Responsive adjustments for fixed header */
 @media (max-width: 991px) {
+  .menu-page {
+    --header-height: 46px;
+  }
+
   .menu-categories-section {
     top: 46px; /* Smaller header height */
   }
   
   .menu-hero {
-    padding-top: calc(46px + 3rem); /* Account for mobile header */
+    padding: calc(var(--header-height) + clamp(2.75rem, 6vw, 4.5rem)) 0 3rem;
   }
 }
 
 @media (max-width: 767px) {
-  .menu-page-container {
-    padding-top: 0; /* Header is fixed, no padding needed */
+  .menu-page {
+    --header-height: 44px;
+    padding-top: calc(var(--header-height) + 1.5rem);
   }
   
   .menu-hero {
-    padding: 4.5rem 0 2rem;
-    padding-top: calc(44px + 2rem); /* Account for mobile header */
+    padding: calc(var(--header-height) + clamp(2.25rem, 7vw, 3.5rem)) 0 2.5rem;
   }
   
   .menu-categories-section {
@@ -1208,13 +1212,13 @@
 }
 
 @media (max-width: 575px) {
-  .menu-page-container {
-    padding-top: 0; /* Header is fixed */
+  .menu-page {
+    --header-height: 42px;
+    padding-top: calc(var(--header-height) + 1.25rem);
   }
   
   .menu-hero {
-    padding: 4rem 0 1.5rem;
-    padding-top: calc(42px + 2rem); /* Account for small mobile header */
+    padding: calc(var(--header-height) + clamp(1.75rem, 8vw, 3rem)) 0 2rem;
   }
   
   .menu-categories-section {
@@ -1326,13 +1330,13 @@
 }
 
 @media (max-width: 320px) {
-  .menu-page-container {
-    padding-top: 0; /* Header is fixed */
+  .menu-page {
+    --header-height: 40px;
+    padding-top: calc(var(--header-height) + 1rem);
   }
   
   .menu-hero {
-    padding: 3.5rem 0 1rem;
-    padding-top: calc(42px + 1.5rem); /* Account for extra small mobile header */
+    padding: calc(var(--header-height) + clamp(1.5rem, 9vw, 2.5rem)) 0 1.5rem;
   }
   
   .menu-categories-section {
@@ -1435,7 +1439,7 @@
 
 /* Mobile-specific touch improvements */
 @media (max-width: 767px) {
-  .menu-page-container {
+  .menu-page {
     /* Smooth scrolling on mobile */
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;

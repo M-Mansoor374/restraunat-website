@@ -2,24 +2,14 @@ import React, { useState } from 'react';
 import './Cart.css';
 
 const CartComponent = ({ cart, onUpdateQuantity, onRemoveItem, onClearCart, onProceedToCheckout }) => {
-  const [discountCode, setDiscountCode] = useState('');
-  const [discount, setDiscount] = useState(0);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
 
   const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const taxRate = 0.08;
   const tax = subtotal * taxRate;
-  const total = subtotal + tax - discount;
-
-  const applyDiscount = () => {
-    if (discountCode.toLowerCase() === 'save10') {
-      setDiscount(subtotal * 0.1);
-    } else if (discountCode.toLowerCase() === 'welcome') {
-      setDiscount(5);
-    } else {
-      setDiscount(0);
-    }
-  };
+  const serviceFeeRate = 0.05;
+  const serviceFee = subtotal * serviceFeeRate;
+  const total = subtotal + tax + serviceFee;
 
   const handleQuantityChange = (itemId, newQuantity) => {
     if (newQuantity <= 0) {
@@ -177,61 +167,35 @@ const CartComponent = ({ cart, onUpdateQuantity, onRemoveItem, onClearCart, onPr
         </div>
       </div>
 
-      {/* Discount Section */}
-      <div className="discount-section">
+      {/* Experience Highlights */}
+      <div className="cart-insights">
         <div className="section-header">
-          <h2 className="section-title">Promo Code</h2>
+          <h2 className="section-title">Why Order With Us</h2>
           <div className="section-divider"></div>
         </div>
-        
-        <div className="discount-card">
-          <div className="discount-input-group">
-            <div className="input-wrapper">
-              <svg className="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 11L12 2L3 11V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V11Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M7 11L12 16L17 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              <input
-                type="text"
-                placeholder="Enter promo code"
-                value={discountCode}
-                onChange={(e) => setDiscountCode(e.target.value)}
-                className="discount-input"
-              />
+
+        <div className="insights-grid">
+          <div className="insight-card">
+            <div className="insight-icon" aria-hidden="true">⚡</div>
+            <div className="insight-content">
+              <h3 className="insight-title">45-Minute Delivery</h3>
+              <p className="insight-subtitle">Freshly prepared dishes arrive hot and on time with live tracking.</p>
             </div>
-            <button 
-              className="apply-discount-btn"
-              onClick={applyDiscount}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Apply
-            </button>
           </div>
-          
-          {discount > 0 && (
-            <div className="discount-applied">
-              <div className="discount-info">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <span className="discount-text">Discount applied: -PKR {discount.toLocaleString()}</span>
-              </div>
-              <button 
-                className="remove-discount-btn"
-                onClick={() => {
-                  setDiscount(0);
-                  setDiscountCode('');
-                }}
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                Remove
-              </button>
+          <div className="insight-card">
+            <div className="insight-icon" aria-hidden="true">🥗</div>
+            <div className="insight-content">
+              <h3 className="insight-title">Chef-Crafted Quality</h3>
+              <p className="insight-subtitle">Only premium ingredients sourced daily and plated with care.</p>
             </div>
-          )}
+          </div>
+          <div className="insight-card">
+            <div className="insight-icon" aria-hidden="true">🔒</div>
+            <div className="insight-content">
+              <h3 className="insight-title">Secure Checkout</h3>
+              <p className="insight-subtitle">Protected payments with instant confirmations and digital receipts.</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -252,12 +216,10 @@ const CartComponent = ({ cart, onUpdateQuantity, onRemoveItem, onClearCart, onPr
               <span className="label">Tax (8%)</span>
               <span className="value">PKR {tax.toLocaleString()}</span>
             </div>
-            {discount > 0 && (
-              <div className="summary-row discount-row">
-                <span className="label">Discount</span>
-                <span className="value discount-value">-PKR {discount.toLocaleString()}</span>
-              </div>
-            )}
+            <div className="summary-row">
+              <span className="label">Service fee (5%)</span>
+              <span className="value">PKR {serviceFee.toLocaleString()}</span>
+            </div>
           </div>
           
           <div className="summary-divider"></div>
