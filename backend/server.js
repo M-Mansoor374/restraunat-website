@@ -1,4 +1,6 @@
 const express = require("express");
+
+
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -22,6 +24,8 @@ const defaultOrigins = ["http://localhost:3000", "http://localhost:5173"];
 const allowedOrigins = ALLOWED_ORIGINS.length
   ? ALLOWED_ORIGINS
   : defaultOrigins;
+const environment = (process.env.NODE_ENV || "development").toLowerCase();
+const isDevelopment = environment !== "production";
 
 app.use(express.json());
 
@@ -29,6 +33,12 @@ app.use(
   cors({
     origin(origin, callback) {
       if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      if (isDevelopment) {
+        console.warn(
+          `CORS: allowing origin ${origin} because NODE_ENV=${environment}`
+        );
         return callback(null, true);
       }
       return callback(new Error("Not allowed by CORS"));
