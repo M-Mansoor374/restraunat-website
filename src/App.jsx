@@ -28,15 +28,15 @@ function App() {
       setShowSplash(true);
       setSplashFadeOut(false);
       
-      // Start fade out at 2.5 seconds
+      // Start fade out at 4.5 seconds
       const fadeOutTimer = setTimeout(() => {
         setSplashFadeOut(true);
-      }, 2500);
+      }, 4500);
       
-      // Hide splash completely at 3 seconds
+      // Hide splash completely at 5 seconds
       const splashTimer = setTimeout(() => {
         setShowSplash(false);
-      }, 3000);
+      }, 5000);
 
       return () => {
         clearTimeout(fadeOutTimer);

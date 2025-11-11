@@ -2,58 +2,63 @@ import React, { useEffect, useState } from 'react';
 import './Splash.css';
 
 const Splash = () => {
-  // State to control animation visibility
   const [isVisible, setIsVisible] = useState(false);
 
-  // useEffect hook runs when component mounts
   useEffect(() => {
-    // Show animation after a small delay (50ms) to ensure smooth start
     const showTimer = setTimeout(() => {
       setIsVisible(true);
     }, 50);
 
-    // Cleanup function to clear timer if component unmounts
     return () => {
       clearTimeout(showTimer);
     };
-  }, []); // Empty dependency array - runs once on mount
+  }, []);
 
   return (
-    <div className="splash-container">
-      {/* Background overlay for elegant effect */}
-      <div className="splash-background"></div>
-      
-      {/* Main content container */}
-      <div className="splash-content">
-        {/* Logo container with animation */}
-        <div className={`logo-container ${isVisible ? 'animate' : ''}`}>
-          <div className="splash-logo">
-            <span className="logo-text">RESTAURANT</span>
-            <span className="logo-subtitle">Fine Dining</span>
-          </div>
-        </div>
-        
-        {/* Tagline with fade-in animation */}
-        <div className={`tagline-container ${isVisible ? 'animate' : ''}`}>
-          <h1 className="splash-tagline">Fine Dining. Redefined.</h1>
-          <div className="tagline-underline"></div>
-        </div>
-        
-        {/* Loading indicator */}
-        <div className={`loading-container ${isVisible ? 'animate' : ''}`}>
-          <div className="loading-dots">
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-          </div>
-        </div>
-      </div>
-      
-      {/* Decorative elements */}
+    <div className={`splash-container ${isVisible ? 'is-visible' : ''}`}>
+      <div className="splash-background" />
+
       <div className="decorative-elements">
-        <div className="decorative-circle circle-1"></div>
-        <div className="decorative-circle circle-2"></div>
-        <div className="decorative-circle circle-3"></div>
+        <div className="decorative-circle circle-1" />
+        <div className="decorative-circle circle-2" />
+        <div className="decorative-circle circle-3" />
+      </div>
+
+      <div className={`splash-card ${isVisible ? 'card-in' : ''}`}>
+        <img
+          src="/logo.jpg"
+          alt="Apexiums Technologies logo"
+          className="splash-logo-img"
+        />
+
+        <span className="splash-preheading">Welcome to</span>
+        <h1 className="splash-title">Apexiums Restaurant</h1>
+        <p className="splash-subtitle">
+          Premium POS dining experiences crafted by Apexiums Technologies. Seamless service,
+          curated menus, and intelligent insights for modern hospitality teams.
+        </p>
+
+        <div className="splash-divider" />
+
+        <div className="splash-meta">
+          <div className="meta-item">
+            <span className="meta-label">Experience</span>
+            <span className="meta-value">Since 2012</span>
+          </div>
+          <div className="meta-item">
+            <span className="meta-label">Coverage</span>
+            <span className="meta-value">Global Kitchens</span>
+          </div>
+          <div className="meta-item">
+            <span className="meta-label">Speciality</span>
+            <span className="meta-value">Fine Dining &amp; POS</span>
+          </div>
+        </div>
+
+        <div className="splash-progress">
+          <span className="progress-bar" />
+          <span className="progress-caption">Preparing your experience…</span>
+        </div>
       </div>
     </div>
   );
