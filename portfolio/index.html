@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portfolio</title>
+    <meta name="description" content="Modern, minimal portfolio" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      // Theme init: set dark class before paint to avoid FOUC
+      (function(){
+        const persisted = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (persisted === 'dark' || (!persisted && systemDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] },
+            colors: { brand: { DEFAULT: '#6366F1', 600: '#4F46E5' } }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Reduced motion support */
+      @media (prefers-reduced-motion: reduce) {
+        .motion-safe\:transition-none { transition: none !important; }
+        .motion-safe\:animate-none { animation: none !important; }
+      }
+    </style>
+  </head>
+  <body class="bg-white text-slate-800 dark:bg-slate-900 dark:text-slate-100 antialiased">
+    <!-- Header -->
+    <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-slate-900/70 border-b border-slate-200/60 dark:border-slate-700/60">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex items-center justify-between h-16">
+          <a href="#home" class="font-semibold tracking-tight">My Portfolio</a>
+          <nav class="hidden md:flex items-center gap-6">
+            <a class="hover:text-brand transition" href="#home">Home</a>
+            <a class="hover:text-brand transition" href="#about">About</a>
+            <a class="hover:text-brand transition" href="#projects">Projects</a>
+            <a class="hover:text-brand transition" href="#contact">Contact</a>
+          </nav>
+          <div class="flex items-center gap-2">
+            <button id="theme-toggle" aria-label="Toggle theme" class="p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800">
+              <span id="icon-sun" class="hidden">☀️</span>
+              <span id="icon-moon" class="">🌙</span>
+            </button>
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Open navigation">
+              ☰
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="md:hidden hidden border-t border-slate-200/60 dark:border-slate-700/60">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-2">
+          <a class="py-2" href="#home">Home</a>
+          <a class="py-2" href="#about">About</a>
+          <a class="py-2" href="#projects">Projects</a>
+          <a class="py-2" href="#contact">Contact</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero / Home -->
+    <section id="home" class="relative overflow-hidden">
+      <div class="max-w-6xl mx-auto px-4 py-24 sm:py-28 md:py-32">
+        <div class="grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
+              Building clean experiences for the web
+            </h1>
+            <p class="mt-5 text-lg text-slate-600 dark:text-slate-300">
+              I’m a developer focused on performant, accessible, and delightful interfaces.
+            </p>
+            <div class="mt-8 flex gap-3">
+              <a href="#projects" class="inline-flex items-center rounded-md bg-brand px-5 py-2.5 text-white shadow hover:bg-brand-600 transition">
+                View Projects
+              </a>
+              <a href="#contact" class="inline-flex items-center rounded-md border border-slate-300 dark:border-slate-700 px-5 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                Contact Me
+              </a>
+            </div>
+          </div>
+          <div class="relative">
+            <div class="aspect-[4/3] rounded-xl bg-gradient-to-br from-brand/20 to-fuchsia-500/20 dark:from-brand/20 dark:to-fuchsia-500/20 ring-1 ring-inset ring-slate-200/60 dark:ring-slate-700/60"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="border-t border-slate-200/60 dark:border-slate-700/60">
+      <div class="max-w-6xl mx-auto px-4 py-20">
+        <div class="grid md:grid-cols-3 gap-12">
+          <div class="md:col-span-1">
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">About</h2>
+          </div>
+          <div class="md:col-span-2 text-slate-600 dark:text-slate-300 leading-relaxed space-y-4">
+            <p>
+              I craft user interfaces with attention to clarity, motion, and accessibility. I enjoy
+              working across the stack with a focus on frontend performance and DX.
+            </p>
+            <p>
+              Technologies I use: TypeScript, React, Node, Tailwind, and modern tooling.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="border-t border-slate-200/60 dark:border-slate-700/60">
+      <div class="max-w-6xl mx-auto px-4 py-20">
+        <div class="flex items-end justify-between gap-4 mb-8">
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Projects</h2>
+          <a href="#contact" class="text-brand hover:text-brand-600 transition">Get in touch →</a>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Card 1 -->
+          <article class="group rounded-xl border border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 p-5 shadow-sm hover:shadow-md transition">
+            <div class="aspect-video rounded-lg bg-slate-100 dark:bg-slate-800 mb-4"></div>
+            <h3 class="font-semibold text-lg">Project One</h3>
+            <p class="text-slate-600 dark:text-slate-400 mt-1">Short description of the project.</p>
+            <a class="inline-flex items-center gap-1 mt-3 text-brand group-hover:text-brand-600 transition" href="#">View details →</a>
+          </article>
+          <!-- Card 2 -->
+          <article class="group rounded-xl border border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 p-5 shadow-sm hover:shadow-md transition">
+            <div class="aspect-video rounded-lg bg-slate-100 dark:bg-slate-800 mb-4"></div>
+            <h3 class="font-semibold text-lg">Project Two</h3>
+            <p class="text-slate-600 dark:text-slate-400 mt-1">Short description of the project.</p>
+            <a class="inline-flex items-center gap-1 mt-3 text-brand group-hover:text-brand-600 transition" href="#">View details →</a>
+          </article>
+          <!-- Card 3 -->
+          <article class="group rounded-xl border border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 p-5 shadow-sm hover:shadow-md transition">
+            <div class="aspect-video rounded-lg bg-slate-100 dark:bg-slate-800 mb-4"></div>
+            <h3 class="font-semibold text-lg">Project Three</h3>
+            <p class="text-slate-600 dark:text-slate-400 mt-1">Short description of the project.</p>
+            <a class="inline-flex items-center gap-1 mt-3 text-brand group-hover:text-brand-600 transition" href="#">View details →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="border-t border-slate-200/60 dark:border-slate-700/60">
+      <div class="max-w-6xl mx-auto px-4 py-20">
+        <div class="grid md:grid-cols-3 gap-12">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Contact</h2>
+            <p class="text-slate-600 dark:text-slate-300 mt-2">Have a project in mind? Let’s talk.</p>
+          </div>
+          <form class="md:col-span-2 grid gap-4" action="#" method="post" onsubmit="return false;">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <input class="w-full rounded-md border border-slate-300 dark:border-slate-700 bg-transparent px-4 py-2.5" placeholder="Name" required />
+              <input type="email" class="w-full rounded-md border border-slate-300 dark:border-slate-700 bg-transparent px-4 py-2.5" placeholder="Email" required />
+            </div>
+            <textarea class="w-full rounded-md border border-slate-300 dark:border-slate-700 bg-transparent px-4 py-2.5" rows="5" placeholder="Message" required></textarea>
+            <div class="flex items-center justify-between">
+              <label class="text-sm text-slate-500 dark:text-slate-400 inline-flex items-center gap-2">
+                <input type="checkbox" class="accent-brand" />
+                I agree to the privacy policy
+              </label>
+              <button class="inline-flex items-center rounded-md bg-brand px-5 py-2.5 text-white shadow hover:bg-brand-600 transition" type="submit">Send</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer class="border-t border-slate-200/60 dark:border-slate-700/60">
+      <div class="max-w-6xl mx-auto px-4 py-10 text-sm text-slate-500 dark:text-slate-400 flex items-center justify-between">
+        <span>© <span id="year"></span> Your Name</span>
+        <div class="flex items-center gap-3">
+          <a class="hover:text-brand transition" href="#">LinkedIn</a>
+          <a class="hover:text-brand transition" href="#">GitHub</a>
+          <a class="hover:text-brand transition" href="#">Twitter</a>
+        </div>
+      </div>
+    </footer>
+
+    <script defer src="./assets/js/app.js"></script>
+  </body>
+</html>
